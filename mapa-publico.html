@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Proyectos Hidroelectricos - Vista Publica</title>
+<style>
+/* required styles */
+
+.leaflet-pane,
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-tile-container,
+.leaflet-pane > svg,
+.leaflet-pane > canvas,
+.leaflet-zoom-box,
+.leaflet-image-layer,
+.leaflet-layer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	}
+.leaflet-container {
+	overflow: hidden;
+	}
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	        user-select: none;
+	  -webkit-user-drag: none;
+	}
+/* Prevents IE11 from highlighting tiles in blue */
+.leaflet-tile::selection {
+	background: transparent;
+}
+/* Safari renders non-retina tile on retina better with this, but Chrome is worse */
+.leaflet-safari .leaflet-tile {
+	image-rendering: -webkit-optimize-contrast;
+	}
+/* hack that prevents hw layers "stretching" when loading new tiles */
+.leaflet-safari .leaflet-tile-container {
+	width: 1600px;
+	height: 1600px;
+	-webkit-transform-origin: 0 0;
+	}
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+	display: block;
+	}
+/* .leaflet-container svg: reset svg max-width decleration shipped in Joomla! (joomla.org) 3.x */
+/* .leaflet-container img: map is broken in FF if you have max-width: 100% on tiles */
+.leaflet-container .leaflet-overlay-pane svg {
+	max-width: none !important;
+	max-height: none !important;
+	}
+.leaflet-container .leaflet-marker-pane img,
+.leaflet-container .leaflet-shadow-pane img,
+.leaflet-container .leaflet-tile-pane img,
+.leaflet-container img.leaflet-image-layer,
+.leaflet-container .leaflet-tile {
+	max-width: none !important;
+	max-height: none !important;
+	width: auto;
+	padding: 0;
+	}
+
+.leaflet-container img.leaflet-tile {
+	/* See: https://bugs.chromium.org/p/chromium/issues/detail?id=600120 */
+	mix-blend-mode: plus-lighter;
+}
+
+.leaflet-container.leaflet-touch-zoom {
+	-ms-touch-action: pan-x pan-y;
+	touch-action: pan-x pan-y;
+	}
+.leaflet-container.leaflet-touch-drag {
+	-ms-touch-action: pinch-zoom;
+	/* Fallback for FF which doesn't support pinch-zoom */
+	touch-action: none;
+	touch-action: pinch-zoom;
+}
+.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {
+	-ms-touch-action: none;
+	touch-action: none;
+}
+.leaflet-container {
+	-webkit-tap-highlight-color: transparent;
+}
+.leaflet-container a {
+	-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);
+}
+.leaflet-tile {
+	filter: inherit;
+	visibility: hidden;
+	}
+.leaflet-tile-loaded {
+	visibility: inherit;
+	}
+.leaflet-zoom-box {
+	width: 0;
+	height: 0;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
+	z-index: 800;
+	}
+/* workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=888319 */
+.leaflet-overlay-pane svg {
+	-moz-user-select: none;
+	}
+
+.leaflet-pane         { z-index: 400; }
+
+.leaflet-tile-pane    { z-index: 200; }
+.leaflet-overlay-pane { z-index: 400; }
+.leaflet-shadow-pane  { z-index: 500; }
+.leaflet-marker-pane  { z-index: 600; }
+.leaflet-tooltip-pane   { z-index: 650; }
+.leaflet-popup-pane   { z-index: 700; }
+
+.leaflet-map-pane canvas { z-index: 100; }
+.leaflet-map-pane svg    { z-index: 200; }
+
+.leaflet-vml-shape {
+	width: 1px;
+	height: 1px;
+	}
+.lvml {
+	behavior: url(#default#VML);
+	display: inline-block;
+	position: absolute;
+	}
+
+
+/* control positioning */
+
+.leaflet-control {
+	position: relative;
+	z-index: 800;
+	pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
+	pointer-events: auto;
+	}
+.leaflet-top,
+.leaflet-bottom {
+	position: absolute;
+	z-index: 1000;
+	pointer-events: none;
+	}
+.leaflet-top {
+	top: 0;
+	}
+.leaflet-right {
+	right: 0;
+	}
+.leaflet-bottom {
+	bottom: 0;
+	}
+.leaflet-left {
+	left: 0;
+	}
+.leaflet-control {
+	float: left;
+	clear: both;
+	}
+.leaflet-right .leaflet-control {
+	float: right;
+	}
+.leaflet-top .leaflet-control {
+	margin-top: 10px;
+	}
+.leaflet-bottom .leaflet-control {
+	margin-bottom: 10px;
+	}
+.leaflet-left .leaflet-control {
+	margin-left: 10px;
+	}
+.leaflet-right .leaflet-control {
+	margin-right: 10px;
+	}
+
+
+/* zoom and fade animations */
+
+.leaflet-fade-anim .leaflet-popup {
+	opacity: 0;
+	-webkit-transition: opacity 0.2s linear;
+	   -moz-transition: opacity 0.2s linear;
+	        transition: opacity 0.2s linear;
+	}
+.leaflet-fade-anim .leaflet-map-pane .leaflet-popup {
+	opacity: 1;
+	}
+.leaflet-zoom-animated {
+	-webkit-transform-origin: 0 0;
+	    -ms-transform-origin: 0 0;
+	        transform-origin: 0 0;
+	}
+svg.leaflet-zoom-animated {
+	will-change: transform;
+}
+
+.leaflet-zoom-anim .leaflet-zoom-animated {
+	-webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);
+	   -moz-transition:    -moz-transform 0.25s cubic-bezier(0,0,0.25,1);
+	        transition:         transform 0.25s cubic-bezier(0,0,0.25,1);
+	}
+.leaflet-zoom-anim .leaflet-tile,
+.leaflet-pan-anim .leaflet-tile {
+	-webkit-transition: none;
+	   -moz-transition: none;
+	        transition: none;
+	}
+
+.leaflet-zoom-anim .leaflet-zoom-hide {
+	visibility: hidden;
+	}
+
+
+/* cursors */
+
+.leaflet-interactive {
+	cursor: pointer;
+	}
+.leaflet-grab {
+	cursor: -webkit-grab;
+	cursor:    -moz-grab;
+	cursor:         grab;
+	}
+.leaflet-crosshair,
+.leaflet-crosshair .leaflet-interactive {
+	cursor: crosshair;
+	}
+.leaflet-popup-pane,
+.leaflet-control {
+	cursor: auto;
+	}
+.leaflet-dragging .leaflet-grab,
+.leaflet-dragging .leaflet-grab .leaflet-interactive,
+.leaflet-dragging .leaflet-marker-draggable {
+	cursor: move;
+	cursor: -webkit-grabbing;
+	cursor:    -moz-grabbing;
+	cursor:         grabbing;
+	}
+
+/* marker & overlays interactivity */
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-image-layer,
+.leaflet-pane > svg path,
+.leaflet-tile-container {
+	pointer-events: none;
+	}
+
+.leaflet-marker-icon.leaflet-interactive,
+.leaflet-image-layer.leaflet-interactive,
+.leaflet-pane > svg path.leaflet-interactive,
+svg.leaflet-image-layer.leaflet-interactive path {
+	pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
+	pointer-events: auto;
+	}
+
+/* visual tweaks */
+
+.leaflet-container {
+	background: #ddd;
+	outline-offset: 1px;
+	}
+.leaflet-container a {
+	color: #0078A8;
+	}
+.leaflet-zoom-box {
+	border: 2px dotted #38f;
+	background: rgba(255,255,255,0.5);
+	}
+
+
+/* general typography */
+.leaflet-container {
+	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-size: 0.75rem;
+	line-height: 1.5;
+	}
+
+
+/* general toolbar styles */
+
+.leaflet-bar {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+	border-radius: 4px;
+	}
+.leaflet-bar a {
+	background-color: #fff;
+	border-bottom: 1px solid #ccc;
+	width: 26px;
+	height: 26px;
+	line-height: 26px;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	color: black;
+	}
+.leaflet-bar a,
+.leaflet-control-layers-toggle {
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	display: block;
+	}
+.leaflet-bar a:hover,
+.leaflet-bar a:focus {
+	background-color: #f4f4f4;
+	}
+.leaflet-bar a:first-child {
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	}
+.leaflet-bar a:last-child {
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom: none;
+	}
+.leaflet-bar a.leaflet-disabled {
+	cursor: default;
+	background-color: #f4f4f4;
+	color: #bbb;
+	}
+
+.leaflet-touch .leaflet-bar a {
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	}
+.leaflet-touch .leaflet-bar a:first-child {
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	}
+.leaflet-touch .leaflet-bar a:last-child {
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
+	}
+
+/* zoom control */
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+	font: bold 18px 'Lucida Console', Monaco, monospace;
+	text-indent: 1px;
+	}
+
+.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out  {
+	font-size: 22px;
+	}
+
+
+/* layers control */
+
+.leaflet-control-layers {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+	background: #fff;
+	border-radius: 5px;
+	}
+.leaflet-control-layers-toggle {
+	background-image: url(images/layers.png);
+	width: 36px;
+	height: 36px;
+	}
+.leaflet-retina .leaflet-control-layers-toggle {
+	background-image: url(images/layers-2x.png);
+	background-size: 26px 26px;
+	}
+.leaflet-touch .leaflet-control-layers-toggle {
+	width: 44px;
+	height: 44px;
+	}
+.leaflet-control-layers .leaflet-control-layers-list,
+.leaflet-control-layers-expanded .leaflet-control-layers-toggle {
+	display: none;
+	}
+.leaflet-control-layers-expanded .leaflet-control-layers-list {
+	display: block;
+	position: relative;
+	}
+.leaflet-control-layers-expanded {
+	padding: 6px 10px 6px 6px;
+	color: #333;
+	background: #fff;
+	}
+.leaflet-control-layers-scrollbar {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	padding-right: 5px;
+	}
+.leaflet-control-layers-selector {
+	margin-top: 2px;
+	position: relative;
+	top: 1px;
+	}
+.leaflet-control-layers label {
+	display: block;
+	font-size: 13px;
+	font-size: 1.08333em;
+	}
+.leaflet-control-layers-separator {
+	height: 0;
+	border-top: 1px solid #ddd;
+	margin: 5px -10px 5px -6px;
+	}
+
+/* Default icon URLs */
+.leaflet-default-icon-path { /* used only in path-guessing heuristic, see L.Icon.Default */
+	background-image: url(images/marker-icon.png);
+	}
+
+
+/* attribution and scale controls */
+
+.leaflet-container .leaflet-control-attribution {
+	background: #fff;
+	background: rgba(255, 255, 255, 0.8);
+	margin: 0;
+	}
+.leaflet-control-attribution,
+.leaflet-control-scale-line {
+	padding: 0 5px;
+	color: #333;
+	line-height: 1.4;
+	}
+.leaflet-control-attribution a {
+	text-decoration: none;
+	}
+.leaflet-control-attribution a:hover,
+.leaflet-control-attribution a:focus {
+	text-decoration: underline;
+	}
+.leaflet-attribution-flag {
+	display: inline !important;
+	vertical-align: baseline !important;
+	width: 1em;
+	height: 0.6669em;
+	}
+.leaflet-left .leaflet-control-scale {
+	margin-left: 5px;
+	}
+.leaflet-bottom .leaflet-control-scale {
+	margin-bottom: 5px;
+	}
+.leaflet-control-scale-line {
+	border: 2px solid #777;
+	border-top: none;
+	line-height: 1.1;
+	padding: 2px 5px 1px;
+	white-space: nowrap;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
+	background: rgba(255, 255, 255, 0.8);
+	text-shadow: 1px 1px #fff;
+	}
+.leaflet-control-scale-line:not(:first-child) {
+	border-top: 2px solid #777;
+	border-bottom: none;
+	margin-top: -2px;
+	}
+.leaflet-control-scale-line:not(:first-child):not(:last-child) {
+	border-bottom: 2px solid #777;
+	}
+
+.leaflet-touch .leaflet-control-attribution,
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+	box-shadow: none;
+	}
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+	border: 2px solid rgba(0,0,0,0.2);
+	background-clip: padding-box;
+	}
+
+
+/* popup */
+
+.leaflet-popup {
+	position: absolute;
+	text-align: center;
+	margin-bottom: 20px;
+	}
+.leaflet-popup-content-wrapper {
+	padding: 1px;
+	text-align: left;
+	border-radius: 12px;
+	}
+.leaflet-popup-content {
+	margin: 13px 24px 13px 20px;
+	line-height: 1.3;
+	font-size: 13px;
+	font-size: 1.08333em;
+	min-height: 1px;
+	}
+.leaflet-popup-content p {
+	margin: 17px 0;
+	margin: 1.3em 0;
+	}
+.leaflet-popup-tip-container {
+	width: 40px;
+	height: 20px;
+	position: absolute;
+	left: 50%;
+	margin-top: -1px;
+	margin-left: -20px;
+	overflow: hidden;
+	pointer-events: none;
+	}
+.leaflet-popup-tip {
+	width: 17px;
+	height: 17px;
+	padding: 1px;
+
+	margin: -10px auto 0;
+	pointer-events: auto;
+
+	-webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	        transform: rotate(45deg);
+	}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+	background: white;
+	color: #333;
+	box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+	}
+.leaflet-container a.leaflet-popup-close-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	border: none;
+	text-align: center;
+	width: 24px;
+	height: 24px;
+	font: 16px/24px Tahoma, Verdana, sans-serif;
+	color: #757575;
+	text-decoration: none;
+	background: transparent;
+	}
+.leaflet-container a.leaflet-popup-close-button:hover,
+.leaflet-container a.leaflet-popup-close-button:focus {
+	color: #585858;
+	}
+.leaflet-popup-scrolled {
+	overflow: auto;
+	}
+
+.leaflet-oldie .leaflet-popup-content-wrapper {
+	-ms-zoom: 1;
+	}
+.leaflet-oldie .leaflet-popup-tip {
+	width: 24px;
+	margin: 0 auto;
+
+	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";
+	filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);
+	}
+
+.leaflet-oldie .leaflet-control-zoom,
+.leaflet-oldie .leaflet-control-layers,
+.leaflet-oldie .leaflet-popup-content-wrapper,
+.leaflet-oldie .leaflet-popup-tip {
+	border: 1px solid #999;
+	}
+
+
+/* div icon */
+
+.leaflet-div-icon {
+	background: #fff;
+	border: 1px solid #666;
+	}
+
+
+/* Tooltip */
+/* Base styles for the element that has a tooltip */
+.leaflet-tooltip {
+	position: absolute;
+	padding: 6px;
+	background-color: #fff;
+	border: 1px solid #fff;
+	border-radius: 3px;
+	color: #222;
+	white-space: nowrap;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	pointer-events: none;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+	}
+.leaflet-tooltip.leaflet-interactive {
+	cursor: pointer;
+	pointer-events: auto;
+	}
+.leaflet-tooltip-top:before,
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+	position: absolute;
+	pointer-events: none;
+	border: 6px solid transparent;
+	background: transparent;
+	content: "";
+	}
+
+/* Directions */
+
+.leaflet-tooltip-bottom {
+	margin-top: 6px;
+}
+.leaflet-tooltip-top {
+	margin-top: -6px;
+}
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-top:before {
+	left: 50%;
+	margin-left: -6px;
+	}
+.leaflet-tooltip-top:before {
+	bottom: 0;
+	margin-bottom: -12px;
+	border-top-color: #fff;
+	}
+.leaflet-tooltip-bottom:before {
+	top: 0;
+	margin-top: -12px;
+	margin-left: -6px;
+	border-bottom-color: #fff;
+	}
+.leaflet-tooltip-left {
+	margin-left: -6px;
+}
+.leaflet-tooltip-right {
+	margin-left: 6px;
+}
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+	top: 50%;
+	margin-top: -6px;
+	}
+.leaflet-tooltip-left:before {
+	right: 0;
+	margin-right: -12px;
+	border-left-color: #fff;
+	}
+.leaflet-tooltip-right:before {
+	left: 0;
+	margin-left: -12px;
+	border-right-color: #fff;
+	}
+
+/* Printing */
+
+@media print {
+	/* Prevent printers from removing background-images of controls. */
+	.leaflet-control {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+		}
+	}
+
+</style>
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html, body { margin:0; padding:0; height:100%; font-family: Arial, sans-serif; background:#fff; }
+  #map { width:100%; height:100%; }
+  .pch-label {
+    background: rgba(255,255,255,0.95);
+    border: 1px solid #999;
+    border-radius: 4px;
+    padding: 3px 6px;
+    font-size: 11px;
+    line-height: 1.4;
+    color: #222;
+    white-space: nowrap;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .legend {
+    background: white;
+    padding: 10px 12px;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .legend .swatch {
+    display:inline-block; width:12px; height:12px; border-radius:50%;
+    margin-right:6px; vertical-align:middle; border:1px solid rgba(0,0,0,0.3);
+  }
+  .notice-box {
+    background: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    font-size: 11px;
+    color: #666;
+    max-width: 220px;
+  }
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const points = [{"id": "R05", "lat": 5.119, "lon": -74.408, "departamento": "Cundinamarca", "municipio": "Nimaima", "potencia": 30.24, "color": "#8e44ad"}, {"id": "R13", "lat": 4.196, "lon": -74.505, "departamento": "Cundinamarca", "municipio": "Pandi", "potencia": 24.224, "color": "#8e44ad"}, {"id": "CAR-08", "lat": 4.185, "lon": -74.498, "departamento": "Cundinamarca", "municipio": "Pandi", "potencia": 25.097, "color": "#8e44ad"}, {"id": "CAR-06", "lat": 4.108, "lon": -74.476, "departamento": "Cundinamarca", "municipio": "Venecia", "potencia": 27.92, "color": "#8e44ad"}, {"id": "R15", "lat": 4.092, "lon": -74.492, "departamento": "Cundinamarca", "municipio": "Venecia", "potencia": 19.405, "color": "#e74c3c"}, {"id": "CAR-07", "lat": 4.087, "lon": -74.497, "departamento": "Cundinamarca", "municipio": "Venecia", "potencia": 21.49, "color": "#8e44ad"}, {"id": "R17", "lat": 4.001, "lon": -74.498, "departamento": "Cundinamarca", "municipio": "Cabrera", "potencia": 16.085, "color": "#e74c3c"}, {"id": "P31", "lat": 0.924, "lon": -77.493, "departamento": "Nariño", "municipio": "Por validar", "potencia": 16.825, "color": "#e74c3c"}, {"id": "R08", "lat": 5.067, "lon": -73.532, "departamento": "Cundinamarca", "municipio": "Machetá", "potencia": 11.686, "color": "#e74c3c"}, {"id": "R16", "lat": 3.981, "lon": -74.387, "departamento": "Cundinamarca", "municipio": "Cabrera", "potencia": 10.127, "color": "#e74c3c"}, {"id": "P39", "lat": 2.338, "lon": -76.516, "departamento": "Cauca", "municipio": "Por validar", "potencia": 10.049, "color": "#e74c3c"}, {"id": "P27", "lat": 4.177, "lon": -75.918, "departamento": "Valle del Cauca", "municipio": "Por validar", "potencia": 8.551, "color": "#e67e22"}, {"id": "P34", "lat": 1.074, "lon": -77.41, "departamento": "Nariño", "municipio": "Por validar", "potencia": 8.808, "color": "#e67e22"}, {"id": "P26", "lat": 5.123, "lon": -75.513, "departamento": "Caldas", "municipio": "Neira", "potencia": 7.877, "color": "#e67e22"}, {"id": "CAR-21", "lat": 5.262, "lon": -74.339, "departamento": "Cundinamarca", "municipio": "El Peñón", "potencia": 9.401, "color": "#e67e22"}, {"id": "P35", "lat": 1.089, "lon": -77.348, "departamento": "Nariño", "municipio": "Por validar", "potencia": 9.788, "color": "#e67e22"}, {"id": "P38", "lat": 1.354, "lon": -77.309, "departamento": "Nariño", "municipio": "Por validar", "potencia": 8.534, "color": "#e67e22"}, {"id": "P30", "lat": 5.412, "lon": -75.644, "departamento": "Risaralda", "municipio": "Por validar", "potencia": 7.678, "color": "#e67e22"}, {"id": "P42", "lat": 5.412, "lon": -75.644, "departamento": "Risaralda", "municipio": "Por validar", "potencia": 7.678, "color": "#e67e22"}, {"id": "R14", "lat": 4.187, "lon": -74.099, "departamento": "Bogotá D.C.", "municipio": "Bogotá D.C. (Sumapaz)", "potencia": 6.244, "color": "#e67e22"}, {"id": "R03", "lat": 5.417, "lon": -74.213, "departamento": "Cundinamarca", "municipio": "Paime", "potencia": 6.013, "color": "#e67e22"}, {"id": "CAR-20", "lat": 5.146, "lon": -74.358, "departamento": "Cundinamarca", "municipio": "Vergara", "potencia": 8.58, "color": "#e67e22"}, {"id": "R11", "lat": 4.686, "lon": -74.656, "departamento": "Cundinamarca", "municipio": "Pulí", "potencia": 5.894, "color": "#e67e22"}, {"id": "P28", "lat": 5.26, "lon": -76.048, "departamento": "Risaralda", "municipio": "Pueblo Rico", "potencia": 5.58, "color": "#e67e22"}, {"id": "P41", "lat": 5.259, "lon": -76.047, "departamento": "Risaralda", "municipio": "Pueblo Rico", "potencia": 5.314, "color": "#e67e22"}, {"id": "P23", "lat": 4.488, "lon": -76.351, "departamento": "Valle del Cauca", "municipio": "Por validar", "potencia": 5.328, "color": "#e67e22"}, {"id": "R09", "lat": 5.072, "lon": -73.597, "departamento": "Cundinamarca", "municipio": "Por validar", "potencia": 5.429, "color": "#e67e22"}, {"id": "R12", "lat": 4.721, "lon": -74.64, "departamento": "Cundinamarca", "municipio": "Pulí", "potencia": 4.761, "color": "#f1c40f"}, {"id": "P37", "lat": 1.272, "lon": -77.317, "departamento": "Nariño", "municipio": "Por validar", "potencia": 4.54, "color": "#f1c40f"}, {"id": "P29", "lat": 5.333, "lon": -75.807, "departamento": "Risaralda", "municipio": "Por validar", "potencia": 4.852, "color": "#f1c40f"}, {"id": "P36", "lat": 1.243, "lon": -77.305, "departamento": "Nariño", "municipio": "Por validar", "potencia": 4.308, "color": "#f1c40f"}, {"id": "P32", "lat": 1.062, "lon": -77.538, "departamento": "Nariño", "municipio": "Por validar", "potencia": 7.847, "color": "#e67e22"}, {"id": "CAR-32", "lat": 5.122, "lon": -74.598, "departamento": "Cundinamarca", "municipio": "Guaduas", "potencia": 4.47, "color": "#f1c40f"}, {"id": "CAR-11", "lat": 4.206, "lon": -74.462, "departamento": "Cundinamarca", "municipio": "Pandi", "potencia": 3.687, "color": "#f1c40f"}, {"id": "P44", "lat": 3.993, "lon": -74.37, "departamento": "Cundinamarca", "municipio": "Cabrera", "potencia": 3.675, "color": "#f1c40f"}, {"id": "CAR-03", "lat": 3.993, "lon": -74.371, "departamento": "Cundinamarca", "municipio": "Cabrera", "potencia": 3.678, "color": "#f1c40f"}, {"id": "P43", "lat": 3.966, "lon": -74.483, "departamento": "Cundinamarca", "municipio": "Cabrera", "potencia": 3.517, "color": "#f1c40f"}, {"id": "CAR-01", "lat": 3.965, "lon": -74.483, "departamento": "Cundinamarca", "municipio": "Cabrera", "potencia": 3.742, "color": "#f1c40f"}, {"id": "CAR-10", "lat": 4.197, "lon": -74.447, "departamento": "Cundinamarca", "municipio": "Pandi", "potencia": 4.907, "color": "#f1c40f"}, {"id": "CAR-02", "lat": 3.966, "lon": -74.356, "departamento": "Cundinamarca", "municipio": "Cabrera", "potencia": 3.493, "color": "#f1c40f"}, {"id": "R07", "lat": 5.1, "lon": -74.6, "departamento": "Cundinamarca", "municipio": "Guaduas", "potencia": 3.477, "color": "#f1c40f"}, {"id": "P21", "lat": 3.75, "lon": -76.583, "departamento": "Valle del Cauca", "municipio": "Dagua", "potencia": 4.779, "color": "#f1c40f"}, {"id": "P33", "lat": 1.054, "lon": -77.585, "departamento": "Nariño", "municipio": "Por validar", "potencia": 3.389, "color": "#f1c40f"}, {"id": "CAR-24", "lat": 5.388, "lon": -74.178, "departamento": "Cundinamarca", "municipio": "Paime", "potencia": 3.197, "color": "#f1c40f"}, {"id": "CAR-17", "lat": 4.937, "lon": -74.631, "departamento": "Cundinamarca", "municipio": "Chaguaní", "potencia": 3.643, "color": "#f1c40f"}, {"id": "R06", "lat": 5.111, "lon": -73.971, "departamento": "Cundinamarca", "municipio": "Cogua", "potencia": 2.759, "color": "#f1c40f"}, {"id": "CAR-31", "lat": 5.119, "lon": -73.969, "departamento": "Cundinamarca", "municipio": "Cogua", "potencia": 2.704, "color": "#f1c40f"}, {"id": "CAR-09", "lat": 4.185, "lon": -74.436, "departamento": "Cundinamarca", "municipio": "Pandi", "potencia": 3.89, "color": "#f1c40f"}, {"id": "CAR-19", "lat": 4.99, "lon": -74.309, "departamento": "Cundinamarca", "municipio": "San Francisco", "potencia": 2.53, "color": "#f1c40f"}, {"id": "R10", "lat": 4.988, "lon": -74.303, "departamento": "Cundinamarca", "municipio": "San Francisco", "potencia": 2.585, "color": "#f1c40f"}, {"id": "CAR-30", "lat": 5.132, "lon": -73.968, "departamento": "Cundinamarca", "municipio": "Cogua", "potencia": 2.7, "color": "#f1c40f"}, {"id": "P20", "lat": 5.077, "lon": -73.551, "departamento": "Cundinamarca", "municipio": "Machetá", "potencia": 2.541, "color": "#f1c40f"}, {"id": "CAR-23", "lat": 5.35, "lon": -74.117, "departamento": "Cundinamarca", "municipio": "Paime", "potencia": 3.465, "color": "#f1c40f"}, {"id": "CAR-28", "lat": 5.084, "lon": -73.549, "departamento": "Cundinamarca", "municipio": "Machetá", "potencia": 4.034, "color": "#f1c40f"}, {"id": "CAR-18", "lat": 4.984, "lon": -74.301, "departamento": "Cundinamarca", "municipio": "San Francisco", "potencia": 2.256, "color": "#f1c40f"}, {"id": "CAR-29", "lat": 5.103, "lon": -73.538, "departamento": "Cundinamarca", "municipio": "Tibirita", "potencia": 2.51, "color": "#f1c40f"}, {"id": "R01", "lat": 5.475, "lon": -73.999, "departamento": "Boyacá", "municipio": "Coper", "potencia": 2.329, "color": "#f1c40f"}, {"id": "CAR-26", "lat": 5.475, "lon": -73.999, "departamento": "Boyacá", "municipio": "Coper", "potencia": 2.331, "color": "#f1c40f"}, {"id": "CAR-12", "lat": 4.149, "lon": -74.164, "departamento": "Bogotá D.C.", "municipio": "Bogotá D.C. (Sumapaz)", "potencia": 2.316, "color": "#f1c40f"}, {"id": "CAR-05", "lat": 4.1, "lon": -74.466, "departamento": "Cundinamarca", "municipio": "Venecia", "potencia": 2.646, "color": "#f1c40f"}, {"id": "P19", "lat": 4.093, "lon": -74.46, "departamento": "Cundinamarca", "municipio": "Venecia", "potencia": 2.52, "color": "#f1c40f"}, {"id": "CAR-04", "lat": 4.091, "lon": -74.452, "departamento": "Cundinamarca", "municipio": "Venecia", "potencia": 6.884, "color": "#e67e22"}, {"id": "CAR-15", "lat": 4.652, "lon": -74.61, "departamento": "Cundinamarca", "municipio": "Pulí", "potencia": 5.752, "color": "#e67e22"}, {"id": "CAR-14", "lat": 4.196, "lon": -74.125, "departamento": "Bogotá D.C.", "municipio": "Bogotá D.C. (Sumapaz)", "potencia": 4.481, "color": "#f1c40f"}, {"id": "R04", "lat": 5.304, "lon": -74.096, "departamento": "Cundinamarca", "municipio": "San Cayetano", "potencia": 1.964, "color": "#2ecc71"}, {"id": "CAR-22", "lat": 5.299, "lon": -74.09, "departamento": "Cundinamarca", "municipio": "San Cayetano", "potencia": 1.807, "color": "#2ecc71"}, {"id": "CAR-25", "lat": 5.393, "lon": -73.984, "departamento": "Cundinamarca", "municipio": "San Cayetano", "potencia": 2.546, "color": "#f1c40f"}, {"id": "R02", "lat": 5.404, "lon": -73.995, "departamento": "Cundinamarca", "municipio": "San Cayetano", "potencia": 2.299, "color": "#f1c40f"}, {"id": "P25", "lat": 5.188, "lon": -75.537, "departamento": "Caldas", "municipio": "Neira", "potencia": 2.082, "color": "#f1c40f"}, {"id": "P18", "lat": 5.145, "lon": -73.967, "departamento": "Cundinamarca", "municipio": "Cogua", "potencia": 1.668, "color": "#2ecc71"}, {"id": "P22", "lat": 3.235, "lon": -76.702, "departamento": "Valle del Cauca", "municipio": "Jamundí", "potencia": 2.38, "color": "#f1c40f"}, {"id": "CAR-13", "lat": 4.187, "lon": -74.18, "departamento": "Bogotá D.C.", "municipio": "Bogotá D.C. (Sumapaz)", "potencia": 2.48, "color": "#f1c40f"}, {"id": "P24", "lat": 4.712, "lon": -75.829, "departamento": "Risaralda", "municipio": "Por validar", "potencia": 1.855, "color": "#2ecc71"}, {"id": "CAR-16", "lat": 4.717, "lon": -74.744, "departamento": "Cundinamarca", "municipio": "Pulí", "potencia": 2.126, "color": "#f1c40f"}, {"id": "CAR-27", "lat": 5.481, "lon": -73.983, "departamento": "Boyacá", "municipio": "Coper", "potencia": 0.613, "color": "#2ecc71"}];
+
+// Desplaza cada punto una distancia aleatoria (0-20km) en una direccion aleatoria,
+// con muestreo uniforme en area (no solo en radio), y recalcula en cada carga de pagina.
+function randomOffset(lat, lon, maxKm) {
+  const R = 6371;
+  const distKm = maxKm * Math.sqrt(Math.random());
+  const bearing = Math.random() * 2 * Math.PI;
+  const latRad = lat * Math.PI / 180;
+  const lonRad = lon * Math.PI / 180;
+  const angDist = distKm / R;
+  const newLatRad = Math.asin(
+    Math.sin(latRad) * Math.cos(angDist) +
+    Math.cos(latRad) * Math.sin(angDist) * Math.cos(bearing)
+  );
+  const newLonRad = lonRad + Math.atan2(
+    Math.sin(bearing) * Math.sin(angDist) * Math.cos(latRad),
+    Math.cos(angDist) - Math.sin(latRad) * Math.sin(newLatRad)
+  );
+  return [newLatRad * 180 / Math.PI, newLonRad * 180 / Math.PI];
+}
+
+const map = L.map('map', { preferCanvas: true }).setView([4.9, -74.3], 8);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+points.forEach(p => {
+  const [rlat, rlon] = randomOffset(p.lat, p.lon, 20);
+  const marker = L.circleMarker([rlat, rlon], {
+    radius: 7,
+    color: '#333',
+    weight: 1,
+    fillColor: p.color,
+    fillOpacity: 0.85
+  });
+  const content = `<div class="pch-label">
+    <b>${p.id}</b><br>
+    Departamento: ${p.departamento}<br>
+    Municipio: ${p.municipio}<br>
+    Potencia: ${p.potencia.toFixed(2)} MW
+  </div>`;
+  marker.bindPopup(content);
+  marker.addTo(map);
+});
+
+const legend = L.control({position: 'bottomright'});
+legend.onAdd = function() {
+  const div = L.DomUtil.create('div', 'legend');
+  div.innerHTML = `<b>Potencia</b><br>
+    <span class="swatch" style="background:#2ecc71"></span>&lt; 2 MW<br>
+    <span class="swatch" style="background:#f1c40f"></span>2 - 5 MW<br>
+    <span class="swatch" style="background:#e67e22"></span>5 - 10 MW<br>
+    <span class="swatch" style="background:#e74c3c"></span>10 - 20 MW<br>
+    <span class="swatch" style="background:#8e44ad"></span>&gt;= 20 MW`;
+  L.DomEvent.disableClickPropagation(div);
+  return div;
+};
+legend.addTo(map);
+
+const notice = L.control({position: 'topright'});
+notice.onAdd = function() {
+  const div = L.DomUtil.create('div', 'notice-box');
+  div.innerHTML = 'Ubicaciones aproximadas (referenciales), no exactas. RegEnergy Projects.';
+  L.DomEvent.disableClickPropagation(div);
+  return div;
+};
+notice.addTo(map);
+</script>
+</body>
+</html>
