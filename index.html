@@ -837,8 +837,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
 <div class="access-gate" id="access-gate">
   <div class="access-gate-box">
     <h2>RegEnergy Projects</h2>
-    <p>Acceso restringido. Ingresa el codigo de autorizacion.</p>
-    <input type="password" id="access-code-input" placeholder="Codigo de acceso" autocomplete="off">
+    <p>Acceso restringido. Ingresa el codigo vigente (cambia cada 8 horas).</p>
+    <input type="text" inputmode="numeric" maxlength="6" id="access-code-input" placeholder="Codigo de 6 digitos" autocomplete="off">
     <button id="access-code-btn">Ingresar</button>
     <div class="access-gate-error" id="access-code-error"></div>
   </div>
@@ -846,12 +846,31 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
-const ACCESS_CODE_HASH = 'c2e3f3ac35b0849bfe2b7a6ca84844b7f1c68cd546fa56e95112138da1555617';
+const ACCESS_SEED = 'RegEnergy-2026-PCH-Seed';
 
 async function sha256Hex(text) {
   const enc = new TextEncoder().encode(text);
   const buf = await crypto.subtle.digest('SHA-256', enc);
   return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function bogotaDateAndSlot() {
+  const fmt = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'America/Bogota', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', hour12: false
+  });
+  const parts = {};
+  fmt.formatToParts(new Date()).forEach(p => { parts[p.type] = p.value; });
+  const dateStr = `${parts.year}-${parts.month}-${parts.day}`;
+  const hour = parseInt(parts.hour, 10) % 24;
+  const slot = hour < 8 ? 0 : (hour < 16 ? 1 : 2);
+  return { dateStr, slot };
+}
+
+async function expectedCode() {
+  const { dateStr, slot } = bogotaDateAndSlot();
+  const hash = await sha256Hex(ACCESS_SEED + '|' + dateStr + '|' + slot);
+  const num = parseInt(hash.slice(0, 8), 16) % 1000000;
+  return String(num).padStart(6, '0');
 }
 
 async function tryUnlock() {
@@ -862,13 +881,13 @@ async function tryUnlock() {
     errorEl.textContent = 'Ingresa un codigo.';
     return;
   }
-  const hash = await sha256Hex(code);
-  if (hash === ACCESS_CODE_HASH) {
+  const valid = await expectedCode();
+  if (code === valid) {
     document.getElementById('access-gate').style.display = 'none';
     document.getElementById('map').style.display = 'block';
     initApp();
   } else {
-    errorEl.textContent = 'Codigo incorrecto.';
+    errorEl.textContent = 'Codigo incorrecto o vencido (cambia cada 8 horas).';
     input.value = '';
     input.focus();
   }

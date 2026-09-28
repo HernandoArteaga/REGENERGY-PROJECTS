@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Codigo de acceso - RegEnergy</title>
+<style>
+  html, body {
+    margin: 0; padding: 0; min-height: 100%;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1a2530, #2c3e50);
+    color: #222;
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px; box-sizing: border-box;
+  }
+  .card {
+    background: white;
+    border-radius: 12px;
+    padding: 32px 28px;
+    max-width: 380px;
+    width: 100%;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    text-align: center;
+  }
+  h1 { font-size: 16px; color: #1a2530; margin: 0 0 4px; }
+  .sub { font-size: 12px; color: #888; margin: 0 0 24px; }
+  .label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 6px; }
+  .code {
+    font-size: 42px; font-weight: 700; letter-spacing: 6px;
+    color: #2c3e50; font-variant-numeric: tabular-nums;
+    margin-bottom: 4px;
+  }
+  .window { font-size: 12px; color: #666; margin-bottom: 22px; }
+  .next-box {
+    border-top: 1px solid #eee; padding-top: 16px; margin-top: 8px;
+  }
+  .next-code {
+    font-size: 20px; font-weight: 600; color: #888; letter-spacing: 3px;
+    font-variant-numeric: tabular-nums;
+  }
+  .countdown { font-size: 12px; color: #c0392b; margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>RegEnergy Projects</h1>
+  <p class="sub">Codigo de acceso al mapa (privado, no compartir esta pagina)</p>
+
+  <div class="label">Codigo vigente ahora</div>
+  <div class="code" id="current-code">------</div>
+  <div class="window" id="current-window"></div>
+
+  <div class="countdown" id="countdown"></div>
+
+  <div class="next-box">
+    <div class="label">Proximo codigo</div>
+    <div class="next-code" id="next-code">------</div>
+    <div class="window" id="next-window"></div>
+  </div>
+</div>
+
+<script>
+const ACCESS_SEED = 'RegEnergy-2026-PCH-Seed';
+
+async function sha256Hex(text) {
+  const enc = new TextEncoder().encode(text);
+  const buf = await crypto.subtle.digest('SHA-256', enc);
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function bogotaParts() {
+  const fmt = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'America/Bogota', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+  });
+  const parts = {};
+  fmt.formatToParts(new Date()).forEach(p => { parts[p.type] = p.value; });
+  return parts;
+}
+
+function slotBounds(hour) {
+  if (hour < 8) return { slot: 0, startH: 0, endH: 8 };
+  if (hour < 16) return { slot: 1, startH: 8, endH: 16 };
+  return { slot: 2, startH: 16, endH: 24 };
+}
+
+async function codeFor(dateStr, slot) {
+  const hash = await sha256Hex(ACCESS_SEED + '|' + dateStr + '|' + slot);
+  const num = parseInt(hash.slice(0, 8), 16) % 1000000;
+  return String(num).padStart(6, '0');
+}
+
+function fmtHour(h) {
+  const hh = h % 24;
+  return String(hh).padStart(2, '0') + ':00';
+}
+
+async function refresh() {
+  const parts = bogotaParts();
+  const dateStr = `${parts.year}-${parts.month}-${parts.day}`;
+  const hour = parseInt(parts.hour, 10);
+  const { slot, startH, endH } = slotBounds(hour);
+
+  const current = await codeFor(dateStr, slot);
+  document.getElementById('current-code').textContent = current;
+  document.getElementById('current-window').textContent =
+    `Valido de ${fmtHour(startH)} a ${fmtHour(endH)} (hora Bogota)`;
+
+  let nextSlot = slot + 1;
+  let nextDateStr = dateStr;
+  let nextStartH = endH;
+  let nextEndH = endH + 8;
+  if (nextSlot > 2) {
+    nextSlot = 0;
+    nextStartH = 0;
+    nextEndH = 8;
+    const d = new Date(dateStr + 'T00:00:00');
+    d.setDate(d.getDate() + 1);
+    nextDateStr = d.toISOString().slice(0, 10);
+  }
+  const next = await codeFor(nextDateStr, nextSlot);
+  document.getElementById('next-code').textContent = next;
+  document.getElementById('next-window').textContent =
+    `Desde ${fmtHour(nextStartH)} (hora Bogota)`;
+
+  const now = new Date();
+  const nowBogota = new Date(now.toLocaleString('en-US', { timeZone: 'America/Bogota' }));
+  const endTime = new Date(nowBogota);
+  endTime.setHours(endH === 24 ? 0 : endH, 0, 0, 0);
+  if (endH === 24) endTime.setDate(endTime.getDate() + 1);
+  let diffMs = endTime - nowBogota;
+  if (diffMs < 0) diffMs = 0;
+  const diffH = Math.floor(diffMs / 3600000);
+  const diffM = Math.floor((diffMs % 3600000) / 60000);
+  document.getElementById('countdown').textContent =
+    `Cambia en ${diffH}h ${diffM}m`;
+}
+
+refresh();
+setInterval(refresh, 30000);
+</script>
+</body>
+</html>
