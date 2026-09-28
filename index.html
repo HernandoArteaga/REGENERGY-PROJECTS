@@ -1195,6 +1195,90 @@ infoBox.onAdd = function() {
 };
 infoBox.addTo(map);
 
+// --- Herramienta de medicion de distancia ---
+let measureMode = false;
+let measurePoints = [];
+let measureMarkers = [];
+let measureLine = null;
+const measureLayer = L.layerGroup().addTo(map);
+
+function haversineM(lat1, lon1, lat2, lon2) {
+  const R = 6371000;
+  const toRad = d => d * Math.PI / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon/2)**2;
+  return 2 * R * Math.asin(Math.sqrt(a));
+}
+
+function formatDistance(m) {
+  if (m >= 1000) return (m/1000).toFixed(2) + ' km (' + Math.round(m).toLocaleString('es-CO') + ' m)';
+  return Math.round(m).toLocaleString('es-CO') + ' m';
+}
+
+function updateMeasureDisplay() {
+  let total = 0;
+  for (let i = 1; i < measurePoints.length; i++) {
+    total += haversineM(measurePoints[i-1][0], measurePoints[i-1][1], measurePoints[i][0], measurePoints[i][1]);
+  }
+  const el = document.getElementById('measure-distance');
+  if (el) {
+    el.textContent = measurePoints.length >= 2
+      ? 'Distancia total: ' + formatDistance(total)
+      : (measurePoints.length === 1 ? 'Haz clic en el mapa para agregar el siguiente punto...' : 'Haz clic en el mapa para empezar a medir.');
+  }
+  if (measureLine) { measureLayer.removeLayer(measureLine); measureLine = null; }
+  if (measurePoints.length >= 2) {
+    measureLine = L.polyline(measurePoints, {color: '#e74c3c', weight: 3, dashArray: '6,6'}).addTo(measureLayer);
+  }
+}
+
+function clearMeasure() {
+  measurePoints = [];
+  measureMarkers.forEach(m => measureLayer.removeLayer(m));
+  measureMarkers = [];
+  if (measureLine) { measureLayer.removeLayer(measureLine); measureLine = null; }
+  updateMeasureDisplay();
+}
+
+function onMeasureClick(e) {
+  if (!measureMode) return;
+  measurePoints.push([e.latlng.lat, e.latlng.lng]);
+  const idx = measurePoints.length;
+  const marker = L.circleMarker(e.latlng, {radius: 5, color: '#e74c3c', weight: 2, fillColor: '#fff', fillOpacity: 1}).addTo(measureLayer);
+  marker.bindTooltip(String(idx), {permanent: true, direction: 'top', offset: [0,-6], className: ''});
+  measureMarkers.push(marker);
+  updateMeasureDisplay();
+}
+
+map.on('click', onMeasureClick);
+
+const measureControl = L.control({position: 'topleft'});
+measureControl.onAdd = function() {
+  const div = L.DomUtil.create('div', 'toggle-control');
+  div.style.marginTop = '10px';
+  div.innerHTML = `
+    <label style="cursor:pointer;"><input type="checkbox" id="chk-measure"> Medir distancia</label>
+    <div id="measure-distance" style="font-size:12px;color:#444;margin-top:6px;display:none;">Haz clic en el mapa para empezar a medir.</div>
+    <button id="btn-measure-clear" style="display:none;margin-top:8px;width:100%;padding:5px;font-size:12px;border:1px solid #ccc;border-radius:4px;background:#f4f4f4;cursor:pointer;">Borrar medicion</button>
+  `;
+  L.DomEvent.disableClickPropagation(div);
+  return div;
+};
+measureControl.addTo(map);
+
+document.getElementById('chk-measure').addEventListener('change', function(e) {
+  measureMode = e.target.checked;
+  const distEl = document.getElementById('measure-distance');
+  const clearBtn = document.getElementById('btn-measure-clear');
+  distEl.style.display = measureMode ? 'block' : 'none';
+  clearBtn.style.display = measureMode ? 'block' : 'none';
+  document.getElementById('map').style.cursor = measureMode ? 'crosshair' : '';
+  if (!measureMode) { clearMeasure(); }
+  else { updateMeasureDisplay(); }
+});
+document.getElementById('btn-measure-clear').addEventListener('click', clearMeasure);
+
 updateVisibility();
 
 } // end initApp
