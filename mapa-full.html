@@ -877,13 +877,7 @@ function bogotaDateAndSlot() {
   return { dateStr, slot };
 }
 
-const OVERRIDE_CODE = '486899';
-const OVERRIDE_UNTIL = new Date('2026-10-05T22:35:00Z'); // una semana desde que se fijo el codigo
-
 async function expectedCode() {
-  if (new Date() < OVERRIDE_UNTIL) {
-    return OVERRIDE_CODE;
-  }
   const { dateStr, slot } = bogotaDateAndSlot();
   const hash = await sha256Hex(ACCESS_SEED + '|' + dateStr + '|' + slot);
   const num = parseInt(hash.slice(0, 8), 16) % 1000000;
