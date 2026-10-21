@@ -109,6 +109,9 @@ section.sec--flush[id]{padding-top:0;scroll-margin-top:100px}
 .cta{display:flex;flex-wrap:wrap;gap:14px}
 .hero__meta{margin-top:30px;font-size:15px;font-weight:500;color:var(--on-dark)}
 .hero__meta b{color:#fff;font-weight:600}
+.hero__contact{margin-top:8px}
+.hero__contact a{color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:1px;white-space:nowrap}
+.hero__contact a:hover{border-color:var(--orange-d)}
 .hero__art{position:relative;display:grid;place-items:center;aspect-ratio:1;max-width:460px;width:100%;margin-inline:auto}
 .halo{position:absolute;border-radius:50%;background:rgba(255,255,255,.065);animation:breathe 9s ease-in-out infinite}
 .halo--1{inset:0}.halo--2{inset:13%;background:rgba(255,255,255,.075);animation-delay:-3s}
@@ -285,6 +288,18 @@ footer{background:#041A38;color:var(--on-dark);padding:36px 0 calc(36px + env(sa
 .foot a{text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3)}
 .foot a:hover{border-color:#fff;color:#fff}
 
+/* contacto fijo */
+.dock{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));z-index:55;display:flex;gap:8px;padding:8px;border-radius:999px;background:rgba(7,45,92,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.18);box-shadow:0 20px 44px -14px rgba(5,31,65,.75);translate:-50% 0;transition:opacity .3s ease,translate .3s ease,visibility .3s}
+.dock a{display:inline-flex;align-items:center;gap:11px;min-height:52px;padding:0 24px 0 20px;border-radius:999px;border:1.5px solid transparent;font:600 16px/1.15 var(--body);text-decoration:none;white-space:nowrap}
+.dock a .i{font-size:22px}
+.dock small{display:block;font:600 11px/1.2 var(--body);letter-spacing:.12em;text-transform:uppercase;opacity:.82;margin-bottom:2px}
+.dock__wa{background:var(--orange);color:var(--ink)}
+.dock__wa:hover{background:#FF8420}
+.dock a.dock__mail{color:#fff;border-color:rgba(255,255,255,.42)}
+.dock a.dock__mail:hover{background:rgba(255,255,255,.12);border-color:#fff}
+.dock a:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.dock.is-off{opacity:0;visibility:hidden;translate:-50% 28px;pointer-events:none}
+
 /* aparición */
 .js .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease var(--d,0s),transform .7s cubic-bezier(.2,.7,.2,1) var(--d,0s),translate .25s ease}
 .js .reveal.in{opacity:1;transform:none}
@@ -352,6 +367,17 @@ footer{background:#041A38;color:var(--on-dark);padding:36px 0 calc(36px + env(sa
   .contact .btn{width:100%}
   .stage__head{padding:18px 20px}
 }
+@media (max-width:640px){
+  .dock{left:8px;right:8px;translate:none;flex-wrap:wrap;gap:6px;padding:6px;border-radius:22px;bottom:calc(8px + env(safe-area-inset-bottom))}
+  .dock a{flex:1 1 auto;justify-content:center;gap:8px;min-height:46px;padding:0 8px;border-radius:17px;font-size:clamp(12px,3.4vw,13.5px)}
+  .dock a .i{font-size:20px}
+  .dock small{display:none}
+  .dock a.dock__mail{font-size:clamp(11.5px,3.15vw,12.5px)}
+  .dock.is-off{translate:0 28px}
+}
+@media (max-width:440px){
+  .dock a.dock__mail .i{display:none}
+}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;transition-delay:0s!important}
@@ -361,7 +387,7 @@ footer{background:#041A38;color:var(--on-dark);padding:36px 0 calc(36px + env(sa
 </style>
 </head>
 <body>
-<a class="skip" href="#modelo">Saltar al contenido</a>
+<a class="skip" href="#mapa">Saltar al contenido</a>
 
 <!-- iconos (lineales, 24×24) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -392,11 +418,11 @@ footer{background:#041A38;color:var(--on-dark);padding:36px 0 calc(36px + env(sa
     <a class="brand" href="#inicio" aria-label="Regenergy Projects, inicio"><img src="assets/logo-regenergy-256.png" width="40" height="40" alt=""><span>REGENERGY<b>PROJECTS</b></span></a>
     <button class="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú"><span></span><span></span><span></span></button>
     <nav class="nav" id="nav" aria-label="Secciones">
+      <a href="#mapa">Mapa</a>
       <a href="#modelo">Modelo</a>
       <a href="#proceso">Proceso</a>
       <a href="#alcance">Alcance</a>
       <a href="#criterios">Criterios</a>
-      <a href="#mapa">Mapa</a>
       <a href="#sociedad">Sociedad</a>
       <a href="#ruta">Hoja de ruta</a>
       <a class="btn btn--orange btn--sm" href="#contacto">Contacto</a>
@@ -420,6 +446,7 @@ footer{background:#041A38;color:var(--on-dark);padding:36px 0 calc(36px + env(sa
         <a class="btn btn--ghost" href="assets/Presentacion_Regenergy_Cliente_Inversionista_Modelo_de_Negocio.pdf" download><svg class="i" aria-hidden="true"><use href="#i-download"/></svg>Descargar presentación</a>
       </div>
       <p class="hero__meta"><b>Regenergy Projects SAS</b> · Cali, Colombia</p>
+      <p class="hero__meta hero__contact">Contacto: <a href="https://wa.me/573054212200?text=Hola%2C%20vi%20la%20p%C3%A1gina%20para%20inversionistas%20de%20Regenergy%20Projects%20y%20quisiera%20conocer%20m%C3%A1s." target="_blank" rel="noopener">WhatsApp +57 305 421 2200</a> · <a href="mailto:gerencia@regenergy-pro.com?subject=Consulta%20de%20inversionista%20-%20Regenergy%20Projects">gerencia@regenergy-pro.com</a></p>
     </div>
     <div class="hero__art" aria-hidden="true">
       <div class="halo halo--1"></div><div class="halo halo--2"></div>
@@ -434,7 +461,41 @@ footer{background:#041A38;color:var(--on-dark);padding:36px 0 calc(36px + env(sa
       <li><b>3–7</b><span>años hasta construir</span></li>
     </ul>
   </div>
-  <svg class="wave" viewBox="0 0 1440 96" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46C180 96 330 8 560 34c230 26 330 66 560 38 130-16 220-40 320-26V96H0Z" fill="#F4F7FB"/></svg>
+  <svg class="wave" viewBox="0 0 1440 96" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46C180 96 330 8 560 34c230 26 330 66 560 38 130-16 220-40 320-26V96H0Z" fill="#072D5C"/></svg>
+</section>
+
+<!-- ===================== MAPA ===================== -->
+<section class="sec mapsec dark" id="mapa" aria-labelledby="h-mapa">
+  <div class="wrap">
+    <div class="sec__head reveal">
+      <p class="eyebrow">Cartera</p>
+      <h2 id="h-mapa">Mapa público de proyectos</h2>
+      <p class="lead">Explora los 75 sitios de la cartera de Regenergy. Las ubicaciones son aproximadas para proteger cada sitio; filtra por departamento y por jurisdicción de la CAR, y toca un punto para ver su departamento, municipio y potencia.</p>
+      <ul class="facts" aria-label="Cómo leer el mapa">
+        <li><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Ubicación aproximada</li>
+        <li><svg class="i" aria-hidden="true"><use href="#i-filter"/></svg>Filtros por departamento y CAR</li>
+        <li><svg class="i" aria-hidden="true"><use href="#i-zap"/></svg>Color según la potencia (MW)</li>
+      </ul>
+    </div>
+    <div class="mapframe reveal">
+      <div class="mapframe__bar">
+        <span class="mapframe__title"><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg><span>Vista pública · Proyectos hidroeléctricos</span></span>
+        <a class="mapframe__open" href="mapa-publico.html" target="_blank" rel="noopener">Pantalla completa <svg class="i" aria-hidden="true"><use href="#i-expand"/></svg></a>
+      </div>
+      <div class="mapframe__body">
+        <div class="mapframe__ph" aria-hidden="true"><svg class="i"><use href="#i-pin"/></svg><span>Cargando el mapa…</span></div>
+        <iframe id="mapfr" data-src="mapa-publico.html" title="Mapa público de proyectos hidroeléctricos de Regenergy"></iframe>
+        <noscript><p style="position:absolute;inset:0;display:grid;place-content:center;color:#fff;text-align:center;padding:24px"><a class="btn btn--orange" href="mapa-publico.html">Abrir el mapa</a></p></noscript>
+      </div>
+    </div>
+    <div class="mapnote reveal">
+      <p><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg><span>¿Te interesa algún proyecto? Escríbenos y te contamos más sobre el sitio, la potencia y el estado de cada uno.</span></p>
+      <div class="cta">
+        <a class="btn btn--orange btn--sm" href="https://wa.me/573054212200?text=Hola%2C%20vi%20el%20mapa%20de%20proyectos%20de%20Regenergy%20y%20quisiera%20conocer%20m%C3%A1s." target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-whatsapp"/></svg>Escribir por WhatsApp</a>
+        <a class="btn btn--ghost btn--sm" href="mailto:gerencia@regenergy-pro.com?subject=Consulta%20sobre%20los%20proyectos%20del%20mapa"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg>Escribir a gerencia</a>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ===================== RESUMEN ===================== -->
@@ -606,42 +667,8 @@ footer{background:#041A38;color:var(--on-dark);padding:36px 0 calc(36px + env(sa
   </div>
 </section>
 
-<!-- ===================== MAPA ===================== -->
-<section class="sec mapsec dark" id="mapa" aria-labelledby="h-mapa">
-  <div class="wrap">
-    <div class="sec__head reveal">
-      <p class="eyebrow">Cartera</p>
-      <h2 id="h-mapa">Mapa público de proyectos</h2>
-      <p class="lead">Explora los 75 sitios de la cartera de Regenergy. Las ubicaciones son aproximadas para proteger cada sitio; filtra por departamento y por jurisdicción de la CAR, y toca un punto para ver su departamento, municipio y potencia.</p>
-      <ul class="facts" aria-label="Cómo leer el mapa">
-        <li><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Ubicación aproximada</li>
-        <li><svg class="i" aria-hidden="true"><use href="#i-filter"/></svg>Filtros por departamento y CAR</li>
-        <li><svg class="i" aria-hidden="true"><use href="#i-zap"/></svg>Color según la potencia (MW)</li>
-      </ul>
-    </div>
-    <div class="mapframe reveal">
-      <div class="mapframe__bar">
-        <span class="mapframe__title"><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg><span>Vista pública · Proyectos hidroeléctricos</span></span>
-        <a class="mapframe__open" href="mapa-publico.html" target="_blank" rel="noopener">Pantalla completa <svg class="i" aria-hidden="true"><use href="#i-expand"/></svg></a>
-      </div>
-      <div class="mapframe__body">
-        <div class="mapframe__ph" aria-hidden="true"><svg class="i"><use href="#i-pin"/></svg><span>Cargando el mapa…</span></div>
-        <iframe id="mapfr" data-src="mapa-publico.html" title="Mapa público de proyectos hidroeléctricos de Regenergy"></iframe>
-        <noscript><p style="position:absolute;inset:0;display:grid;place-content:center;color:#fff;text-align:center;padding:24px"><a class="btn btn--orange" href="mapa-publico.html">Abrir el mapa</a></p></noscript>
-      </div>
-    </div>
-    <div class="mapnote reveal">
-      <p><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg><span>¿Te interesa algún proyecto? Escríbenos y te contamos más sobre el sitio, la potencia y el estado de cada uno.</span></p>
-      <div class="cta">
-        <a class="btn btn--orange btn--sm" href="https://wa.me/573054212200?text=Hola%2C%20vi%20el%20mapa%20de%20proyectos%20de%20Regenergy%20y%20quisiera%20conocer%20m%C3%A1s." target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-whatsapp"/></svg>Escribir por WhatsApp</a>
-        <a class="btn btn--ghost btn--sm" href="mailto:gerencia@regenergy-pro.com?subject=Consulta%20sobre%20los%20proyectos%20del%20mapa"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg>Escribir a gerencia</a>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ===================== SOCIEDAD ===================== -->
-<section class="sec" id="sociedad" aria-labelledby="h-sociedad">
+<section class="sec sec--flush" id="sociedad" aria-labelledby="h-sociedad">
   <div class="wrap">
     <div class="sec__head reveal">
       <p class="eyebrow">Modelo de negocio</p>
@@ -751,9 +778,15 @@ footer{background:#041A38;color:var(--on-dark);padding:36px 0 calc(36px + env(sa
 <footer>
   <div class="wrap foot">
     <a class="brand" href="#inicio"><img src="assets/logo-regenergy-256.png" width="40" height="40" alt=""><span>REGENERGY<b>PROJECTS</b></span></a>
-    <p>Regenergy Projects SAS · Cali, Colombia. Información indicativa para el Cliente inversionista; las cifras entre corchetes son propuestas y las ubicaciones del mapa son aproximadas. <a href="assets/Presentacion_Regenergy_Cliente_Inversionista_Modelo_de_Negocio.pdf" download>Descargar la presentación (PDF)</a></p>
+    <p>Regenergy Projects SAS · Cali, Colombia. Información indicativa para el Cliente inversionista; las cifras entre corchetes son propuestas y las ubicaciones del mapa son aproximadas. <a href="assets/Presentacion_Regenergy_Cliente_Inversionista_Modelo_de_Negocio.pdf" download>Descargar la presentación (PDF)</a><br>Contacto: <a href="https://wa.me/573054212200?text=Hola%2C%20vi%20la%20p%C3%A1gina%20para%20inversionistas%20de%20Regenergy%20Projects%20y%20quisiera%20conocer%20m%C3%A1s." target="_blank" rel="noopener">WhatsApp +57 305 421 2200</a> · <a href="mailto:gerencia@regenergy-pro.com?subject=Consulta%20de%20inversionista%20-%20Regenergy%20Projects">gerencia@regenergy-pro.com</a></p>
   </div>
 </footer>
+
+<!-- contacto siempre a mano -->
+<aside class="dock" id="dock" aria-label="Contacto">
+  <a class="dock__wa" href="https://wa.me/573054212200?text=Hola%2C%20vi%20la%20p%C3%A1gina%20para%20inversionistas%20de%20Regenergy%20Projects%20y%20quisiera%20conocer%20m%C3%A1s." target="_blank" rel="noopener" aria-label="Escribir por WhatsApp al +57 305 421 2200"><svg class="i" aria-hidden="true"><use href="#i-whatsapp"/></svg><span><small>WhatsApp</small>+57 305 421 2200</span></a>
+  <a class="dock__mail" href="mailto:gerencia@regenergy-pro.com?subject=Consulta%20de%20inversionista%20-%20Regenergy%20Projects" aria-label="Escribir a gerencia@regenergy-pro.com"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg><span><small>Correo</small>gerencia@regenergy-pro.com</span></a>
+</aside>
 
 <script>
 (function(){
@@ -801,6 +834,19 @@ footer{background:#041A38;color:var(--on-dark);padding:36px 0 calc(36px + env(sa
       },{threshold:[0,.2,.4,.6,.8,1]});
       mo.observe(mf.parentNode);
     } else { loadMap(); }
+  }
+
+  // la barra de contacto se oculta cuando ya se ve el cierre o el pie (ahí el contacto está completo)
+  var dock=d.getElementById('dock'), seen={};
+  if(dock && 'IntersectionObserver' in window){
+    var dockUpdate=function(){ dock.classList.toggle('is-off', (window.scrollY||root.scrollTop)<80 || !!(seen.contacto||seen.foot)); };
+    var dobs=new IntersectionObserver(function(es){
+      es.forEach(function(en){ seen[en.target.id||'foot']=en.isIntersecting; });
+      dockUpdate();
+    },{threshold:0});
+    window.addEventListener('scroll', dockUpdate, {passive:true}); dockUpdate();
+    var tg=[d.getElementById('contacto'), d.querySelector('footer')];
+    tg.forEach(function(t){ if(t) dobs.observe(t); });
   }
 
   // enlace activo según la sección visible
