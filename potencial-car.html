@@ -908,17 +908,19 @@ const BANDAS = [
   {label: '10 - 20 MW',    color: '#e74c3c'},
   {label: '&gt;= 20 MW',   color: '#8e44ad'}
 ];
-// s = [jurisdiccion CAR (1/0), banda de potencia]; lat/lon = punto de referencia del departamento, no de los sitios
+// z = zonas del departamento; s = [jurisdiccion CAR (1/0), banda de potencia].
+// lat/lon = puntos de referencia fijos del departamento y de cada zona, no de los sitios.
 const deptos = [
-{"d":"Bogotá D.C.","lat":4.62,"lon":-74.08,"s":[[1,1],[1,1],[1,1]]},
-{"d":"Boyacá","lat":5.8,"lon":-73.1,"s":[[1,0],[1,1]]},
-{"d":"Cundinamarca","lat":5.05,"lon":-74.45,"s":[[1,0],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,2],[1,2],[1,2],[1,2],[1,4],[1,4],[1,4]]}
+{"d":"Bogotá D.C.","lat":4.62,"lon":-74.08,"z":[{"s":[[1,1],[1,1],[1,1]]}]},
+{"d":"Boyacá","lat":5.8,"lon":-73.1,"z":[{"s":[[1,0],[1,1]]}]},
+{"d":"Cundinamarca","lat":5.05,"lon":-74.45,"z":[{"n":"Noroccidente","lat":5.15,"lon":-74.35,"s":[[1,0],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,2],[1,2]]},{"n":"Nororiente","lat":5.15,"lon":-73.65,"s":[[1,1],[1,1],[1,1],[1,1],[1,1]]},{"n":"Suroccidente","lat":4.35,"lon":-74.55,"s":[[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,2],[1,2],[1,4],[1,4],[1,4]]}]}
 ];
+const ZONAS_DESDE = 8.5;   // a partir de este zoom cada departamento se divide en sus zonas
 
-const map = L.map('map', {preferCanvas: true, minZoom: 5, maxZoom: 9, zoomSnap: 0.5});
+const map = L.map('map', {preferCanvas: true, minZoom: 5, maxZoom: 10, zoomSnap: 0.5});
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 9,
+  maxZoom: 10,
   attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
@@ -948,25 +950,49 @@ function contenido(nombre, sub) {
   return `<div class="pch-label">
     <b>${nombre}</b> &middot; ${sub.length === 1 ? '1 proyecto' : sub.length + ' proyectos'}
     <div class="zlist">${filas}</div>
-    <i style="font-size:10px;color:#888;white-space:normal;display:inline-block;max-width:230px;">El circulo marca el departamento, no la ubicacion de los sitios.</i><br>
+    <i style="font-size:10px;color:#888;white-space:normal;display:inline-block;max-width:230px;">El circulo es referencial: no marca la ubicacion de los sitios.</i><br>
     <span style="font-size:10px;color:#555;white-space:normal;display:inline-block;max-width:230px;">Si quieres conocer mas sobre estos proyectos comunicate a gerencia: <a href="mailto:gerencia@regenergy-pro.com">gerencia@regenergy-pro.com</a> o +57 305 421 2200</span>
   </div>`;
 }
 
+function zonasActivas(d) {
+  return d.z.length > 1 && (deptoFilter === d.d || map.getZoom() >= ZONAS_DESDE);
+}
+
+function poner(lat, lon, titulo, nombre, sub) {
+  L.marker([lat, lon], {icon: pin(sub.length), title: titulo + ': ' + sub.length + (sub.length === 1 ? ' proyecto' : ' proyectos')})
+    .bindPopup(contenido(titulo, sub), {maxWidth: 260})
+    .bindTooltip(nombre, {permanent: true, direction: 'bottom', offset: [0, tam(sub.length) / 2 - 2], className: 'dep-tip'})
+    .addTo(capaPines);
+}
+
+let firma = '';
 function dibujar(ajustar) {
   capaPines.clearLayers();
+  firma = deptos.map(d => zonasActivas(d) ? 1 : 0).join('');
   const visibles = [];
   deptos.forEach(d => {
     if (deptoFilter !== 'todos' && d.d !== deptoFilter) return;
-    const sub = d.s.filter(pasa);
-    if (!sub.length) return;
-    visibles.push([d.lat, d.lon]);
-    L.marker([d.lat, d.lon], {icon: pin(sub.length), title: d.d + ': ' + sub.length + (sub.length === 1 ? ' proyecto' : ' proyectos')})
-      .bindPopup(contenido(d.d, sub), {maxWidth: 260})
-      .bindTooltip(d.d, {permanent: true, direction: 'bottom', offset: [0, tam(sub.length) / 2 - 2], className: 'dep-tip'})
-      .addTo(capaPines);
+    if (zonasActivas(d)) {
+      d.z.forEach(z => {
+        const sub = z.s.filter(pasa);
+        if (!sub.length) return;
+        visibles.push([z.lat, z.lon]);
+        poner(z.lat, z.lon, d.d + ' · ' + z.n, d.d + ' · ' + z.n, sub);
+      });
+    } else {
+      const sub = d.z.flatMap(z => z.s).filter(pasa);
+      if (!sub.length) return;
+      visibles.push([d.lat, d.lon]);
+      poner(d.lat, d.lon, d.d, d.d, sub);
+    }
   });
-  if (ajustar && visibles.length) map.fitBounds(visibles, {padding: [70, 70], maxZoom: 8});
+  if (ajustar && visibles.length) map.fitBounds(visibles, {padding: [70, 70], maxZoom: deptoFilter === 'todos' ? 8 : 9});
+}
+
+// Al acercarse o alejarse cambia entre departamento y zonas; solo se redibuja si algo cambia (para no cerrar el cuadro abierto).
+function actualizar() {
+  if (deptos.map(d => zonasActivas(d) ? 1 : 0).join('') !== firma) dibujar(false);
 }
 
 const filterControl = L.control({position: 'topleft'});
@@ -992,7 +1018,7 @@ const legend = L.control({position: 'bottomright'});
 legend.onAdd = function() {
   const div = L.DomUtil.create('div', 'legend');
   div.innerHTML = '<b>Como leer el mapa</b><br>' +
-    '<span style="font-size:12px;color:#444;display:block;max-width:170px;line-height:1.35;margin-top:2px;">Cada circulo es un departamento y su numero es la cantidad de proyectos. Toca un circulo para ver los proyectos por rango de potencia.</span>';
+    '<span style="font-size:12px;color:#444;display:block;max-width:180px;line-height:1.35;margin-top:2px;">Cada circulo es un departamento; al acercarte se divide en zonas. El numero es la cantidad de proyectos. Toca un circulo para ver los proyectos por rango de potencia.</span>';
   L.DomEvent.disableClickPropagation(div);
   return div;
 };
@@ -1001,7 +1027,7 @@ legend.addTo(map);
 const notice = L.control({position: 'topright'});
 notice.onAdd = function() {
   const div = L.DomUtil.create('div', 'notice-box');
-  div.innerHTML = 'Proyectos en jurisdiccion CAR. Vista por departamento, sin ubicaciones. RegEnergy Projects.';
+  div.innerHTML = 'Proyectos en jurisdiccion CAR. Vista por departamento y zonas, sin ubicaciones exactas. RegEnergy Projects.';
   L.DomEvent.disableClickPropagation(div);
   return div;
 };
@@ -1009,7 +1035,7 @@ notice.addTo(map);
 
 // Los nombres se ocultan cuando el mapa esta muy alejado para que no se amontonen.
 function nombresVisibles() { map.getContainer().classList.toggle('sin-nombres', map.getZoom() < 6.5); }
-map.on('zoomend', nombresVisibles);
+map.on('zoomend', () => { nombresVisibles(); actualizar(); });
 
 // Vista inicial: todos los departamentos. Se repite una vez si el contenedor aun no tenia tamano al cargar.
 dibujar(true);
