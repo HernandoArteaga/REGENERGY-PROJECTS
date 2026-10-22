@@ -758,6 +758,10 @@ svg.leaflet-image-layer.leaflet-interactive path {
   .pch-label .zlist { max-height:180px; overflow:auto; margin:4px 0 6px; }
   .pch-label .zrow { font-size:12px; margin:2px 0; white-space:nowrap; }
   .pch-label .swatch { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:6px; vertical-align:middle; border:1px solid rgba(0,0,0,0.3); }
+  .dep-tip { background:rgba(255,255,255,0.92); border:none; box-shadow:0 1px 3px rgba(0,0,0,0.35); font:600 11px Arial,sans-serif; color:#072D5C; padding:1px 6px; }
+  .dep-tip.leaflet-tooltip-bottom:before { display:none; }
+  .sin-nombres .dep-tip { display:none; }
+  .dep-pin { display:flex; align-items:center; justify-content:center; border-radius:50%; background:#EE6F09; color:#072D5C; border:3px solid #fff; box-shadow:0 2px 8px rgba(0,0,0,0.45); font:700 14px Arial,sans-serif; cursor:pointer; box-sizing:border-box; }
 </style>
 </head>
 <body>
@@ -768,46 +772,25 @@ svg.leaflet-image-layer.leaflet-interactive path {
 <script>
 function initApp() {
 
-// Cada circulo marca una ZONA de ~28 km (celda de 0,25 grados) y agrupa los proyectos que caen en ella.
-// Los datos publicados son solo el centro de cada celda: no incluyen coordenadas exactas ni municipios.
-const CELDA = 0.25;
+// Vista por DEPARTAMENTO: cada circulo es un departamento y su numero es la cantidad de proyectos.
+// El archivo no contiene ubicaciones de los sitios, municipios, codigos ni potencias exactas.
 const BANDAS = [
-  {label: '< 2 MW',     color: '#2ecc71', ink: '#12301c'},
-  {label: '2 - 5 MW',   color: '#f1c40f', ink: '#2b2500'},
-  {label: '5 - 10 MW',  color: '#e67e22', ink: '#fff'},
-  {label: '10 - 20 MW', color: '#e74c3c', ink: '#fff'},
-  {label: '>= 20 MW',   color: '#8e44ad', ink: '#fff'}
+  {label: '&lt; 2 MW',     color: '#2ecc71'},
+  {label: '2 - 5 MW',      color: '#f1c40f'},
+  {label: '5 - 10 MW',     color: '#e67e22'},
+  {label: '10 - 20 MW',    color: '#e74c3c'},
+  {label: '&gt;= 20 MW',   color: '#8e44ad'}
 ];
-// s = [codigo, departamento, jurisdiccion CAR (1/0), banda de potencia]
-const zonas = [
-{"lat":0.875,"lon":-77.375,"s":[["P31","Nariño",0,3]]},
-{"lat":1.125,"lon":-77.625,"s":[["P32","Nariño",0,2],["P33","Nariño",0,1]]},
-{"lat":1.125,"lon":-77.375,"s":[["P34","Nariño",0,2],["P35","Nariño",0,2],["P36","Nariño",0,1]]},
-{"lat":1.375,"lon":-77.375,"s":[["P38","Nariño",0,2],["P37","Nariño",0,1]]},
-{"lat":2.375,"lon":-76.625,"s":[["P39","Cauca",0,3]]},
-{"lat":3.125,"lon":-76.625,"s":[["P22","Valle del Cauca",0,1]]},
-{"lat":3.875,"lon":-76.625,"s":[["P21","Valle del Cauca",0,1]]},
-{"lat":3.875,"lon":-74.375,"s":[["R16","Cundinamarca",0,3],["CAR-01","Cundinamarca",1,1],["CAR-02","Cundinamarca",1,1],["CAR-03","Cundinamarca",1,1],["P43","Cundinamarca",0,1],["P44","Cundinamarca",0,1]]},
-{"lat":4.125,"lon":-75.875,"s":[["P27","Valle del Cauca",0,2]]},
-{"lat":4.125,"lon":-74.625,"s":[["R13","Cundinamarca",0,4]]},
-{"lat":4.125,"lon":-74.375,"s":[["CAR-06","Cundinamarca",1,4],["CAR-07","Cundinamarca",1,4],["CAR-08","Cundinamarca",1,4],["R15","Cundinamarca",0,3],["R17","Cundinamarca",0,3],["CAR-04","Cundinamarca",1,2],["CAR-05","Cundinamarca",1,1],["CAR-09","Cundinamarca",1,1],["CAR-10","Cundinamarca",1,1],["CAR-11","Cundinamarca",1,1],["P19","Cundinamarca",0,1]]},
-{"lat":4.125,"lon":-74.125,"s":[["R14","Bogotá D.C.",0,2],["CAR-12","Bogotá D.C.",1,1],["CAR-13","Bogotá D.C.",1,1],["CAR-14","Bogotá D.C.",1,1]]},
-{"lat":4.375,"lon":-76.375,"s":[["P23","Valle del Cauca",0,2]]},
-{"lat":4.625,"lon":-75.875,"s":[["P24","Risaralda",0,0]]},
-{"lat":4.625,"lon":-74.625,"s":[["CAR-15","Cundinamarca",1,2],["R11","Cundinamarca",0,2],["CAR-16","Cundinamarca",1,1],["R12","Cundinamarca",0,1]]},
-{"lat":4.875,"lon":-74.625,"s":[["CAR-17","Cundinamarca",1,1]]},
-{"lat":4.875,"lon":-74.375,"s":[["CAR-18","Cundinamarca",1,1],["CAR-19","Cundinamarca",1,1],["R10","Cundinamarca",0,1]]},
-{"lat":5.125,"lon":-75.625,"s":[["P26","Caldas",0,2],["P25","Caldas",0,1]]},
-{"lat":5.125,"lon":-74.625,"s":[["CAR-32","Cundinamarca",1,1],["R07","Cundinamarca",0,1]]},
-{"lat":5.125,"lon":-74.375,"s":[["R05","Cundinamarca",0,4],["CAR-20","Cundinamarca",1,2]]},
-{"lat":5.125,"lon":-73.875,"s":[["CAR-30","Cundinamarca",1,1],["CAR-31","Cundinamarca",1,1],["R06","Cundinamarca",0,1],["P18","Cundinamarca",0,0]]},
-{"lat":5.125,"lon":-73.625,"s":[["R08","Cundinamarca",0,3],["R09","Cundinamarca",0,2],["CAR-28","Cundinamarca",1,1],["CAR-29","Cundinamarca",1,1],["P20","Cundinamarca",0,1]]},
-{"lat":5.375,"lon":-76.125,"s":[["P28","Risaralda",0,2],["P41","Risaralda",0,2]]},
-{"lat":5.375,"lon":-75.875,"s":[["P29","Risaralda",0,1]]},
-{"lat":5.375,"lon":-75.625,"s":[["P30","Risaralda",0,2],["P42","Risaralda",0,2]]},
-{"lat":5.375,"lon":-74.375,"s":[["CAR-21","Cundinamarca",1,2]]},
-{"lat":5.375,"lon":-74.125,"s":[["R03","Cundinamarca",0,2],["CAR-23","Cundinamarca",1,1],["CAR-24","Cundinamarca",1,1],["CAR-22","Cundinamarca",1,0],["R04","Cundinamarca",0,0]]},
-{"lat":5.375,"lon":-73.875,"s":[["CAR-25","Cundinamarca",1,1],["CAR-26","Boyacá",1,1],["R01","Boyacá",0,1],["R02","Cundinamarca",0,1],["CAR-27","Boyacá",1,0]]}
+// s = [jurisdiccion CAR (1/0), banda de potencia]; lat/lon = punto de referencia del departamento, no de los sitios
+const deptos = [
+{"d":"Bogotá D.C.","lat":4.62,"lon":-74.08,"s":[[0,2],[1,1],[1,1],[1,1]]},
+{"d":"Boyacá","lat":5.8,"lon":-73.1,"s":[[0,1],[1,0],[1,1]]},
+{"d":"Caldas","lat":5.3,"lon":-75.3,"s":[[0,1],[0,2]]},
+{"d":"Cauca","lat":2.4,"lon":-76.8,"s":[[0,3]]},
+{"d":"Cundinamarca","lat":5.05,"lon":-74.45,"s":[[0,0],[0,0],[0,1],[0,1],[0,1],[0,1],[0,1],[0,1],[0,1],[0,1],[0,1],[0,2],[0,2],[0,2],[0,3],[0,3],[0,3],[0,3],[0,4],[0,4],[1,0],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,2],[1,2],[1,2],[1,2],[1,4],[1,4],[1,4]]},
+{"d":"Nariño","lat":1.45,"lon":-77.75,"s":[[0,1],[0,1],[0,1],[0,2],[0,2],[0,2],[0,2],[0,3]]},
+{"d":"Risaralda","lat":5.0,"lon":-76.0,"s":[[0,0],[0,1],[0,2],[0,2],[0,2],[0,2]]},
+{"d":"Valle del Cauca","lat":3.8,"lon":-76.6,"s":[[0,1],[0,1],[0,2],[0,2]]}
 ];
 
 const map = L.map('map', {preferCanvas: true, minZoom: 5, maxZoom: 9, zoomSnap: 0.5});
@@ -819,50 +802,49 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 let deptoFilter = 'todos';
 let carFilter = 'todos';
-const capaZonas = L.layerGroup().addTo(map);
 const capaPines = L.layerGroup().addTo(map);
-const departamentos = Array.from(new Set(zonas.flatMap(z => z.s.map(s => s[1])))).sort();
+const nombres = deptos.map(d => d.d).sort((a, b) => a.localeCompare(b, 'es'));
 
 function pasa(s) {
-  const deptoOk = (deptoFilter === 'todos') || (s[1] === deptoFilter);
-  const carOk = (carFilter === 'todos') || (carFilter === 'solo_car' ? s[2] === 1 : s[2] === 0);
-  return deptoOk && carOk;
+  return (carFilter === 'todos') || (carFilter === 'solo_car' ? s[0] === 1 : s[0] === 0);
 }
 
-function pin(banda, n) {
-  const size = Math.round(22 + 4 * Math.sqrt(n - 1));
+function tam(n) { return Math.round(28 + 5 * Math.sqrt(n)); }
+
+function pin(n) {
+  const size = tam(n);
   return L.divIcon({
     className: '',
-    html: `<div class="zona-pin" style="width:${size}px;height:${size}px;background:${banda.color};color:${banda.ink}">${n}</div>`,
+    html: `<div class="dep-pin" style="width:${size}px;height:${size}px">${n}</div>`,
     iconSize: [size, size], iconAnchor: [size / 2, size / 2], popupAnchor: [0, -size / 2]
   });
 }
 
-function contenido(sub) {
-  const filas = sub.map(s => `<div class="zrow"><span class="swatch" style="background:${BANDAS[s[3]].color}"></span><b>${s[0]}</b> &middot; ${s[1]} &middot; ${BANDAS[s[3]].label}</div>`).join('');
+function contenido(nombre, sub) {
+  const filas = BANDAS.map((b, i) => [b, sub.filter(s => s[1] === i).length]).filter(x => x[1] > 0).reverse()
+    .map(x => `<div class="zrow"><span class="swatch" style="background:${x[0].color}"></span>${x[0].label}: <b>${x[1]}</b></div>`).join('');
   return `<div class="pch-label">
-    <b>${sub.length === 1 ? '1 proyecto' : sub.length + ' proyectos'} en esta zona</b>
+    <b>${nombre}</b> &middot; ${sub.length === 1 ? '1 proyecto' : sub.length + ' proyectos'}
     <div class="zlist">${filas}</div>
-    <i style="font-size:10px;color:#888;white-space:normal;display:inline-block;max-width:230px;">El circulo marca una zona de unos 28 km, no la ubicacion del sitio.</i><br>
+    <i style="font-size:10px;color:#888;white-space:normal;display:inline-block;max-width:230px;">El circulo marca el departamento, no la ubicacion de los sitios.</i><br>
     <span style="font-size:10px;color:#555;white-space:normal;display:inline-block;max-width:230px;">Si quieres conocer mas sobre estos proyectos comunicate a gerencia: <a href="mailto:gerencia@regenergy-pro.com">gerencia@regenergy-pro.com</a> o +57 305 421 2200</span>
   </div>`;
 }
 
 function dibujar(ajustar) {
-  capaZonas.clearLayers();
   capaPines.clearLayers();
   const visibles = [];
-  zonas.forEach(z => {
-    const sub = z.s.filter(pasa);
+  deptos.forEach(d => {
+    if (deptoFilter !== 'todos' && d.d !== deptoFilter) return;
+    const sub = d.s.filter(pasa);
     if (!sub.length) return;
-    const banda = BANDAS[Math.max(...sub.map(s => s[3]))];
-    const lim = [[z.lat - CELDA / 2, z.lon - CELDA / 2], [z.lat + CELDA / 2, z.lon + CELDA / 2]];
-    visibles.push(...lim);
-    L.rectangle(lim, {interactive: false, color: banda.color, weight: 1, dashArray: '4 4', fillColor: banda.color, fillOpacity: 0.10}).addTo(capaZonas);
-    L.marker([z.lat, z.lon], {icon: pin(banda, sub.length), title: sub.length + (sub.length === 1 ? ' proyecto' : ' proyectos')})
-      .bindPopup(contenido(sub), {maxWidth: 260}).addTo(capaPines);
+    visibles.push([d.lat, d.lon]);
+    L.marker([d.lat, d.lon], {icon: pin(sub.length), title: d.d + ': ' + sub.length + (sub.length === 1 ? ' proyecto' : ' proyectos')})
+      .bindPopup(contenido(d.d, sub), {maxWidth: 260})
+      .bindTooltip(d.d, {permanent: true, direction: 'bottom', offset: [0, tam(sub.length) / 2 - 2], className: 'dep-tip'})
+      .addTo(capaPines);
   });
-  if (ajustar && visibles.length) map.fitBounds(visibles, {padding: [40, 40], maxZoom: 8});
+  if (ajustar && visibles.length) map.fitBounds(visibles, {padding: [70, 70], maxZoom: 8});
 }
 
 const filterControl = L.control({position: 'topleft'});
@@ -871,7 +853,7 @@ filterControl.onAdd = function() {
   let html = '<label style="font-weight:600;">Filtros</label>';
   html += '<label>Departamento:</label>';
   html += '<select id="sel-depto"><option value="todos">Todos</option>';
-  departamentos.forEach(dpt => { html += `<option value="${dpt}">${dpt}</option>`; });
+  nombres.forEach(dpt => { html += `<option value="${dpt}">${dpt}</option>`; });
   html += '</select>';
   html += '<label>Jurisdiccion CAR:</label>';
   html += '<select id="sel-car"><option value="todos">Todas</option><option value="solo_car">Solo Jurisdiccion CAR</option><option value="fuera_car">Fuera de CAR</option></select>';
@@ -893,9 +875,8 @@ document.getElementById('sel-car').addEventListener('change', function(e) {
 const legend = L.control({position: 'bottomright'});
 legend.onAdd = function() {
   const div = L.DomUtil.create('div', 'legend');
-  div.innerHTML = '<b>Potencia (rango)</b><br>' +
-    BANDAS.map(b => `<span class="swatch" style="background:${b.color}"></span>${b.label.replace('>=', '&gt;=').replace('<', '&lt;')}<br>`).join('') +
-    '<span style="font-size:11px;color:#666;display:block;max-width:150px;line-height:1.3;margin-top:4px;">El numero es la cantidad de proyectos de la zona; el color, el mayor rango.</span>';
+  div.innerHTML = '<b>Como leer el mapa</b><br>' +
+    '<span style="font-size:12px;color:#444;display:block;max-width:170px;line-height:1.35;margin-top:2px;">Cada circulo es un departamento y su numero es la cantidad de proyectos. Toca un circulo para ver los proyectos por rango de potencia.</span>';
   L.DomEvent.disableClickPropagation(div);
   return div;
 };
@@ -904,17 +885,22 @@ legend.addTo(map);
 const notice = L.control({position: 'topright'});
 notice.onAdd = function() {
   const div = L.DomUtil.create('div', 'notice-box');
-  div.innerHTML = 'Zonas de unos 28 km, no ubicaciones exactas. RegEnergy Projects.';
+  div.innerHTML = 'Vista por departamento, sin ubicaciones. RegEnergy Projects.';
   L.DomEvent.disableClickPropagation(div);
   return div;
 };
 notice.addTo(map);
 
-// Vista inicial: toda la cartera. Se repite una vez si el contenedor aun no tenia tamano al cargar.
+// Los nombres se ocultan cuando el mapa esta muy alejado para que no se amontonen.
+function nombresVisibles() { map.getContainer().classList.toggle('sin-nombres', map.getZoom() < 6.5); }
+map.on('zoomend', nombresVisibles);
+
+// Vista inicial: todos los departamentos. Se repite una vez si el contenedor aun no tenia tamano al cargar.
 dibujar(true);
 let tocado = false;
 ['mousedown', 'touchstart', 'wheel', 'keydown'].forEach(ev => map.getContainer().addEventListener(ev, () => { tocado = true; }, {passive: true}));
-setTimeout(() => { if (!tocado) { map.invalidateSize(); dibujar(true); } }, 400);
+nombresVisibles();
+setTimeout(() => { if (!tocado) { map.invalidateSize(); dibujar(true); nombresVisibles(); } }, 400);
 } // end initApp
 
 initApp();
