@@ -754,6 +754,10 @@ svg.leaflet-image-layer.leaflet-interactive path {
     white-space: nowrap;
     user-select: none;
   }
+  .zona-pin { display:flex; align-items:center; justify-content:center; border-radius:50%; border:2px solid #fff; box-shadow:0 1px 5px rgba(0,0,0,0.5); font:700 12px Arial,sans-serif; cursor:pointer; box-sizing:border-box; }
+  .pch-label .zlist { max-height:180px; overflow:auto; margin:4px 0 6px; }
+  .pch-label .zrow { font-size:12px; margin:2px 0; white-space:nowrap; }
+  .pch-label .swatch { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:6px; vertical-align:middle; border:1px solid rgba(0,0,0,0.3); }
 </style>
 </head>
 <body>
@@ -764,73 +768,101 @@ svg.leaflet-image-layer.leaflet-interactive path {
 <script>
 function initApp() {
 
-const points = [{"id": "R05", "lat": 5.119, "lon": -74.408, "departamento": "Cundinamarca", "municipio": "Nimaima", "potencia": 30.24, "color": "#8e44ad", "tipo": "R"}, {"id": "R13", "lat": 4.196, "lon": -74.505, "departamento": "Cundinamarca", "municipio": "Pandi", "potencia": 24.224, "color": "#8e44ad", "tipo": "R"}, {"id": "CAR-08", "lat": 4.185, "lon": -74.498, "departamento": "Cundinamarca", "municipio": "Pandi", "potencia": 25.097, "color": "#8e44ad", "tipo": "CAR"}, {"id": "CAR-06", "lat": 4.108, "lon": -74.476, "departamento": "Cundinamarca", "municipio": "Venecia", "potencia": 27.92, "color": "#8e44ad", "tipo": "CAR"}, {"id": "R15", "lat": 4.092, "lon": -74.492, "departamento": "Cundinamarca", "municipio": "Venecia", "potencia": 19.405, "color": "#e74c3c", "tipo": "R"}, {"id": "CAR-07", "lat": 4.087, "lon": -74.497, "departamento": "Cundinamarca", "municipio": "Venecia", "potencia": 21.49, "color": "#8e44ad", "tipo": "CAR"}, {"id": "R17", "lat": 4.001, "lon": -74.498, "departamento": "Cundinamarca", "municipio": "Cabrera", "potencia": 16.085, "color": "#e74c3c", "tipo": "R"}, {"id": "P31", "lat": 0.924, "lon": -77.493, "departamento": "Nariño", "municipio": "Por validar", "potencia": 16.825, "color": "#e74c3c", "tipo": "P"}, {"id": "R08", "lat": 5.067, "lon": -73.532, "departamento": "Cundinamarca", "municipio": "Machetá", "potencia": 11.686, "color": "#e74c3c", "tipo": "R"}, {"id": "R16", "lat": 3.981, "lon": -74.387, "departamento": "Cundinamarca", "municipio": "Cabrera", "potencia": 10.127, "color": "#e74c3c", "tipo": "R"}, {"id": "P39", "lat": 2.338, "lon": -76.516, "departamento": "Cauca", "municipio": "Por validar", "potencia": 10.049, "color": "#e74c3c", "tipo": "P"}, {"id": "P27", "lat": 4.177, "lon": -75.918, "departamento": "Valle del Cauca", "municipio": "Por validar", "potencia": 8.551, "color": "#e67e22", "tipo": "P"}, {"id": "P34", "lat": 1.074, "lon": -77.41, "departamento": "Nariño", "municipio": "Por validar", "potencia": 8.808, "color": "#e67e22", "tipo": "P"}, {"id": "P26", "lat": 5.123, "lon": -75.513, "departamento": "Caldas", "municipio": "Neira", "potencia": 7.877, "color": "#e67e22", "tipo": "P"}, {"id": "CAR-21", "lat": 5.262, "lon": -74.339, "departamento": "Cundinamarca", "municipio": "El Peñón", "potencia": 9.401, "color": "#e67e22", "tipo": "CAR"}, {"id": "P35", "lat": 1.089, "lon": -77.348, "departamento": "Nariño", "municipio": "Por validar", "potencia": 9.788, "color": "#e67e22", "tipo": "P"}, {"id": "P38", "lat": 1.354, "lon": -77.309, "departamento": "Nariño", "municipio": "Por validar", "potencia": 8.534, "color": "#e67e22", "tipo": "P"}, {"id": "P30", "lat": 5.412, "lon": -75.644, "departamento": "Risaralda", "municipio": "Por validar", "potencia": 7.678, "color": "#e67e22", "tipo": "P"}, {"id": "P42", "lat": 5.412, "lon": -75.644, "departamento": "Risaralda", "municipio": "Por validar", "potencia": 7.678, "color": "#e67e22", "tipo": "P"}, {"id": "R14", "lat": 4.187, "lon": -74.099, "departamento": "Bogotá D.C.", "municipio": "Bogotá D.C. (Sumapaz)", "potencia": 6.244, "color": "#e67e22", "tipo": "R"}, {"id": "R03", "lat": 5.417, "lon": -74.213, "departamento": "Cundinamarca", "municipio": "Paime", "potencia": 6.013, "color": "#e67e22", "tipo": "R"}, {"id": "CAR-20", "lat": 5.146, "lon": -74.358, "departamento": "Cundinamarca", "municipio": "Vergara", "potencia": 8.58, "color": "#e67e22", "tipo": "CAR"}, {"id": "R11", "lat": 4.686, "lon": -74.656, "departamento": "Cundinamarca", "municipio": "Pulí", "potencia": 5.894, "color": "#e67e22", "tipo": "R"}, {"id": "P28", "lat": 5.26, "lon": -76.048, "departamento": "Risaralda", "municipio": "Pueblo Rico", "potencia": 5.58, "color": "#e67e22", "tipo": "P"}, {"id": "P41", "lat": 5.259, "lon": -76.047, "departamento": "Risaralda", "municipio": "Pueblo Rico", "potencia": 5.314, "color": "#e67e22", "tipo": "P"}, {"id": "P23", "lat": 4.488, "lon": -76.351, "departamento": "Valle del Cauca", "municipio": "Por validar", "potencia": 5.328, "color": "#e67e22", "tipo": "P"}, {"id": "R09", "lat": 5.072, "lon": -73.597, "departamento": "Cundinamarca", "municipio": "Por validar", "potencia": 5.429, "color": "#e67e22", "tipo": "R"}, {"id": "R12", "lat": 4.721, "lon": -74.64, "departamento": "Cundinamarca", "municipio": "Pulí", "potencia": 4.761, "color": "#f1c40f", "tipo": "R"}, {"id": "P37", "lat": 1.272, "lon": -77.317, "departamento": "Nariño", "municipio": "Por validar", "potencia": 4.54, "color": "#f1c40f", "tipo": "P"}, {"id": "P29", "lat": 5.333, "lon": -75.807, "departamento": "Risaralda", "municipio": "Por validar", "potencia": 4.852, "color": "#f1c40f", "tipo": "P"}, {"id": "P36", "lat": 1.243, "lon": -77.305, "departamento": "Nariño", "municipio": "Por validar", "potencia": 4.308, "color": "#f1c40f", "tipo": "P"}, {"id": "P32", "lat": 1.062, "lon": -77.538, "departamento": "Nariño", "municipio": "Por validar", "potencia": 7.847, "color": "#e67e22", "tipo": "P"}, {"id": "CAR-32", "lat": 5.122, "lon": -74.598, "departamento": "Cundinamarca", "municipio": "Guaduas", "potencia": 4.47, "color": "#f1c40f", "tipo": "CAR"}, {"id": "CAR-11", "lat": 4.206, "lon": -74.462, "departamento": "Cundinamarca", "municipio": "Pandi", "potencia": 3.687, "color": "#f1c40f", "tipo": "CAR"}, {"id": "P44", "lat": 3.993, "lon": -74.37, "departamento": "Cundinamarca", "municipio": "Cabrera", "potencia": 3.675, "color": "#f1c40f", "tipo": "P"}, {"id": "CAR-03", "lat": 3.993, "lon": -74.371, "departamento": "Cundinamarca", "municipio": "Cabrera", "potencia": 3.678, "color": "#f1c40f", "tipo": "CAR"}, {"id": "P43", "lat": 3.966, "lon": -74.483, "departamento": "Cundinamarca", "municipio": "Cabrera", "potencia": 3.517, "color": "#f1c40f", "tipo": "P"}, {"id": "CAR-01", "lat": 3.965, "lon": -74.483, "departamento": "Cundinamarca", "municipio": "Cabrera", "potencia": 3.742, "color": "#f1c40f", "tipo": "CAR"}, {"id": "CAR-10", "lat": 4.197, "lon": -74.447, "departamento": "Cundinamarca", "municipio": "Pandi", "potencia": 4.907, "color": "#f1c40f", "tipo": "CAR"}, {"id": "CAR-02", "lat": 3.966, "lon": -74.356, "departamento": "Cundinamarca", "municipio": "Cabrera", "potencia": 3.493, "color": "#f1c40f", "tipo": "CAR"}, {"id": "R07", "lat": 5.1, "lon": -74.6, "departamento": "Cundinamarca", "municipio": "Guaduas", "potencia": 3.477, "color": "#f1c40f", "tipo": "R"}, {"id": "P21", "lat": 3.75, "lon": -76.583, "departamento": "Valle del Cauca", "municipio": "Dagua", "potencia": 4.779, "color": "#f1c40f", "tipo": "P"}, {"id": "P33", "lat": 1.054, "lon": -77.585, "departamento": "Nariño", "municipio": "Por validar", "potencia": 3.389, "color": "#f1c40f", "tipo": "P"}, {"id": "CAR-24", "lat": 5.388, "lon": -74.178, "departamento": "Cundinamarca", "municipio": "Paime", "potencia": 3.197, "color": "#f1c40f", "tipo": "CAR"}, {"id": "CAR-17", "lat": 4.937, "lon": -74.631, "departamento": "Cundinamarca", "municipio": "Chaguaní", "potencia": 3.643, "color": "#f1c40f", "tipo": "CAR"}, {"id": "R06", "lat": 5.111, "lon": -73.971, "departamento": "Cundinamarca", "municipio": "Cogua", "potencia": 2.759, "color": "#f1c40f", "tipo": "R"}, {"id": "CAR-31", "lat": 5.119, "lon": -73.969, "departamento": "Cundinamarca", "municipio": "Cogua", "potencia": 2.704, "color": "#f1c40f", "tipo": "CAR"}, {"id": "CAR-09", "lat": 4.185, "lon": -74.436, "departamento": "Cundinamarca", "municipio": "Pandi", "potencia": 3.89, "color": "#f1c40f", "tipo": "CAR"}, {"id": "CAR-19", "lat": 4.99, "lon": -74.309, "departamento": "Cundinamarca", "municipio": "San Francisco", "potencia": 2.53, "color": "#f1c40f", "tipo": "CAR"}, {"id": "R10", "lat": 4.988, "lon": -74.303, "departamento": "Cundinamarca", "municipio": "San Francisco", "potencia": 2.585, "color": "#f1c40f", "tipo": "R"}, {"id": "CAR-30", "lat": 5.132, "lon": -73.968, "departamento": "Cundinamarca", "municipio": "Cogua", "potencia": 2.7, "color": "#f1c40f", "tipo": "CAR"}, {"id": "P20", "lat": 5.077, "lon": -73.551, "departamento": "Cundinamarca", "municipio": "Machetá", "potencia": 2.541, "color": "#f1c40f", "tipo": "P"}, {"id": "CAR-23", "lat": 5.35, "lon": -74.117, "departamento": "Cundinamarca", "municipio": "Paime", "potencia": 3.465, "color": "#f1c40f", "tipo": "CAR"}, {"id": "CAR-28", "lat": 5.084, "lon": -73.549, "departamento": "Cundinamarca", "municipio": "Machetá", "potencia": 4.034, "color": "#f1c40f", "tipo": "CAR"}, {"id": "CAR-18", "lat": 4.984, "lon": -74.301, "departamento": "Cundinamarca", "municipio": "San Francisco", "potencia": 2.256, "color": "#f1c40f", "tipo": "CAR"}, {"id": "CAR-29", "lat": 5.103, "lon": -73.538, "departamento": "Cundinamarca", "municipio": "Tibirita", "potencia": 2.51, "color": "#f1c40f", "tipo": "CAR"}, {"id": "R01", "lat": 5.475, "lon": -73.999, "departamento": "Boyacá", "municipio": "Coper", "potencia": 2.329, "color": "#f1c40f", "tipo": "R"}, {"id": "CAR-26", "lat": 5.475, "lon": -73.999, "departamento": "Boyacá", "municipio": "Coper", "potencia": 2.331, "color": "#f1c40f", "tipo": "CAR"}, {"id": "CAR-12", "lat": 4.149, "lon": -74.164, "departamento": "Bogotá D.C.", "municipio": "Bogotá D.C. (Sumapaz)", "potencia": 2.316, "color": "#f1c40f", "tipo": "CAR"}, {"id": "CAR-05", "lat": 4.1, "lon": -74.466, "departamento": "Cundinamarca", "municipio": "Venecia", "potencia": 2.646, "color": "#f1c40f", "tipo": "CAR"}, {"id": "P19", "lat": 4.093, "lon": -74.46, "departamento": "Cundinamarca", "municipio": "Venecia", "potencia": 2.52, "color": "#f1c40f", "tipo": "P"}, {"id": "CAR-04", "lat": 4.091, "lon": -74.452, "departamento": "Cundinamarca", "municipio": "Venecia", "potencia": 6.884, "color": "#e67e22", "tipo": "CAR"}, {"id": "CAR-15", "lat": 4.652, "lon": -74.61, "departamento": "Cundinamarca", "municipio": "Pulí", "potencia": 5.752, "color": "#e67e22", "tipo": "CAR"}, {"id": "CAR-14", "lat": 4.196, "lon": -74.125, "departamento": "Bogotá D.C.", "municipio": "Bogotá D.C. (Sumapaz)", "potencia": 4.481, "color": "#f1c40f", "tipo": "CAR"}, {"id": "R04", "lat": 5.304, "lon": -74.096, "departamento": "Cundinamarca", "municipio": "San Cayetano", "potencia": 1.964, "color": "#2ecc71", "tipo": "R"}, {"id": "CAR-22", "lat": 5.299, "lon": -74.09, "departamento": "Cundinamarca", "municipio": "San Cayetano", "potencia": 1.807, "color": "#2ecc71", "tipo": "CAR"}, {"id": "CAR-25", "lat": 5.393, "lon": -73.984, "departamento": "Cundinamarca", "municipio": "San Cayetano", "potencia": 2.546, "color": "#f1c40f", "tipo": "CAR"}, {"id": "R02", "lat": 5.404, "lon": -73.995, "departamento": "Cundinamarca", "municipio": "San Cayetano", "potencia": 2.299, "color": "#f1c40f", "tipo": "R"}, {"id": "P25", "lat": 5.188, "lon": -75.537, "departamento": "Caldas", "municipio": "Neira", "potencia": 2.082, "color": "#f1c40f", "tipo": "P"}, {"id": "P18", "lat": 5.145, "lon": -73.967, "departamento": "Cundinamarca", "municipio": "Cogua", "potencia": 1.668, "color": "#2ecc71", "tipo": "P"}, {"id": "P22", "lat": 3.235, "lon": -76.702, "departamento": "Valle del Cauca", "municipio": "Jamundí", "potencia": 2.38, "color": "#f1c40f", "tipo": "P"}, {"id": "CAR-13", "lat": 4.187, "lon": -74.18, "departamento": "Bogotá D.C.", "municipio": "Bogotá D.C. (Sumapaz)", "potencia": 2.48, "color": "#f1c40f", "tipo": "CAR"}, {"id": "P24", "lat": 4.712, "lon": -75.829, "departamento": "Risaralda", "municipio": "Por validar", "potencia": 1.855, "color": "#2ecc71", "tipo": "P"}, {"id": "CAR-16", "lat": 4.717, "lon": -74.744, "departamento": "Cundinamarca", "municipio": "Pulí", "potencia": 2.126, "color": "#f1c40f", "tipo": "CAR"}, {"id": "CAR-27", "lat": 5.481, "lon": -73.983, "departamento": "Boyacá", "municipio": "Coper", "potencia": 0.613, "color": "#2ecc71", "tipo": "CAR"}];
+// Cada circulo marca una ZONA de ~28 km (celda de 0,25 grados) y agrupa los proyectos que caen en ella.
+// Los datos publicados son solo el centro de cada celda: no incluyen coordenadas exactas ni municipios.
+const CELDA = 0.25;
+const BANDAS = [
+  {label: '< 2 MW',     color: '#2ecc71', ink: '#12301c'},
+  {label: '2 - 5 MW',   color: '#f1c40f', ink: '#2b2500'},
+  {label: '5 - 10 MW',  color: '#e67e22', ink: '#fff'},
+  {label: '10 - 20 MW', color: '#e74c3c', ink: '#fff'},
+  {label: '>= 20 MW',   color: '#8e44ad', ink: '#fff'}
+];
+// s = [codigo, departamento, jurisdiccion CAR (1/0), banda de potencia]
+const zonas = [
+{"lat":0.875,"lon":-77.375,"s":[["P31","Nariño",0,3]]},
+{"lat":1.125,"lon":-77.625,"s":[["P32","Nariño",0,2],["P33","Nariño",0,1]]},
+{"lat":1.125,"lon":-77.375,"s":[["P34","Nariño",0,2],["P35","Nariño",0,2],["P36","Nariño",0,1]]},
+{"lat":1.375,"lon":-77.375,"s":[["P38","Nariño",0,2],["P37","Nariño",0,1]]},
+{"lat":2.375,"lon":-76.625,"s":[["P39","Cauca",0,3]]},
+{"lat":3.125,"lon":-76.625,"s":[["P22","Valle del Cauca",0,1]]},
+{"lat":3.875,"lon":-76.625,"s":[["P21","Valle del Cauca",0,1]]},
+{"lat":3.875,"lon":-74.375,"s":[["R16","Cundinamarca",0,3],["CAR-01","Cundinamarca",1,1],["CAR-02","Cundinamarca",1,1],["CAR-03","Cundinamarca",1,1],["P43","Cundinamarca",0,1],["P44","Cundinamarca",0,1]]},
+{"lat":4.125,"lon":-75.875,"s":[["P27","Valle del Cauca",0,2]]},
+{"lat":4.125,"lon":-74.625,"s":[["R13","Cundinamarca",0,4]]},
+{"lat":4.125,"lon":-74.375,"s":[["CAR-06","Cundinamarca",1,4],["CAR-07","Cundinamarca",1,4],["CAR-08","Cundinamarca",1,4],["R15","Cundinamarca",0,3],["R17","Cundinamarca",0,3],["CAR-04","Cundinamarca",1,2],["CAR-05","Cundinamarca",1,1],["CAR-09","Cundinamarca",1,1],["CAR-10","Cundinamarca",1,1],["CAR-11","Cundinamarca",1,1],["P19","Cundinamarca",0,1]]},
+{"lat":4.125,"lon":-74.125,"s":[["R14","Bogotá D.C.",0,2],["CAR-12","Bogotá D.C.",1,1],["CAR-13","Bogotá D.C.",1,1],["CAR-14","Bogotá D.C.",1,1]]},
+{"lat":4.375,"lon":-76.375,"s":[["P23","Valle del Cauca",0,2]]},
+{"lat":4.625,"lon":-75.875,"s":[["P24","Risaralda",0,0]]},
+{"lat":4.625,"lon":-74.625,"s":[["CAR-15","Cundinamarca",1,2],["R11","Cundinamarca",0,2],["CAR-16","Cundinamarca",1,1],["R12","Cundinamarca",0,1]]},
+{"lat":4.875,"lon":-74.625,"s":[["CAR-17","Cundinamarca",1,1]]},
+{"lat":4.875,"lon":-74.375,"s":[["CAR-18","Cundinamarca",1,1],["CAR-19","Cundinamarca",1,1],["R10","Cundinamarca",0,1]]},
+{"lat":5.125,"lon":-75.625,"s":[["P26","Caldas",0,2],["P25","Caldas",0,1]]},
+{"lat":5.125,"lon":-74.625,"s":[["CAR-32","Cundinamarca",1,1],["R07","Cundinamarca",0,1]]},
+{"lat":5.125,"lon":-74.375,"s":[["R05","Cundinamarca",0,4],["CAR-20","Cundinamarca",1,2]]},
+{"lat":5.125,"lon":-73.875,"s":[["CAR-30","Cundinamarca",1,1],["CAR-31","Cundinamarca",1,1],["R06","Cundinamarca",0,1],["P18","Cundinamarca",0,0]]},
+{"lat":5.125,"lon":-73.625,"s":[["R08","Cundinamarca",0,3],["R09","Cundinamarca",0,2],["CAR-28","Cundinamarca",1,1],["CAR-29","Cundinamarca",1,1],["P20","Cundinamarca",0,1]]},
+{"lat":5.375,"lon":-76.125,"s":[["P28","Risaralda",0,2],["P41","Risaralda",0,2]]},
+{"lat":5.375,"lon":-75.875,"s":[["P29","Risaralda",0,1]]},
+{"lat":5.375,"lon":-75.625,"s":[["P30","Risaralda",0,2],["P42","Risaralda",0,2]]},
+{"lat":5.375,"lon":-74.375,"s":[["CAR-21","Cundinamarca",1,2]]},
+{"lat":5.375,"lon":-74.125,"s":[["R03","Cundinamarca",0,2],["CAR-23","Cundinamarca",1,1],["CAR-24","Cundinamarca",1,1],["CAR-22","Cundinamarca",1,0],["R04","Cundinamarca",0,0]]},
+{"lat":5.375,"lon":-73.875,"s":[["CAR-25","Cundinamarca",1,1],["CAR-26","Boyacá",1,1],["R01","Boyacá",0,1],["R02","Cundinamarca",0,1],["CAR-27","Boyacá",1,0]]}
+];
 
-// Desplaza cada punto una distancia aleatoria (0-20km) en una direccion aleatoria,
-// con muestreo uniforme en area (no solo en radio), y recalcula en cada carga de pagina.
-function randomOffset(lat, lon, maxKm) {
-  const R = 6371;
-  const distKm = maxKm * Math.sqrt(Math.random());
-  const bearing = Math.random() * 2 * Math.PI;
-  const latRad = lat * Math.PI / 180;
-  const lonRad = lon * Math.PI / 180;
-  const angDist = distKm / R;
-  const newLatRad = Math.asin(
-    Math.sin(latRad) * Math.cos(angDist) +
-    Math.cos(latRad) * Math.sin(angDist) * Math.cos(bearing)
-  );
-  const newLonRad = lonRad + Math.atan2(
-    Math.sin(bearing) * Math.sin(angDist) * Math.cos(latRad),
-    Math.cos(angDist) - Math.sin(latRad) * Math.sin(newLatRad)
-  );
-  return [newLatRad * 180 / Math.PI, newLonRad * 180 / Math.PI];
-}
-
-const map = L.map('map', { preferCanvas: true }).setView([4.9, -74.3], 8);
+const map = L.map('map', {preferCanvas: true, minZoom: 5, maxZoom: 9, zoomSnap: 0.5});
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
+  maxZoom: 9,
   attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
 let deptoFilter = 'todos';
 let carFilter = 'todos';
-const allMarkers = [];
-const departamentos = Array.from(new Set(points.map(p => p.departamento))).sort();
+const capaZonas = L.layerGroup().addTo(map);
+const capaPines = L.layerGroup().addTo(map);
+const departamentos = Array.from(new Set(zonas.flatMap(z => z.s.map(s => s[1])))).sort();
 
-points.forEach(p => {
-  const [rlat, rlon] = randomOffset(p.lat, p.lon, 20);
-  const marker = L.circleMarker([rlat, rlon], {
-    radius: 7,
-    color: '#333',
-    weight: 1,
-    fillColor: p.color,
-    fillOpacity: 0.85
+function pasa(s) {
+  const deptoOk = (deptoFilter === 'todos') || (s[1] === deptoFilter);
+  const carOk = (carFilter === 'todos') || (carFilter === 'solo_car' ? s[2] === 1 : s[2] === 0);
+  return deptoOk && carOk;
+}
+
+function pin(banda, n) {
+  const size = Math.round(22 + 4 * Math.sqrt(n - 1));
+  return L.divIcon({
+    className: '',
+    html: `<div class="zona-pin" style="width:${size}px;height:${size}px;background:${banda.color};color:${banda.ink}">${n}</div>`,
+    iconSize: [size, size], iconAnchor: [size / 2, size / 2], popupAnchor: [0, -size / 2]
   });
-  const content = `<div class="pch-label">
-    <b>${p.id}</b><br>
-    Departamento: ${p.departamento}<br>
-    Municipio: ${p.municipio}<br>
-    Potencia: ${p.potencia.toFixed(2)} MW<br>
-    <i style="font-size:10px;color:#888;">La ubicacion mostrada es aproximada, no exacta.</i><br>
-    <span style="font-size:10px;color:#555;white-space:normal;display:inline-block;max-width:220px;">Si quieres conocer mas sobre este proyecto comunicate a gerencia: <a href="mailto:gerencia@regenergy-pro.com">gerencia@regenergy-pro.com</a> o +57 305 421 2200</span>
+}
+
+function contenido(sub) {
+  const filas = sub.map(s => `<div class="zrow"><span class="swatch" style="background:${BANDAS[s[3]].color}"></span><b>${s[0]}</b> &middot; ${s[1]} &middot; ${BANDAS[s[3]].label}</div>`).join('');
+  return `<div class="pch-label">
+    <b>${sub.length === 1 ? '1 proyecto' : sub.length + ' proyectos'} en esta zona</b>
+    <div class="zlist">${filas}</div>
+    <i style="font-size:10px;color:#888;white-space:normal;display:inline-block;max-width:230px;">El circulo marca una zona de unos 28 km, no la ubicacion del sitio.</i><br>
+    <span style="font-size:10px;color:#555;white-space:normal;display:inline-block;max-width:230px;">Si quieres conocer mas sobre estos proyectos comunicate a gerencia: <a href="mailto:gerencia@regenergy-pro.com">gerencia@regenergy-pro.com</a> o +57 305 421 2200</span>
   </div>`;
-  marker.bindPopup(content);
-  marker._depto = p.departamento;
-  marker._enCar = (p.tipo === 'CAR');
-  marker.addTo(map);
-  allMarkers.push(marker);
-});
+}
 
-function updateVisibility() {
-  allMarkers.forEach(m => {
-    const deptoOk = (deptoFilter === 'todos') || (m._depto === deptoFilter);
-    const carOk = (carFilter === 'todos') || (carFilter === 'solo_car' ? m._enCar : !m._enCar);
-    const shouldShow = deptoOk && carOk;
-    const isShown = map.hasLayer(m);
-    if (shouldShow && !isShown) m.addTo(map);
-    if (!shouldShow && isShown) map.removeLayer(m);
+function dibujar(ajustar) {
+  capaZonas.clearLayers();
+  capaPines.clearLayers();
+  const visibles = [];
+  zonas.forEach(z => {
+    const sub = z.s.filter(pasa);
+    if (!sub.length) return;
+    const banda = BANDAS[Math.max(...sub.map(s => s[3]))];
+    const lim = [[z.lat - CELDA / 2, z.lon - CELDA / 2], [z.lat + CELDA / 2, z.lon + CELDA / 2]];
+    visibles.push(...lim);
+    L.rectangle(lim, {interactive: false, color: banda.color, weight: 1, dashArray: '4 4', fillColor: banda.color, fillOpacity: 0.10}).addTo(capaZonas);
+    L.marker([z.lat, z.lon], {icon: pin(banda, sub.length), title: sub.length + (sub.length === 1 ? ' proyecto' : ' proyectos')})
+      .bindPopup(contenido(sub), {maxWidth: 260}).addTo(capaPines);
   });
+  if (ajustar && visibles.length) map.fitBounds(visibles, {padding: [40, 40], maxZoom: 8});
 }
 
 const filterControl = L.control({position: 'topleft'});
@@ -851,22 +883,19 @@ filterControl.addTo(map);
 
 document.getElementById('sel-depto').addEventListener('change', function(e) {
   deptoFilter = e.target.value;
-  updateVisibility();
+  dibujar(true);
 });
 document.getElementById('sel-car').addEventListener('change', function(e) {
   carFilter = e.target.value;
-  updateVisibility();
+  dibujar(true);
 });
 
 const legend = L.control({position: 'bottomright'});
 legend.onAdd = function() {
   const div = L.DomUtil.create('div', 'legend');
-  div.innerHTML = `<b>Potencia</b><br>
-    <span class="swatch" style="background:#2ecc71"></span>&lt; 2 MW<br>
-    <span class="swatch" style="background:#f1c40f"></span>2 - 5 MW<br>
-    <span class="swatch" style="background:#e67e22"></span>5 - 10 MW<br>
-    <span class="swatch" style="background:#e74c3c"></span>10 - 20 MW<br>
-    <span class="swatch" style="background:#8e44ad"></span>&gt;= 20 MW`;
+  div.innerHTML = '<b>Potencia (rango)</b><br>' +
+    BANDAS.map(b => `<span class="swatch" style="background:${b.color}"></span>${b.label.replace('>=', '&gt;=').replace('<', '&lt;')}<br>`).join('') +
+    '<span style="font-size:11px;color:#666;display:block;max-width:150px;line-height:1.3;margin-top:4px;">El numero es la cantidad de proyectos de la zona; el color, el mayor rango.</span>';
   L.DomEvent.disableClickPropagation(div);
   return div;
 };
@@ -875,11 +904,17 @@ legend.addTo(map);
 const notice = L.control({position: 'topright'});
 notice.onAdd = function() {
   const div = L.DomUtil.create('div', 'notice-box');
-  div.innerHTML = 'Ubicaciones aproximadas (referenciales), no exactas. RegEnergy Projects.';
+  div.innerHTML = 'Zonas de unos 28 km, no ubicaciones exactas. RegEnergy Projects.';
   L.DomEvent.disableClickPropagation(div);
   return div;
 };
 notice.addTo(map);
+
+// Vista inicial: toda la cartera. Se repite una vez si el contenedor aun no tenia tamano al cargar.
+dibujar(true);
+let tocado = false;
+['mousedown', 'touchstart', 'wheel', 'keydown'].forEach(ev => map.getContainer().addEventListener(ev, () => { tocado = true; }, {passive: true}));
+setTimeout(() => { if (!tocado) { map.invalidateSize(); dibujar(true); } }, 400);
 } // end initApp
 
 initApp();
