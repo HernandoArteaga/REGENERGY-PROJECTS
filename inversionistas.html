@@ -207,7 +207,8 @@ section.sec--flush[id]{padding-top:0;scroll-margin-top:100px}
 .mapframe__title{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:#fff;white-space:nowrap}
 .mapframe__title .i{font-size:18px;color:var(--orange-d)}
 .mapframe__open{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;text-decoration:none;color:var(--on-dark);padding:7px 12px;border-radius:999px;white-space:nowrap;transition:background .2s,color .2s}
-.mapframe__open:hover{background:rgba(255,255,255,.12);color:#fff}
+.mapframe__open{background:var(--orange);color:var(--ink);padding:8px 16px}
+.mapframe__open:hover{background:#FF8420;color:var(--ink)}
 .mapframe__body{position:relative;height:clamp(500px,74vh,760px);background:linear-gradient(135deg,#1a2530,#2c3e50)}
 .mapframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent}
 .mapframe__ph{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:12px;color:var(--on-dark);font-size:15px}
@@ -217,6 +218,7 @@ section.sec--flush[id]{padding-top:0;scroll-margin-top:100px}
 .mapnote p{display:flex;gap:14px;align-items:flex-start;max-width:56ch;font-size:16.5px;line-height:1.5}
 .mapnote .i{font-size:22px;color:var(--orange-d);margin-top:2px}
 .mapnote .cta{gap:12px}
+.mapcta{margin-top:10px}
 
 /* sociedad */
 .sas{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
@@ -476,11 +478,14 @@ footer{background:#041A38;color:var(--on-dark);padding:36px 0 calc(36px + env(sa
         <li><svg class="i" aria-hidden="true"><use href="#i-filter"/></svg>Filtros por departamento y CAR</li>
         <li><svg class="i" aria-hidden="true"><use href="#i-zap"/></svg>Color según la potencia (MW)</li>
       </ul>
+      <div class="cta mapcta">
+        <a class="btn btn--orange" href="mapa-publico.html" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-expand"/></svg>Ver el mapa completo</a>
+      </div>
     </div>
     <div class="mapframe reveal">
       <div class="mapframe__bar">
         <span class="mapframe__title"><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg><span>Vista pública · Proyectos hidroeléctricos</span></span>
-        <a class="mapframe__open" href="mapa-publico.html" target="_blank" rel="noopener">Pantalla completa <svg class="i" aria-hidden="true"><use href="#i-expand"/></svg></a>
+        <a class="mapframe__open" href="mapa-publico.html" target="_blank" rel="noopener">Ver mapa completo <svg class="i" aria-hidden="true"><use href="#i-expand"/></svg></a>
       </div>
       <div class="mapframe__body">
         <div class="mapframe__ph" aria-hidden="true"><svg class="i"><use href="#i-pin"/></svg><span>Cargando el mapa…</span></div>
