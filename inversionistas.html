@@ -203,12 +203,14 @@ section.sec--flush[id]{padding-top:0;scroll-margin-top:100px}
 .facts li{display:inline-flex;align-items:center;gap:9px;padding:9px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);font-size:15px;color:#fff}
 .facts .i{font-size:17px;color:var(--orange-d)}
 .mapframe{border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.18);box-shadow:0 40px 80px -30px rgba(0,0,0,.6),0 0 0 8px rgba(255,255,255,.04);background:#1a2530}
-.mapframe__bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 20px;background:rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.12)}
+.mapframe__bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px;padding:14px 20px;background:rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.12)}
 .mapframe__title{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:#fff;white-space:nowrap}
 .mapframe__title .i{font-size:18px;color:var(--orange-d)}
 .mapframe__open{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;text-decoration:none;color:var(--on-dark);padding:7px 12px;border-radius:999px;white-space:nowrap;transition:background .2s,color .2s}
-.mapframe__open{background:var(--orange);color:var(--ink);padding:8px 16px}
-.mapframe__open:hover{background:#FF8420;color:var(--ink)}
+.mapframe__open:hover{background:rgba(255,255,255,.12);color:#fff}
+.mapframe__acts{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:6px}
+.mapframe__open--key{border:1px solid rgba(255,255,255,.32)}
+.mapframe__open--key .i{font-size:15px;color:var(--orange-d)}
 .mapframe__body{position:relative;height:clamp(500px,74vh,760px);background:linear-gradient(135deg,#1a2530,#2c3e50)}
 .mapframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent}
 .mapframe__ph{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:12px;color:var(--on-dark);font-size:15px}
@@ -218,7 +220,6 @@ section.sec--flush[id]{padding-top:0;scroll-margin-top:100px}
 .mapnote p{display:flex;gap:14px;align-items:flex-start;max-width:56ch;font-size:16.5px;line-height:1.5}
 .mapnote .i{font-size:22px;color:var(--orange-d);margin-top:2px}
 .mapnote .cta{gap:12px}
-.mapcta{margin-top:10px}
 
 /* sociedad */
 .sas{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
@@ -357,6 +358,9 @@ footer{background:#041A38;color:var(--on-dark);padding:36px 0 calc(36px + env(sa
   .feat{grid-template-columns:1fr}
   .mapframe__title span{display:none}
   .mapframe__title::after{content:"Mapa público";}
+  .mapframe__open--key .k{display:none}
+  .mapframe__acts{width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+  .mapframe__acts .mapframe__open{justify-content:center;gap:6px;font-size:13px;padding:8px 6px}
   .mapnote .cta{width:100%}
   .mapnote .btn{flex:1 1 200px}
 }
@@ -409,6 +413,7 @@ footer{background:#041A38;color:var(--on-dark);padding:36px 0 calc(36px + env(sa
   <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
   <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></symbol>
   <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
   <symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
   <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
   <symbol id="i-filter" viewBox="0 0 24 24"><path d="M22 3H2l8 9.46V19l4 2v-8.54z"/></symbol>
@@ -478,14 +483,14 @@ footer{background:#041A38;color:var(--on-dark);padding:36px 0 calc(36px + env(sa
         <li><svg class="i" aria-hidden="true"><use href="#i-filter"/></svg>Filtros por departamento y CAR</li>
         <li><svg class="i" aria-hidden="true"><use href="#i-zap"/></svg>Color según la potencia (MW)</li>
       </ul>
-      <div class="cta mapcta">
-        <a class="btn btn--orange" href="mapa-publico.html" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-expand"/></svg>Ver el mapa completo</a>
-      </div>
     </div>
     <div class="mapframe reveal">
       <div class="mapframe__bar">
         <span class="mapframe__title"><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg><span>Vista pública · Proyectos hidroeléctricos</span></span>
-        <a class="mapframe__open" href="mapa-publico.html" target="_blank" rel="noopener">Ver mapa completo <svg class="i" aria-hidden="true"><use href="#i-expand"/></svg></a>
+        <div class="mapframe__acts">
+          <a class="mapframe__open" href="mapa-publico.html" target="_blank" rel="noopener">Pantalla completa <svg class="i" aria-hidden="true"><use href="#i-expand"/></svg></a>
+          <a class="mapframe__open mapframe__open--key" href="mapa-full.html" target="_blank" rel="noopener" title="Pide una clave de acceso"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg><span>Mapa completo<span class="k"> · con clave</span></span></a>
+        </div>
       </div>
       <div class="mapframe__body">
         <div class="mapframe__ph" aria-hidden="true"><svg class="i"><use href="#i-pin"/></svg><span>Cargando el mapa…</span></div>
