@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Redirigiendo - Regenergy Projects</title>
+<script>
+// Si el enlace llega con un signo de puntuacion pegado al final (por ejemplo "mapa-75pchs.html."), se redirige a la direccion correcta.
+(function () {
+  var p = location.pathname;
+  var m = p.match(/^(.*\.html)[.,;:!?)\]]+$/);
+  if (m) { location.replace(m[1] + location.search + location.hash); }
+})();
+</script>
+<style>body{font-family:Arial,sans-serif;background:#072D5C;color:#fff;display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0;padding:16px;text-align:center}a{color:#EE6F09;font-weight:700}</style>
+</head><body>
+<div><h1 style="font-size:22px">Pagina no encontrada</h1>
+<p>Si llegaste desde un enlace, intenta de nuevo o ingresa a <a href="/REGENERGY-PROJECTS/inversionistas.html">Regenergy Projects</a>.</p></div>
+</body></html>
