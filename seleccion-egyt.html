@@ -778,10 +778,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
-// Este archivo NO contiene ubicaciones exactas: los puntos estan desplazados 6-20 km (igual que mapa-75pchs.html) y el circulo marca la zona aproximada.
-// Cada proyecto: ubicacion desplazada (la misma de mapa-75pchs.html), zona y caracteristicas.
-const SITIOS = [{"id":"CAR-21","departamento":"Cundinamarca","zona":"Noroccidente","lat":5.107,"lon":-74.252,"area_km2":222.0,"p_mm":2317.0,"et_mm":1245.0,"p_et_mm":1072.0,"caudal":7.546,"q_especifico":33.993,"kml_drop":127.0,"elev_aprox":1100,"p_hidraulica_mw":9.401},{"id":"CAR-20","departamento":"Cundinamarca","zona":"Noroccidente","lat":5.066,"lon":-74.473,"area_km2":258.0,"p_mm":1813.0,"et_mm":1105.0,"p_et_mm":708.0,"caudal":5.792,"q_especifico":22.451,"kml_drop":151.0,"elev_aprox":1000,"p_hidraulica_mw":8.58},{"id":"CAR-32","departamento":"Cundinamarca","zona":"Noroccidente","lat":5.212,"lon":-74.568,"area_km2":105.0,"p_mm":2326.0,"et_mm":1195.0,"p_et_mm":1131.0,"caudal":3.766,"q_especifico":35.864,"kml_drop":121.0,"elev_aprox":800,"p_hidraulica_mw":4.47},{"id":"CAR-18","departamento":"Cundinamarca","zona":"Noroccidente","lat":4.809,"lon":-74.332,"area_km2":150.0,"p_mm":1472.0,"et_mm":998.0,"p_et_mm":474.0,"caudal":2.255,"q_especifico":15.03,"kml_drop":102.0,"elev_aprox":1400,"p_hidraulica_mw":2.256},{"id":"CAR-19","departamento":"Cundinamarca","zona":"Noroccidente","lat":4.949,"lon":-74.221,"area_km2":165.0,"p_mm":1472.0,"et_mm":998.0,"p_et_mm":474.0,"caudal":2.48,"q_especifico":15.03,"kml_drop":104.0,"elev_aprox":1300,"p_hidraulica_mw":2.53},{"id":"CAR-15","departamento":"Cundinamarca","zona":"Suroccidente","lat":4.57,"lon":-74.528,"area_km2":79.0,"p_mm":2020.0,"et_mm":1210.0,"p_et_mm":810.0,"caudal":2.029,"q_especifico":25.685,"kml_drop":289.0,"elev_aprox":900,"p_hidraulica_mw":5.752}];
-const RADIO_ZONA_M = 20000;
+// Cada proyecto: ubicacion exacta, zona y caracteristicas.
+const SITIOS = [{"id":"CAR-21","departamento":"Cundinamarca","zona":"Noroccidente","lat":5.262,"lon":-74.339,"area_km2":222.0,"p_mm":2317.0,"et_mm":1245.0,"p_et_mm":1072.0,"caudal":7.546,"q_especifico":33.993,"kml_drop":127.0,"p_hidraulica_mw":9.401,"municipio":"El Peñón","elev":1099},{"id":"CAR-20","departamento":"Cundinamarca","zona":"Noroccidente","lat":5.146,"lon":-74.358,"area_km2":258.0,"p_mm":1813.0,"et_mm":1105.0,"p_et_mm":708.0,"caudal":5.792,"q_especifico":22.451,"kml_drop":151.0,"p_hidraulica_mw":8.58,"municipio":"Vergara","elev":973},{"id":"CAR-32","departamento":"Cundinamarca","zona":"Noroccidente","lat":5.122,"lon":-74.598,"area_km2":105.0,"p_mm":2326.0,"et_mm":1195.0,"p_et_mm":1131.0,"caudal":3.766,"q_especifico":35.864,"kml_drop":121.0,"p_hidraulica_mw":4.47,"municipio":"Guaduas","elev":849},{"id":"CAR-18","departamento":"Cundinamarca","zona":"Noroccidente","lat":4.984,"lon":-74.301,"area_km2":150.0,"p_mm":1472.0,"et_mm":998.0,"p_et_mm":474.0,"caudal":2.255,"q_especifico":15.03,"kml_drop":102.0,"p_hidraulica_mw":2.256,"municipio":"San Francisco","elev":1370},{"id":"CAR-19","departamento":"Cundinamarca","zona":"Noroccidente","lat":4.99,"lon":-74.309,"area_km2":165.0,"p_mm":1472.0,"et_mm":998.0,"p_et_mm":474.0,"caudal":2.48,"q_especifico":15.03,"kml_drop":104.0,"p_hidraulica_mw":2.53,"municipio":"San Francisco","elev":1264},{"id":"CAR-15","departamento":"Cundinamarca","zona":"Suroccidente","lat":4.652,"lon":-74.61,"area_km2":79.0,"p_mm":2020.0,"et_mm":1210.0,"p_et_mm":810.0,"caudal":2.029,"q_especifico":25.685,"kml_drop":289.0,"p_hidraulica_mw":5.752,"municipio":"Pulí","elev":853}];
 
 const CONTACT_LINE = 'Para mas informacion escribir a <a href="mailto:gerencia@regenergy-pro.com">gerencia@regenergy-pro.com</a> o llamar a +57 3054212200';
 function fmt(v, dec) { return (v === null || v === undefined) ? 'N/D' : Number(v).toFixed(dec); }
@@ -789,7 +787,9 @@ function fmt(v, dec) { return (v === null || v === undefined) ? 'N/D' : Number(v
 function contenido(p) {
   return `<div class="pch-label">
     <b>${p.id}</b> &mdash; Jurisdiccion CAR<br>
-    Zona: ${p.departamento} &middot; ${p.zona}<br>
+    Coordenada: ${p.lat}, ${p.lon}<br>
+    Depto/Mun: ${p.departamento} / ${p.municipio}<br>
+    Zona: ${p.zona}<br>
     Area cuenca: ${fmt(p.area_km2,0)} km2<br>
     P (precipitacion): ${fmt(p.p_mm,0)} mm/ano<br>
     ET (evapotranspiracion): ${fmt(p.et_mm,0)} mm/ano<br>
@@ -797,27 +797,24 @@ function contenido(p) {
     Caudal: ${fmt(p.caudal,2)} m3/s<br>
     q especifico: ${fmt(p.q_especifico,2)} L/s/km2<br>
     Caida (drop): ${fmt(p.kml_drop,0)} m<br>
-    Elevacion aprox.: ${p.elev_aprox} msnm<br>
+    Elevacion: ${p.elev} msnm<br>
     <b>Potencia hidraulica: ${fmt(p.p_hidraulica_mw,2)} MW</b> <span style="color:#777;">(P = 9.81 x Q x H / 1000)</span><br>
-    <i style="font-size:10px;color:#888;white-space:normal;display:inline-block;max-width:230px;">La ubicacion mostrada es aproximada: el proyecto esta dentro del circulo.</i><br>
+    <a href="https://www.google.com/maps?q=${p.lat},${p.lon}" target="_blank" rel="noopener" style="font-size:11px;">Abrir en Google Maps</a><br>
     <span style="font-size:10px;color:#555;white-space:normal;display:inline-block;max-width:230px;">${CONTACT_LINE}</span>
   </div>`;
 }
 
 function iniciarMapa(sitios) {
-  const map = L.map('map', {minZoom: 5, maxZoom: 11, zoomSnap: 0.5});
+  const map = L.map('map', {minZoom: 5, maxZoom: 18, zoomSnap: 0.5});
   map.setView([sitios[0].lat, sitios[0].lon], 9);
-  const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 11, attribution: '&copy; OpenStreetMap contributors'});
-  const sat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {maxZoom: 11, attribution: 'Tiles &copy; Esri'});
-  const topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {maxZoom: 11, attribution: '&copy; OpenTopoMap, &copy; OpenStreetMap contributors'});
+  const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 18, attribution: '&copy; OpenStreetMap contributors'});
+  const sat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {maxZoom: 18, attribution: 'Tiles &copy; Esri'});
+  const topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {maxZoom: 18, attribution: '&copy; OpenTopoMap, &copy; OpenStreetMap contributors'});
   osm.addTo(map);
   L.control.layers({'Mapa': osm, 'Satelite': sat, 'Topografico': topo}, null, {position: 'topright', collapsed: false}).addTo(map);
 
-  const zonas = L.featureGroup().addTo(map);
-  const marcadores = {};
+    const marcadores = {};
   sitios.forEach(p => {
-    const c = L.circle([p.lat, p.lon], {radius: RADIO_ZONA_M, color: '#EE6F09', weight: 2, dashArray: '6 5', fillColor: '#EE6F09', fillOpacity: 0.12})
-      .bindPopup(contenido(p), {maxWidth: 270}).addTo(zonas);
     const m = L.circleMarker([p.lat, p.lon], {radius: 7, color: '#fff', weight: 2.5, fillColor: '#EE6F09', fillOpacity: 1})
       .bindPopup(contenido(p), {maxWidth: 270})
       .bindTooltip(p.id, {permanent: true, direction: 'right', offset: [9, 0], className: 'sel-tip'})
@@ -835,22 +832,13 @@ function iniciarMapa(sitios) {
     div.addEventListener('click', e => {
       const a = e.target.closest('a.fila'); if (!a) return;
       const p = sitios.find(s => s.id === a.dataset.id);
-      map.flyTo([p.lat, p.lon], 10, {duration: 1});
+      map.flyTo([p.lat, p.lon], 15, {duration: 1});
       map.once('moveend', () => marcadores[p.id].openPopup());
     });
     return div;
   };
   lista.addTo(map);
 
-  const aviso = L.control({position: 'topleft'});
-  aviso.onAdd = function() {
-    const div = L.DomUtil.create('div', 'notice-box');
-    div.style.marginTop = '70px';
-    div.innerHTML = 'Ubicaciones aproximadas: cada proyecto esta dentro de su circulo. RegEnergy Projects.';
-    L.DomEvent.disableClickPropagation(div);
-    return div;
-  };
-  aviso.addTo(map);
   setTimeout(() => { map.invalidateSize(); }, 300);
 }
 
