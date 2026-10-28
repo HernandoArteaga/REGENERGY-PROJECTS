@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Selección EG&amp;T - Regenergy Projects</title>
-<meta name="robots" content="noindex,nofollow">
 <style>
 /* required styles */
 
@@ -764,13 +763,6 @@ svg.leaflet-image-layer.leaflet-interactive path {
   .sin-nombres .dep-tip { display:none; }
   .dep-pin { display:flex; align-items:center; justify-content:center; border-radius:50%; background:#EE6F09; color:#072D5C; border:3px solid #fff; box-shadow:0 2px 8px rgba(0,0,0,0.45); font:700 14px Arial,sans-serif; cursor:pointer; box-sizing:border-box; }
 
-  #gate { position:fixed; inset:0; z-index:6000; display:flex; align-items:center; justify-content:center; background:#072D5C; font-family:Arial,sans-serif; padding:16px; }
-  #gate .box { background:#fff; border-radius:12px; padding:24px 22px; width:100%; max-width:340px; box-shadow:0 8px 30px rgba(0,0,0,.4); }
-  #gate h1 { font-size:18px; margin:0 0 6px; color:#072D5C; }
-  #gate p { font-size:13px; color:#555; margin:0 0 14px; line-height:1.4; }
-  #gate input { width:100%; box-sizing:border-box; font-size:16px; padding:10px; border:1px solid #bbb; border-radius:8px; letter-spacing:1px; text-transform:uppercase; }
-  #gate button { width:100%; margin-top:10px; font-size:15px; font-weight:700; padding:10px; border:0; border-radius:8px; background:#EE6F09; color:#072D5C; cursor:pointer; }
-  #gate .err { color:#c0392b; font-size:12px; min-height:16px; margin-top:8px; }
   .sel-list { background:#fff; border-radius:6px; box-shadow:0 1px 4px rgba(0,0,0,.3); padding:8px 10px; font:12px Arial,sans-serif; max-width:230px; }
   .sel-list b.t { display:block; margin-bottom:4px; font-size:13px; color:#072D5C; }
   .sel-list a.fila { display:block; padding:3px 0; color:#072D5C; text-decoration:none; cursor:pointer; border-top:1px solid #eee; }
@@ -778,110 +770,90 @@ svg.leaflet-image-layer.leaflet-interactive path {
   .sel-list a.fila span { color:#666; }
   .sel-tip { background:#EE6F09; color:#072D5C; border:2px solid #fff; font:700 12px Arial,sans-serif; padding:1px 6px; box-shadow:0 1px 4px rgba(0,0,0,.4); }
   .sel-tip.leaflet-tooltip-top:before, .sel-tip.leaflet-tooltip-bottom:before, .sel-tip.leaflet-tooltip-right:before, .sel-tip.leaflet-tooltip-left:before { display:none; }
-  .pch-label a.gm { font-size:11px; }
 </style>
 </head>
 <body>
 <div id="map"></div>
 <div class="watermark"><div class="watermark-grid"><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span><span>REGENERGY PRO</span></div></div>
 
-<div id="gate"><div class="box">
-  <h1>Selección EG&amp;T</h1>
-  <p>Mapa con la ubicación exacta de los proyectos seleccionados. Ingresa la clave de acceso que te envió Regenergy Projects.</p>
-  <input id="clave" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Clave de acceso">
-  <button id="entrar" type="button">Ingresar</button>
-  <div class="err" id="gate-err"></div>
-</div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
-// Los datos de los proyectos van CIFRADOS (AES-256-GCM, clave derivada con PBKDF2): sin la clave el archivo no contiene ubicaciones.
-const CIFRADO = {"s":"y2MihfBsM7sw1BKqyPvCRg==","i":"UlC6EI3f1+GBJLK+","c":"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","n":600000};
+// Este archivo NO contiene ubicaciones exactas: los puntos estan desplazados 6-20 km (igual que mapa-75pchs.html) y el circulo marca la zona aproximada.
+// Cada proyecto: ubicacion desplazada (la misma de mapa-75pchs.html), zona y caracteristicas.
+const SITIOS = [{"id":"CAR-21","departamento":"Cundinamarca","zona":"Noroccidente","lat":5.107,"lon":-74.252,"area_km2":222.0,"p_mm":2317.0,"et_mm":1245.0,"p_et_mm":1072.0,"caudal":7.546,"q_especifico":33.993,"kml_drop":127.0,"elev_aprox":1100,"p_hidraulica_mw":9.401},{"id":"CAR-20","departamento":"Cundinamarca","zona":"Noroccidente","lat":5.066,"lon":-74.473,"area_km2":258.0,"p_mm":1813.0,"et_mm":1105.0,"p_et_mm":708.0,"caudal":5.792,"q_especifico":22.451,"kml_drop":151.0,"elev_aprox":1000,"p_hidraulica_mw":8.58},{"id":"CAR-32","departamento":"Cundinamarca","zona":"Noroccidente","lat":5.212,"lon":-74.568,"area_km2":105.0,"p_mm":2326.0,"et_mm":1195.0,"p_et_mm":1131.0,"caudal":3.766,"q_especifico":35.864,"kml_drop":121.0,"elev_aprox":800,"p_hidraulica_mw":4.47},{"id":"CAR-18","departamento":"Cundinamarca","zona":"Noroccidente","lat":4.809,"lon":-74.332,"area_km2":150.0,"p_mm":1472.0,"et_mm":998.0,"p_et_mm":474.0,"caudal":2.255,"q_especifico":15.03,"kml_drop":102.0,"elev_aprox":1400,"p_hidraulica_mw":2.256},{"id":"CAR-19","departamento":"Cundinamarca","zona":"Noroccidente","lat":4.949,"lon":-74.221,"area_km2":165.0,"p_mm":1472.0,"et_mm":998.0,"p_et_mm":474.0,"caudal":2.48,"q_especifico":15.03,"kml_drop":104.0,"elev_aprox":1300,"p_hidraulica_mw":2.53},{"id":"CAR-15","departamento":"Cundinamarca","zona":"Suroccidente","lat":4.57,"lon":-74.528,"area_km2":79.0,"p_mm":2020.0,"et_mm":1210.0,"p_et_mm":810.0,"caudal":2.029,"q_especifico":25.685,"kml_drop":289.0,"elev_aprox":900,"p_hidraulica_mw":5.752}];
+const RADIO_ZONA_M = 20000;
 
 const CONTACT_LINE = 'Para mas informacion escribir a <a href="mailto:gerencia@regenergy-pro.com">gerencia@regenergy-pro.com</a> o llamar a +57 3054212200';
-function b64(s) { return Uint8Array.from(atob(s), c => c.charCodeAt(0)); }
 function fmt(v, dec) { return (v === null || v === undefined) ? 'N/D' : Number(v).toFixed(dec); }
-
-async function descifrar(clave) {
-  const limpia = clave.toUpperCase().replace(/[^A-Z0-9]/g, '');
-  const mat = await crypto.subtle.importKey('raw', new TextEncoder().encode(limpia), 'PBKDF2', false, ['deriveKey']);
-  const key = await crypto.subtle.deriveKey({name: 'PBKDF2', salt: b64(CIFRADO.s), iterations: CIFRADO.n, hash: 'SHA-256'}, mat, {name: 'AES-GCM', length: 256}, false, ['decrypt']);
-  const buf = await crypto.subtle.decrypt({name: 'AES-GCM', iv: b64(CIFRADO.i)}, key, b64(CIFRADO.c));
-  return JSON.parse(new TextDecoder().decode(buf));
-}
 
 function contenido(p) {
   return `<div class="pch-label">
     <b>${p.id}</b> &mdash; Jurisdiccion CAR<br>
-    Coordenada: ${p.lat}, ${p.lon}<br>
-    Depto/Mun: ${p.departamento} / ${p.municipio}<br>
+    Zona: ${p.departamento} &middot; ${p.zona}<br>
     Area cuenca: ${fmt(p.area_km2,0)} km2<br>
     P (precipitacion): ${fmt(p.p_mm,0)} mm/ano<br>
     ET (evapotranspiracion): ${fmt(p.et_mm,0)} mm/ano<br>
     P - ET: ${fmt(p.p_et_mm,0)} mm/ano<br>
     Caudal: ${fmt(p.caudal,2)} m3/s<br>
     q especifico: ${fmt(p.q_especifico,2)} L/s/km2<br>
-    <i>Del punto KML mas cercano (${fmt(p.kml_dist_m,0)} m):</i><br>
-    Drop: ${fmt(p.kml_drop,0)} m<br>
-    Elevacion: ${fmt(p.kml_elevacion,0)} msnm<br>
+    Caida (drop): ${fmt(p.kml_drop,0)} m<br>
+    Elevacion aprox.: ${p.elev_aprox} msnm<br>
     <b>Potencia hidraulica: ${fmt(p.p_hidraulica_mw,2)} MW</b> <span style="color:#777;">(P = 9.81 x Q x H / 1000)</span><br>
-    <a class="gm" href="https://www.google.com/maps?q=${p.lat},${p.lon}" target="_blank" rel="noopener">Abrir en Google Maps</a><br>
+    <i style="font-size:10px;color:#888;white-space:normal;display:inline-block;max-width:230px;">La ubicacion mostrada es aproximada: el proyecto esta dentro del circulo.</i><br>
     <span style="font-size:10px;color:#555;white-space:normal;display:inline-block;max-width:230px;">${CONTACT_LINE}</span>
   </div>`;
 }
 
 function iniciarMapa(sitios) {
-  const map = L.map('map', {minZoom: 5, maxZoom: 18, zoomSnap: 0.5});
-  const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 18, maxNativeZoom: 18, attribution: '&copy; OpenStreetMap contributors'});
-  const sat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {maxZoom: 18, maxNativeZoom: 17, attribution: 'Tiles &copy; Esri'});
-  const topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {maxZoom: 18, maxNativeZoom: 17, attribution: '&copy; OpenTopoMap, &copy; OpenStreetMap contributors'});
+  const map = L.map('map', {minZoom: 5, maxZoom: 11, zoomSnap: 0.5});
+  const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 11, attribution: '&copy; OpenStreetMap contributors'});
+  const sat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {maxZoom: 11, attribution: 'Tiles &copy; Esri'});
+  const topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {maxZoom: 11, attribution: '&copy; OpenTopoMap, &copy; OpenStreetMap contributors'});
   osm.addTo(map);
   L.control.layers({'Mapa': osm, 'Satelite': sat, 'Topografico': topo}, null, {position: 'topright', collapsed: false}).addTo(map);
 
+  const zonas = L.featureGroup().addTo(map);
   const marcadores = {};
-  const direcciones = {'CAR-18': 'bottom', 'CAR-19': 'top'};   // evita que se pisen las etiquetas de dos sitios muy cercanos
   sitios.forEach(p => {
-    const dir = direcciones[p.id];
-    const m = L.circleMarker([p.lat, p.lon], {radius: 9, color: '#fff', weight: 3, fillColor: '#EE6F09', fillOpacity: 1})
+    const c = L.circle([p.lat, p.lon], {radius: RADIO_ZONA_M, color: '#EE6F09', weight: 2, dashArray: '6 5', fillColor: '#EE6F09', fillOpacity: 0.12})
+      .bindPopup(contenido(p), {maxWidth: 270}).addTo(zonas);
+    const m = L.circleMarker([p.lat, p.lon], {radius: 7, color: '#fff', weight: 2.5, fillColor: '#EE6F09', fillOpacity: 1})
       .bindPopup(contenido(p), {maxWidth: 270})
-      .bindTooltip(p.id, {permanent: true, direction: dir || 'right', offset: dir ? [0, dir === 'top' ? -8 : 8] : [10, 0], className: 'sel-tip'})
+      .bindTooltip(p.id, {permanent: true, direction: 'right', offset: [9, 0], className: 'sel-tip'})
       .addTo(map);
     marcadores[p.id] = m;
   });
-  map.fitBounds(sitios.map(p => [p.lat, p.lon]), {padding: [70, 70], maxZoom: 11});
+  map.fitBounds(L.latLngBounds(sitios.map(p => [p.lat, p.lon])), {padding: [70, 70], maxZoom: 10});
 
   const lista = L.control({position: 'bottomleft'});
   lista.onAdd = function() {
     const div = L.DomUtil.create('div', 'sel-list');
     div.innerHTML = '<b class="t">Selección EG&amp;T (' + sitios.length + ' proyectos)</b>' +
-      sitios.map(p => `<a class="fila" data-id="${p.id}"><b>${p.id}</b> <span>${p.municipio} &middot; ${fmt(p.p_hidraulica_mw,2)} MW</span></a>`).join('');
+      sitios.map(p => `<a class="fila" data-id="${p.id}"><b>${p.id}</b> <span>${p.zona} &middot; ${fmt(p.p_hidraulica_mw,2)} MW</span></a>`).join('');
     L.DomEvent.disableClickPropagation(div);
     div.addEventListener('click', e => {
       const a = e.target.closest('a.fila'); if (!a) return;
       const p = sitios.find(s => s.id === a.dataset.id);
-      map.flyTo([p.lat, p.lon], 15, {duration: 1.2});
+      map.flyTo([p.lat, p.lon], 10, {duration: 1});
       map.once('moveend', () => marcadores[p.id].openPopup());
     });
     return div;
   };
   lista.addTo(map);
+
+  const aviso = L.control({position: 'topleft'});
+  aviso.onAdd = function() {
+    const div = L.DomUtil.create('div', 'notice-box');
+    div.style.marginTop = '70px';
+    div.innerHTML = 'Ubicaciones aproximadas: cada proyecto esta dentro de su circulo. RegEnergy Projects.';
+    L.DomEvent.disableClickPropagation(div);
+    return div;
+  };
+  aviso.addTo(map);
   setTimeout(() => { map.invalidateSize(); }, 300);
 }
 
-const gate = document.getElementById('gate'), entrada = document.getElementById('clave'), errEl = document.getElementById('gate-err'), btn = document.getElementById('entrar');
-async function entrar() {
-  if (!entrada.value.trim()) { errEl.textContent = 'Escribe la clave.'; return; }
-  btn.disabled = true; errEl.textContent = 'Verificando...';
-  try {
-    const sitios = await descifrar(entrada.value);
-    gate.remove();
-    iniciarMapa(sitios);
-  } catch (e) {
-    errEl.textContent = 'Clave incorrecta.'; btn.disabled = false;
-  }
-}
-btn.addEventListener('click', entrar);
-entrada.addEventListener('keydown', e => { if (e.key === 'Enter') entrar(); });
-entrada.focus();
+iniciarMapa(SITIOS);
 </script>
 </body>
 </html>
