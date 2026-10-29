@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Regenergy Projects · Pequeñas centrales hidroeléctricas en Colombia</title>
+<meta name="description" content="Portafolio de pequeñas centrales hidroeléctricas identificadas y caracterizadas en Colombia, y capacidad para acompañar cada proyecto desde la prefactibilidad hasta que esté listo para construir.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://regenergy.pro/">
+<meta name="theme-color" content="#072D5C">
+<link rel="icon" type="image/png" href="assets/logo-regenergy-256.png">
+<link rel="apple-touch-icon" href="assets/logo-regenergy-256.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_CO">
+<meta property="og:site_name" content="Regenergy Projects">
+<meta property="og:title" content="Regenergy Projects · Pequeñas centrales hidroeléctricas en Colombia">
+<meta property="og:description" content="Sitios hidroeléctricos caracterizados con datos hidrológicos y topográficos, y capacidad en cada fase del proyecto.">
+<meta property="og:url" content="https://regenergy.pro/">
+<meta property="og:image" content="https://regenergy.pro/assets/og-regenergy.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Regenergy Projects: 45 pequeñas centrales hidroeléctricas identificadas y caracterizadas">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://regenergy.pro/assets/og-regenergy.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Rubik:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#072D5C; --navy:#034A8A; --orange:#EE6F09; --sky:#0F88CD;
+  --bg:#F4F7FB; --card:#FBFCFE; --line:#D5E0EC; --text:#3E4C63; --muted:#5F6E85;
+  --orange-t:#B84D07; --orange-d:#FF8F33; --tint:#7CC4F0; --on-dark:#C9DCEF;
+  --pale:#E6EEF7; --pale-b:#E6F2FB; --zebra:#EEF3F9; --peach:#FCE6D2; --bar:#9CCBEA;
+  --r:20px;
+  --shadow:0 1px 2px rgba(7,45,92,.05),0 14px 34px -16px rgba(7,45,92,.22);
+  --head:'Rubik','Poppins',system-ui,sans-serif;
+  --body:'Public Sans',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:400 18px/1.6 var(--body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img,svg,iframe{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3,h4,p,ul,ol,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+h1,h2,h3{font-family:var(--head);color:var(--ink);font-weight:600;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
+h2{font-size:clamp(32px,4.2vw,54px)}
+h3{font-size:clamp(22px,2.2vw,28px);line-height:1.2}
+.wrap{width:100%;max-width:1200px;margin:0 auto;padding:0 24px}
+.sec{padding:clamp(72px,10vw,120px) 0}
+section[id]{scroll-margin-top:68px}
+section.sec--flush[id]{padding-top:0;scroll-margin-top:100px}
+.eyebrow{font:600 14px/1.2 var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--orange-t)}
+.dark .eyebrow{color:var(--orange-d)}
+.lead{font-size:clamp(18px,1.7vw,21px);line-height:1.6;max-width:60ch}
+.sec__head{display:grid;gap:14px;margin-bottom:clamp(36px,5vw,56px)}
+.sec__head .lead{margin-top:6px}
+.skip{position:absolute;left:12px;top:-60px;background:#fff;color:var(--ink);padding:10px 16px;border-radius:10px;z-index:100;font-weight:600}
+.skip:focus{top:12px}
+:focus-visible{outline:3px solid var(--sky);outline-offset:3px;border-radius:6px}
+.dark :focus-visible{outline-color:var(--tint)}
+
+/* iconos */
+.i{width:1em;height:1em;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.chip{display:inline-grid;place-items:center;flex:none;width:48px;height:48px;border-radius:50%;background:var(--navy);color:#fff;font-size:24px}
+.chip--orange{background:var(--orange);color:var(--ink)}
+.chip--lg{width:56px;height:56px;font-size:28px}
+
+/* botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 26px;border-radius:999px;border:1.5px solid transparent;font:600 16px/1 var(--body);text-decoration:none;cursor:pointer;transition:transform .18s ease,background .18s ease,border-color .18s ease,box-shadow .18s ease;white-space:nowrap}
+.btn .i{font-size:18px}
+.btn--orange{background:var(--orange);color:var(--ink);box-shadow:0 10px 24px -10px rgba(238,111,9,.7)}
+.btn--orange:hover{background:#FF8420;transform:translateY(-2px)}
+.btn--ghost{border-color:rgba(255,255,255,.42);color:#fff;background:rgba(255,255,255,.04)}
+.btn--ghost:hover{background:rgba(255,255,255,.12);border-color:#fff;transform:translateY(-2px)}
+.btn--ink{background:var(--ink);color:#fff}
+.btn--ink:hover{background:var(--navy);transform:translateY(-2px)}
+.btn--sm{padding:11px 20px;font-size:15px}
+
+/* cabecera */
+.top{position:fixed;inset:0 0 auto 0;z-index:60;color:#fff;transition:background .25s ease,box-shadow .25s ease,color .25s ease}
+.top__in{display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;font:600 15px/1 var(--head);letter-spacing:.14em}
+.brand img{width:40px;height:40px}
+.brand b{font-weight:600;color:var(--orange-d);margin-left:.45em;transition:color .25s}
+.nav{display:flex;align-items:center;gap:26px}
+.nav a{font-size:15px;font-weight:500;text-decoration:none;color:rgba(255,255,255,.86);position:relative;padding:6px 0;transition:color .2s}
+.nav a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+.nav a:not(.btn):hover::after,.nav a.is-active::after{transform:scaleX(1)}
+.nav a:hover{color:#fff}
+.nav .btn,.nav .btn:hover{color:var(--ink);padding:11px 20px}
+.top.is-stuck{background:rgba(255,255,255,.9);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);box-shadow:0 1px 0 var(--line);color:var(--ink)}
+.top.is-stuck .nav a:not(.btn){color:var(--muted)}
+.top.is-stuck .nav a:not(.btn):hover,.top.is-stuck .nav a.is-active{color:var(--ink)}
+.top.is-stuck .brand b{color:var(--orange-t)}
+.burger{display:none;width:44px;height:44px;border:0;background:transparent;border-radius:12px;cursor:pointer;color:inherit;position:relative}
+.burger span{position:absolute;left:11px;right:11px;height:2px;background:currentColor;border-radius:2px;transition:transform .25s ease,opacity .2s ease,top .25s ease}
+.burger span:nth-child(1){top:15px}.burger span:nth-child(2){top:21px}.burger span:nth-child(3){top:27px}
+.top.is-open .burger span:nth-child(1){top:21px;transform:rotate(45deg)}
+.top.is-open .burger span:nth-child(2){opacity:0}
+.top.is-open .burger span:nth-child(3){top:21px;transform:rotate(-45deg)}
+
+/* hero */
+.hero{position:relative;color:#F4F7FB;background:radial-gradient(circle at 14% 8%,#0B4A8C 0%,#072D5C 55%,#051F41 100%);padding:clamp(128px,17vh,176px) 0 0;overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse 60% 50% at 88% 30%,rgba(15,136,205,.28),transparent 70%)}
+.hero__grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:40px;align-items:center}
+.hero h1{color:#fff;font-size:clamp(40px,5.3vw,76px);line-height:1.02;letter-spacing:-.035em;font-weight:600}
+.rule{display:block;width:72px;height:5px;border-radius:3px;background:var(--orange);margin:30px 0 26px}
+.hero__sub{font-size:clamp(19px,1.9vw,24px);line-height:1.5;color:var(--on-dark);max-width:30em}
+.pill{display:inline-block;margin:30px 0 34px;padding:12px 26px;border-radius:999px;background:var(--orange);color:var(--ink);font:700 14px/1.2 var(--body);letter-spacing:.24em;text-transform:uppercase}
+.cta{display:flex;flex-wrap:wrap;gap:14px}
+.hero__meta{margin-top:30px;font-size:15px;font-weight:500;color:var(--on-dark)}
+.hero__meta b{color:#fff;font-weight:600}
+.hero__contact{margin-top:8px}
+.hero__contact a{color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:1px;white-space:nowrap}
+.hero__contact a:hover{border-color:var(--orange-d)}
+.hero__art{position:relative;display:grid;place-items:center;aspect-ratio:1;max-width:460px;width:100%;margin-inline:auto}
+.halo{position:absolute;border-radius:50%;background:rgba(255,255,255,.065);animation:breathe 9s ease-in-out infinite}
+.halo--1{inset:0}.halo--2{inset:13%;background:rgba(255,255,255,.075);animation-delay:-3s}
+.hero__logo{position:relative;width:60%;height:auto;filter:drop-shadow(0 22px 40px rgba(0,0,0,.35))}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);margin:clamp(48px,7vw,84px) 0 0;position:relative;z-index:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:var(--r);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.stats li{padding:26px 28px;display:grid;gap:4px}
+.stats li+li{border-left:1px solid rgba(255,255,255,.14)}
+.stats b{font:600 clamp(34px,3.6vw,46px)/1 var(--head);letter-spacing:-.02em;color:#fff}
+.stats span{font-size:15px;line-height:1.35;color:var(--on-dark)}
+.wave{display:block;width:100%;height:clamp(48px,7vw,96px);margin-top:-1px;position:relative;top:1px}
+
+/* tarjetas */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.stat{padding:32px 32px 34px;display:flex;flex-direction:column;gap:6px}
+.stat:hover,.sas article:hover{translate:0 -4px}
+.stat .big{font:600 clamp(68px,8vw,104px)/1 var(--head);letter-spacing:-.04em;color:var(--ink);margin-top:10px}
+.stat .unit{font:500 clamp(22px,2.2vw,28px)/1.2 var(--head);color:var(--navy);margin-bottom:8px}
+.stat p:last-child{font-size:17px;line-height:1.55}
+.stat--dark{background:var(--ink);border-color:var(--ink);color:var(--on-dark)}
+.stat--dark .eyebrow{color:var(--orange-d)}
+.stat--dark .big{color:#fff}
+.stat--dark .unit{color:var(--tint)}
+.banner{display:flex;align-items:center;gap:22px;margin-top:24px;padding:26px 32px;background:var(--pale);border-radius:var(--r)}
+.banner p{font-size:clamp(18px,1.8vw,21px);line-height:1.5;color:var(--ink)}
+
+/* proceso */
+.flow{display:grid;grid-template-columns:1.2fr .9fr 1.2fr .9fr 1.2fr;column-gap:48px;row-gap:20px;align-items:start}
+.gl{font:600 13px/1.2 var(--body);letter-spacing:.16em;text-transform:uppercase;padding-top:14px;border-top:3px solid var(--navy);color:var(--navy);grid-row:1}
+.gl--a{grid-column:1 / 4}
+.gl--b{grid-column:4 / 6;border-color:var(--orange);color:var(--orange-t)}
+.step{grid-row:2;position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px;margin-top:10px}
+.step:not(:last-child)::after{content:"";position:absolute;right:-40px;top:var(--ay,75px);width:32px;height:22px;background:var(--navy);clip-path:polygon(0 28%,60% 28%,60% 0,100% 50%,60% 100%,60% 72%,0 72%)}
+.node{width:100%;min-height:172px;border-radius:var(--r);padding:22px 22px;text-align:left;display:flex;flex-direction:column;gap:4px;box-shadow:var(--shadow)}
+.node h3{font-size:26px;color:inherit}
+.node p{font-size:16.5px;line-height:1.4}
+.node--1{background:var(--ink);color:#fff}
+.node--1 .hl{color:var(--orange-d);font-weight:700;margin-top:6px}
+.node--2{background:var(--pale-b);border:2px dashed var(--sky);color:var(--text);box-shadow:none}
+.node--2 h3{color:var(--ink)}
+.node--2 .hl{color:var(--ink);font-weight:700;margin-top:6px}
+.node--3{background:var(--navy);color:#fff}
+.gate{width:min(100%,148px);margin:12px 0;aspect-ratio:1;border-radius:50%;background:var(--orange);color:var(--ink);display:grid;place-content:center;text-align:center;box-shadow:0 14px 30px -14px rgba(238,111,9,.8)}
+.gate small{display:block;font:600 14px/1.1 var(--body)}
+.gate b{display:block;font:600 56px/1 var(--head)}
+.cap{font-size:15.5px;line-height:1.45;color:var(--text)}
+.cap b{display:block;font-size:16px;color:var(--ink);font-weight:700;margin-bottom:2px}
+
+/* alcance */
+.stages{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch}
+.stage{padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:26px}
+.stage__head{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;padding:20px 24px;border-radius:16px}
+.stage__head h3{font-size:30px;color:inherit}
+.stage__head p{font-size:17px}
+.stage__head .hl{font-weight:700}
+.stage--1 .stage__head{background:var(--ink);color:#fff}
+.stage--1 .stage__head .hl{color:var(--orange-d)}
+.stage--2{border:2px dashed var(--sky);background:var(--card)}
+.stage--2 .stage__head{background:var(--pale-b);color:var(--text)}
+.stage--2 .stage__head h3,.stage--2 .stage__head .hl{color:var(--ink)}
+.feat{display:grid;grid-template-columns:repeat(2,1fr);gap:18px 20px}
+.feat li{display:flex;align-items:center;gap:14px;font-size:16.5px;line-height:1.35;color:var(--ink);font-weight:600}
+.feat--long li{align-items:flex-start;font-weight:500;color:var(--text)}
+.feat--long .chip{margin-top:-2px}
+.feat .chip{width:44px;height:44px;font-size:22px}
+.stage .note{font-size:15.5px;color:var(--muted)}
+.deliver h4{font:600 13px/1.2 var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--orange-t);padding-top:22px;border-top:1px solid var(--line);margin-bottom:14px}
+.deliver li{display:flex;gap:12px;align-items:flex-start;font-size:16.5px;line-height:1.45;padding:5px 0}
+.deliver .i{margin-top:3px;font-size:18px;color:var(--navy)}
+.stage .grow{flex:1}
+
+/* tabla de criterios */
+.tbl{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);background:var(--card)}
+.crit{width:100%;border-collapse:collapse;font-size:16.5px;line-height:1.5}
+.crit th{background:var(--ink);color:#fff;text-align:left;font:600 15px/1.3 var(--body);padding:18px 22px;letter-spacing:.02em}
+.crit td{padding:18px 22px;vertical-align:top;border-top:1px solid var(--line)}
+.crit td:first-child{font-weight:600;color:var(--ink);width:19%}
+.crit tbody tr:nth-child(even) td{background:var(--zebra)}
+.crit tbody tr.decision td{background:var(--peach);color:var(--ink)}
+.prop{font-weight:600;color:var(--ink);background:var(--pale);border-radius:6px;padding:1px 4px;white-space:nowrap}
+.tblnote{margin-top:16px;font-size:15.5px;color:var(--muted)}
+
+/* mapa */
+.mapsec{background:radial-gradient(ellipse 70% 60% at 85% 0%,rgba(15,136,205,.25),transparent 70%),linear-gradient(180deg,#072D5C 0%,#051F41 100%);color:var(--on-dark);position:relative;overflow:hidden}
+.mapsec h2{color:#fff}
+.mapsec .lead{color:var(--on-dark)}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.facts li{display:inline-flex;align-items:center;gap:9px;padding:9px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);font-size:15px;color:#fff}
+.facts .i{font-size:17px;color:var(--orange-d)}
+.mapframe{border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.18);box-shadow:0 40px 80px -30px rgba(0,0,0,.6),0 0 0 8px rgba(255,255,255,.04);background:#1a2530}
+.mapframe__bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px;padding:14px 20px;background:rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.12)}
+.mapframe__title{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:#fff;white-space:nowrap}
+.mapframe__title .i{font-size:18px;color:var(--orange-d)}
+.mapframe__open{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;text-decoration:none;color:var(--on-dark);padding:7px 12px;border-radius:999px;white-space:nowrap;transition:background .2s,color .2s}
+.mapframe__open:hover{background:rgba(255,255,255,.12);color:#fff}
+.mapframe__acts{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:6px}
+.mapframe__open--key{border:1px solid rgba(255,255,255,.32)}
+.mapframe__open--key .i{font-size:15px;color:var(--orange-d)}
+.mapframe__body{position:relative;height:clamp(500px,74vh,760px);background:linear-gradient(135deg,#1a2530,#2c3e50)}
+.mapframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent}
+.mapframe__ph{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:12px;color:var(--on-dark);font-size:15px}
+.mapframe__ph .i{font-size:30px;color:var(--orange-d);animation:breathe 2.4s ease-in-out infinite}
+.mapframe__body.is-loaded .mapframe__ph{display:none}
+.mapnote{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px 28px;margin-top:26px}
+.mapnote p{display:flex;gap:14px;align-items:flex-start;max-width:56ch;font-size:16.5px;line-height:1.5}
+.mapnote .i{font-size:22px;color:var(--orange-d);margin-top:2px}
+.mapnote .cta{gap:12px}
+
+/* sociedad */
+.sas{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.sas article{padding:34px 32px;display:flex;flex-direction:column;gap:20px}
+.sas header{display:flex;align-items:center;gap:16px}
+.sas h3{font-size:30px}
+.dots li{position:relative;padding-left:22px;font-size:16.5px;line-height:1.55}
+.dots li+li{margin-top:12px}
+.dots li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:50%;background:var(--orange)}
+
+/* hoja de ruta */
+.road{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:24px;align-items:stretch}
+.gantt{padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:20px}
+.gantt h3{font:600 13px/1.2 var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--orange-t)}
+.grow-row{display:grid;grid-template-columns:170px minmax(0,1fr) 124px;align-items:center;gap:16px}
+.grow-row .name{font:600 17px/1.25 var(--head);color:var(--ink)}
+.grow-row .val{font-size:15.5px;color:var(--text)}
+.track{position:relative;height:38px;background-image:linear-gradient(to right,var(--line) 1px,transparent 1px);background-size:25% 100%;border-right:1px solid var(--line);display:flex;align-items:center}
+.bar{height:26px;background:var(--navy);transition:width 1s cubic-bezier(.2,.7,.2,1) .15s;width:0;border-radius:6px 0 0 6px}
+.bar--x{background:var(--bar);border-radius:0 6px 6px 0;transition-delay:.55s}
+.in .bar,.no-js .bar{width:calc(var(--w) / 24 * 100%)}
+.axis{display:grid;grid-template-columns:170px minmax(0,1fr) 124px;gap:16px;margin-top:-8px}
+.axis div{position:relative;height:22px;font-size:14px;color:var(--muted)}
+.axis span{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap}
+.axis span:first-child{transform:none}
+.legend{display:flex;flex-wrap:wrap;gap:8px 24px;font-size:15px;color:var(--text)}
+.legend span{display:inline-flex;align-items:center;gap:9px}
+.legend i{width:16px;height:16px;border-radius:5px;background:var(--navy)}
+.legend i.x{background:var(--bar)}
+.gantt .note{font-size:15.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+.after{display:flex;flex-direction:column;gap:12px}
+.box{border-radius:var(--r);padding:26px 28px;display:flex;flex-direction:column;gap:6px;flex:1;justify-content:center;box-shadow:var(--shadow)}
+.box .eyebrow{font-size:13px}
+.box h3{font-size:30px;color:inherit}
+.box--ink{background:var(--ink);color:#fff}
+.box--ink .eyebrow{color:var(--orange-d)}
+.box--ink .t{font:600 22px/1.3 var(--head);color:var(--tint)}
+.box--or{background:var(--orange);color:var(--ink)}
+.box--or .eyebrow{color:var(--ink)}
+.box--or .t{font-size:19px;color:var(--ink)}
+.down{width:32px;height:34px;background:var(--navy);align-self:center;clip-path:polygon(28% 0,72% 0,72% 60%,100% 60%,50% 100%,0 60%,28% 60%)}
+.total{margin-top:24px}
+.total p{font-size:clamp(20px,2.2vw,26px);color:var(--ink);font-family:var(--head);font-weight:500}
+
+/* cierre */
+.close{background:radial-gradient(circle at 14% 8%,#0B4A8C 0%,#072D5C 55%,#051F41 100%);color:var(--on-dark);position:relative;overflow:hidden}
+.close h2{color:#fff}
+.close__grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(28px,4vw,56px);align-items:start}
+.glass{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:var(--r);padding:clamp(26px,3.2vw,40px)}
+.glass h3{color:#fff;font-size:clamp(26px,3vw,36px);margin:10px 0 18px}
+.rules li{font-size:17px;line-height:1.55;padding:14px 0;border-top:1px solid rgba(255,255,255,.12)}
+.rules li:first-child{border-top:0;padding-top:0}
+.rules b{color:#fff;font-weight:700}
+.rules .prop{background:rgba(255,255,255,.12);color:#fff}
+.glass .small{font-size:15.5px;color:var(--tint);margin-top:6px}
+.next{display:grid;gap:26px}
+.next ol{display:grid;gap:22px}
+.next li{display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:start}
+.next .n{font:600 56px/1 var(--head);color:var(--orange-d);letter-spacing:-.04em}
+.next h3{font-size:24px;color:#fff;margin-bottom:4px}
+.next p{font-size:16.5px;line-height:1.5}
+.contact{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.contact .btn--ghost{white-space:normal;text-align:left}
+
+footer{background:#041A38;color:var(--on-dark);padding:36px 0 calc(36px + env(safe-area-inset-bottom))}
+.foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 32px}
+.foot .brand{color:#fff}
+.foot p{font-size:14.5px;line-height:1.55;max-width:62ch}
+.foot a{text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3)}
+.foot a:hover{border-color:#fff;color:#fff}
+
+/* contacto fijo */
+.dock{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));z-index:55;display:flex;gap:8px;padding:8px;border-radius:999px;background:rgba(7,45,92,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.18);box-shadow:0 20px 44px -14px rgba(5,31,65,.75);translate:-50% 0;transition:opacity .3s ease,translate .3s ease,visibility .3s}
+.dock a{display:inline-flex;align-items:center;gap:11px;min-height:52px;padding:0 24px 0 20px;border-radius:999px;border:1.5px solid transparent;font:600 16px/1.15 var(--body);text-decoration:none;white-space:nowrap}
+.dock a .i{font-size:22px}
+.dock small{display:block;font:600 11px/1.2 var(--body);letter-spacing:.12em;text-transform:uppercase;opacity:.82;margin-bottom:2px}
+.dock__wa{background:var(--orange);color:var(--ink)}
+.dock__wa:hover{background:#FF8420}
+.dock a.dock__mail{color:#fff;border-color:rgba(255,255,255,.42)}
+.dock a.dock__mail:hover{background:rgba(255,255,255,.12);border-color:#fff}
+.dock a:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.dock.is-off{opacity:0;visibility:hidden;translate:-50% 28px;pointer-events:none}
+
+/* aparición */
+.js .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease var(--d,0s),transform .7s cubic-bezier(.2,.7,.2,1) var(--d,0s),translate .25s ease}
+.js .reveal.in{opacity:1;transform:none}
+
+@media (max-width:1040px){
+  .flow{grid-template-columns:1fr;row-gap:18px}
+  .flow>*{grid-column:1!important;grid-row:auto!important}
+  .gl--a{order:0}.step--1{order:1}.step--g1{order:2}.step--2{order:3}.gl--b{order:4;margin-top:14px}.step--g2{order:5}.step--3{order:6}
+  .step{margin-top:0;gap:12px}
+  .step:not(:last-child)::after{right:auto;left:50%;top:auto;bottom:2px;margin-left:-16px;transform:rotate(90deg);width:32px;height:22px}
+  .step:not(:last-child){padding-bottom:38px}
+  .node{min-height:0}
+  .gate{width:132px;margin:0}
+  .cap{max-width:30em}
+  .road{grid-template-columns:1fr}
+  .after{flex-direction:column}
+}
+@media (max-width:960px){
+  .burger{display:block}
+  .nav{position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:0;background:var(--ink);padding:8px 24px 22px;max-height:0;overflow:hidden;visibility:hidden;opacity:0;transition:opacity .2s ease,visibility .2s}
+  .top.is-open .nav{max-height:calc(100vh - 68px);overflow:auto;visibility:visible;opacity:1;box-shadow:0 30px 50px -20px rgba(0,0,0,.5)}
+  .top.is-open{background:var(--ink);color:#fff;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+  .top.is-open .brand b{color:var(--orange-d)}
+  .nav a:not(.btn),.top.is-stuck .nav a:not(.btn){color:#fff;font-size:17px;padding:14px 0;border-top:1px solid rgba(255,255,255,.1)}
+  .nav a:not(.btn)::after{display:none}
+  .nav .btn{margin-top:14px;justify-content:center}
+  .hero__grid{grid-template-columns:1fr;gap:12px}
+  .hero__art{max-width:300px;order:-1;margin:0 auto -6px}
+  .hero__copy{text-align:left}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stats li:nth-child(3){border-left:0}
+  .stats li:nth-child(n+3){border-top:1px solid rgba(255,255,255,.14)}
+  .cards3,.sas,.stages,.close__grid{grid-template-columns:1fr}
+  .stat{padding:28px}
+  .stat .big{font-size:80px}
+  .grow-row{grid-template-columns:1fr auto;row-gap:8px}
+  .grow-row .track{grid-column:1 / -1;grid-row:2}
+  .axis{grid-template-columns:1fr}
+  .axis>span,.axis>i{display:none}
+  .mapframe__body{height:min(78vh,640px);min-height:480px}
+}
+@media (max-width:760px){
+  body{font-size:17px}
+  .crit,.crit thead,.crit tbody,.crit tr,.crit td{display:block;width:100%}
+  .crit thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .crit tbody tr{border-top:1px solid var(--line);padding:6px 0 10px}
+  .crit tbody tr:first-child{border-top:0}
+  .crit td{border:0!important;padding:6px 20px;background:transparent!important}
+  .crit td:first-child{width:100%;font:600 18px/1.3 var(--head);padding-top:14px}
+  .crit td[data-l]::before{content:attr(data-l);display:block;font:600 12px/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--orange-t);margin-bottom:3px}
+  .crit tbody tr:nth-child(even){background:var(--zebra)}
+  .crit tbody tr.decision{background:var(--peach)}
+  .feat{grid-template-columns:1fr}
+  .mapframe__title span{font-size:13px}
+  
+  .mapframe__open--key .k{display:none}
+  .mapframe__acts{width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+  .mapframe__acts .mapframe__open{justify-content:center;gap:6px;font-size:13px;padding:8px 6px}
+  .mapnote .cta{width:100%}
+  .mapnote .btn{flex:1 1 200px}
+}
+@media (max-width:520px){
+  .wrap{padding:0 18px}
+  .nav{padding-inline:18px}
+  .stats li{padding:18px 18px}
+  .cta .btn{width:100%}
+  .banner{flex-direction:column;align-items:flex-start;padding:24px}
+  .contact .btn{width:100%}
+  .stage__head{padding:18px 20px}
+}
+@media (max-width:640px){
+  .dock{left:8px;right:8px;translate:none;flex-wrap:wrap;gap:6px;padding:6px;border-radius:22px;bottom:calc(8px + env(safe-area-inset-bottom))}
+  .dock a{flex:1 1 auto;justify-content:center;gap:8px;min-height:46px;padding:0 8px;border-radius:17px;font-size:clamp(12px,3.4vw,13.5px)}
+  .dock a .i{font-size:20px}
+  .dock small{display:none}
+  .dock a.dock__mail{font-size:clamp(11.5px,3.15vw,12.5px)}
+  .dock.is-off{translate:0 28px}
+}
+@media (max-width:440px){
+  .dock a.dock__mail .i{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;transition-delay:0s!important}
+  .js .reveal{opacity:1;transform:none}
+  .bar{width:calc(var(--w) / 24 * 100%)}
+}
+
+/* ---- nueva oferta ---- */
+.hero .cta{margin-top:32px}
+.paths{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.path{padding:34px 32px;display:flex;flex-direction:column;gap:16px}
+.path:hover{translate:0 -4px}
+.path .n{font:600 14px/1 var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--orange-t)}
+.path h3{font-size:28px}
+.path p{font-size:17px;line-height:1.55}
+.path .btn{margin-top:auto;align-self:flex-start}
+.path--dark{background:var(--ink);border-color:var(--ink);color:var(--on-dark)}
+.path--dark h3{color:#fff}.path--dark .n{color:var(--orange-d)}
+.path .aside{font-size:15px;color:var(--muted)}
+.path--dark .aside{color:var(--tint)}
+.steps4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.steps4 li{padding:28px 26px;display:flex;flex-direction:column;gap:8px}
+.steps4 .num{font:600 56px/1 var(--head);letter-spacing:-.04em;color:var(--orange)}
+.steps4 h3{font-size:22px}
+.steps4 p{font-size:16.5px;line-height:1.5}
+.steps4 .when{font:600 13px/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--navy)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch}
+.journey{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:12px;counter-reset:j}
+.journey li{position:relative;padding:18px 14px 20px;border-radius:16px;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;gap:6px;font-size:15px;line-height:1.4}
+.journey li b{font:600 16px/1.2 var(--head);color:var(--ink);overflow-wrap:anywhere;hyphens:auto}
+.journey li::before{counter-increment:j;content:counter(j);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--pale);color:var(--navy);font:600 17px/1 var(--head)}
+.journey .tag{display:inline-block;margin-top:auto;font:700 11.5px/1.2 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--navy)}
+.journey .done{background:var(--pale)}
+.journey .here{background:var(--ink);border-color:var(--ink);color:var(--on-dark)}
+.journey .here b{color:#fff}
+.journey .here::before{background:var(--orange);color:var(--ink)}
+.journey .here .tag{color:var(--orange-d)}
+.journey .next-s .tag{color:var(--orange-t)}
+.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.mini article{padding:30px 28px;display:flex;flex-direction:column;gap:14px}
+.mini h3{font-size:24px}
+.mini p{font-size:16.5px;line-height:1.55}
+.form-need li{font-size:17px;line-height:1.55;padding:14px 0;border-top:1px solid rgba(255,255,255,.12)}
+.form-need li:first-child{border-top:0;padding-top:0}
+.form-need b{color:#fff}
+.abs{padding:clamp(26px,3.2vw,40px);display:grid;gap:0}
+.abs .row{display:grid;grid-template-columns:150px 1fr;gap:6px 28px;padding:18px 0;border-top:1px solid var(--line);font-size:17px;line-height:1.6}
+.abs .row:first-of-type{border-top:0;padding-top:4px}
+.abs .row b{font:700 13px/1.5 var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--orange-t);padding-top:3px}
+.abs .kw{margin-top:14px;padding-top:16px;border-top:1px solid var(--line);font-size:15.5px;color:var(--muted)}
+.abs .kw i{font-style:normal;font-weight:700;color:var(--ink)}
+.figs{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:24px;align-items:stretch;margin-bottom:24px}
+.fig{padding:clamp(22px,2.6vw,32px);display:flex;flex-direction:column;gap:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:var(--r);color:var(--on-dark)}
+.fig h3{font:600 13px/1.2 var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--orange-d)}
+.bars li{display:grid;grid-template-columns:96px minmax(0,1fr) 40px;align-items:center;gap:12px;font-size:15.5px;padding:5px 0}
+.bars .t{height:22px;border-radius:5px;background:rgba(255,255,255,.1)}
+.bars .t i{display:block;height:100%;border-radius:5px;width:0;transition:width 1s cubic-bezier(.2,.7,.2,1) .2s}
+.in .bars .t i,.no-js .bars .t i{width:var(--w)}
+.bars b{color:#fff;text-align:right}
+.figcap{font-size:14.5px;line-height:1.5;color:var(--on-dark)}
+.figcap b{color:#fff}
+.keyfacts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px}
+.keyfacts div{padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14)}
+.keyfacts b{display:block;font:600 28px/1 var(--head);color:#fff}
+.keyfacts span{font-size:14px;line-height:1.35}
+.comp{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.comp article{padding:26px 24px;display:flex;flex-direction:column;gap:12px}
+.comp h3{font-size:20px}
+.comp p{font-size:15.5px;line-height:1.55}
+.comp .chip{width:44px;height:44px;font-size:22px}
+.srcnote{margin-top:22px;font-size:15px;color:var(--muted)}
+@media (max-width:1180px){.comp{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:960px){.figs{grid-template-columns:1fr}.abs .row{grid-template-columns:1fr}.keyfacts{grid-template-columns:1fr}}
+@media (max-width:560px){.comp{grid-template-columns:1fr}.bars li{grid-template-columns:84px minmax(0,1fr) 34px}}
+@media (max-width:1040px){
+  .steps4{grid-template-columns:repeat(2,1fr)}
+  .journey{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .journey li{padding:16px}
+}
+@media (max-width:960px){
+  .paths,.mini,.two{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .steps4,.journey{grid-template-columns:1fr}
+}
+
+/* ---- v2: credibilidad ---- */
+.figs--w{grid-template-columns:minmax(0,1.55fr) minmax(0,.8fr)}
+.figs--w .keyfacts{grid-template-columns:repeat(2,1fr)}
+.figs--w .keyfacts b{font-size:25px}
+.fig .keyfacts span{display:block;line-height:1.3;margin-top:6px}
+.sc{width:100%;height:auto;display:block}
+.sc text{font:500 12.5px var(--body);fill:#b9c8e0}
+.sc .ax{font-size:13px;fill:#dbe6f6}
+.sc .grid{stroke:rgba(255,255,255,.1);stroke-width:1}
+.sc .iso{stroke:rgba(255,255,255,.42);stroke-width:1.2;stroke-dasharray:5 5;fill:none}
+.sc .isol{fill:#cfe0f7;font-size:12.5px;font-weight:600}
+.sc circle{stroke:#072D5C;stroke-width:1.2;opacity:.93}
+.lg{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px}
+.lg li{display:flex;align-items:center;gap:7px}
+.lg i{width:12px;height:12px;border-radius:50%;display:inline-block}
+.lg b{color:#fff}
+.comp .big{font:600 34px/1.05 var(--head);letter-spacing:-.03em;color:var(--navy)}
+.phases{display:grid;border:1px solid var(--line);border-radius:var(--r);background:var(--card);overflow:hidden}
+.phases li{display:grid;grid-template-columns:36px minmax(190px,270px) minmax(0,1fr);gap:8px 24px;align-items:start;padding:20px 28px;border-top:1px solid var(--line)}
+.phases li:first-child{border-top:0}
+.phases .pn{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--pale);color:var(--navy);font:600 18px/1 var(--head)}
+.phases h3{font-size:20px;line-height:1.25;padding-top:5px}
+.phases p{font-size:16.5px;line-height:1.55;padding-top:4px}
+@media (max-width:960px){.figs--w{grid-template-columns:1fr}.figs--w .keyfacts{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:760px){.phases li{grid-template-columns:36px minmax(0,1fr);padding:18px 18px}.phases p{grid-column:1/-1;padding-top:0}.figs--w .keyfacts{grid-template-columns:repeat(2,1fr)}}
+.sc--m{display:none}
+@media (max-width:640px){.sc{display:none}.sc.sc--m{display:block}}
+@media (max-width:560px){.figs--w .keyfacts b{font-size:22px}}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Regenergy Projects SAS", "url": "https://regenergy.pro/", "logo": "https://regenergy.pro/assets/logo-regenergy-600.webp", "email": "gerencia@regenergy-pro.com", "telephone": "+57 305 421 2200", "address": {"@type": "PostalAddress", "addressLocality": "Cali", "addressCountry": "CO"}, "description": "Identificación, prefactibilidad y desarrollo de pequeñas centrales hidroeléctricas en Colombia."}</script>
+</head>
+<body>
+<a class="skip" href="#portafolio">Saltar al contenido</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M22 3H2l8 9.46V19l4 2v-8.54z"/></symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M3 21l1.65-4.87A9 9 0 1 1 8 19.6z"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></symbol>
+</svg>
+
+<header class="top" id="top">
+  <div class="wrap top__in">
+    <a class="brand" href="#inicio" aria-label="Regenergy Projects, inicio"><img src="assets/logo-regenergy-256.png" width="40" height="40" alt=""><span>REGENERGY<b>PROJECTS</b></span></a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav" aria-label="Secciones">
+      <a href="#portafolio">Portafolio</a>
+      <a href="#lectura">Lectura técnica</a>
+      <a href="#fases">Capacidad</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#marco">Marco técnico</a>
+      <a class="btn btn--orange btn--sm" href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="hero dark" id="inicio" aria-labelledby="h-hero">
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      <p class="eyebrow">Pequeñas centrales hidroeléctricas · Colombia</p>
+      <h1 id="h-hero" style="margin-top:18px">45 pequeñas centrales hidroeléctricas identificadas y caracterizadas</h1>
+      <span class="rule" aria-hidden="true"></span>
+      <p class="hero__sub">Un portafolio construido con criterio técnico y la capacidad para acompañar cada proyecto desde la prefactibilidad hasta que esté listo para construir.</p>
+      <div class="cta">
+        <a class="btn btn--orange" href="#contacto"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg>Conversemos</a>
+        <a class="btn btn--ghost" href="#portafolio"><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg>Ver el portafolio</a>
+      </div>
+      <p class="hero__meta"><b>Regenergy Projects SAS</b> · Cali, Colombia</p>
+      <p class="hero__meta hero__contact">Contacto: <a href="https://wa.me/573054212200?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20prefactibilidad%20de%20PCH%20de%20Regenergy%20Projects%20y%20quisiera%20pedir%20una%20cotizaci%C3%B3n." target="_blank" rel="noopener">WhatsApp +57 305 421 2200</a> · <a href="mailto:gerencia@regenergy-pro.com?subject=Cotizaci%C3%B3n%20de%20prefactibilidad%20de%20PCH">gerencia@regenergy-pro.com</a></p>
+    </div>
+    <div class="hero__art" aria-hidden="true">
+      <div class="halo halo--1"></div><div class="halo halo--2"></div>
+      <img class="hero__logo" src="assets/logo-regenergy-600.webp" width="600" height="600" alt="">
+    </div>
+  </div>
+  <div class="wrap">
+    <ul class="stats" aria-label="Datos clave">
+      <li><b>45</b><span>sitios con cuenca aportante mayor a 130 km² en 6 departamentos y Bogotá D.C.</span></li>
+      <li><b>≈ 390 MW</b><span>de potencia hidráulica estimada en el portafolio</span></li>
+      <li><b>2,3 a 30 MW</b><span>rango de potencia estimada por sitio</span></li>
+      <li><b>7 fases</b><span>acompañadas, de la identificación a la construcción</span></li>
+    </ul>
+  </div>
+  <svg class="wave" viewBox="0 0 1440 96" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46C180 96 330 8 560 34c230 26 330 66 560 38 130-16 220-40 320-26V96H0Z" fill="#072D5C"/></svg>
+</section>
+
+<section class="sec mapsec dark" id="portafolio" aria-labelledby="h-mapa">
+  <div class="wrap">
+    <div class="sec__head reveal">
+      <p class="eyebrow">El portafolio</p>
+      <h2 id="h-mapa">Sitios sustentados en datos hidrológicos y topográficos</h2>
+      <p class="lead">Se incluyen únicamente los sitios con área de cuenca aportante superior a 130 km². Cada sitio se caracterizó con el caudal medio de su cuenca, obtenido por balance hídrico (Q = (P − ET) · A), y con la caída estimada del tramo de interés. La potencia hidráulica resulta de P = 9,81 · Q · H. Son estimaciones de gabinete que la prefactibilidad verifica sitio por sitio.</p>
+    </div>
+    <div class="figs figs--w reveal">
+      <div class="fig">
+        <h3>Figura 1 · Caudal, caída y potencia de los 45 sitios</h3>
+        <svg class="sc" viewBox="0 0 680 400" role="img" aria-label="Dispersión de caudal medio estimado frente a caída estimada de los 75 sitios, con curvas de igual potencia"><line class="grid" x1="110.9" y1="14" x2="110.9" y2="346"/><text x="110.9" y="364" text-anchor="middle">2</text><line class="grid" x1="279.5" y1="14" x2="279.5" y2="346"/><text x="279.5" y="364" text-anchor="middle">5</text><line class="grid" x1="407.0" y1="14" x2="407.0" y2="346"/><text x="407.0" y="364" text-anchor="middle">10</text><line class="grid" x1="534.5" y1="14" x2="534.5" y2="346"/><text x="534.5" y="364" text-anchor="middle">20</text><line class="grid" x1="58" y1="314.2" x2="662" y2="314.2"/><text x="50" y="318.2" text-anchor="end">100</text><line class="grid" x1="58" y1="191.6" x2="662" y2="191.6"/><text x="50" y="195.6" text-anchor="end">150</text><line class="grid" x1="58" y1="104.7" x2="662" y2="104.7"/><text x="50" y="108.7" text-anchor="end">200</text><line class="grid" x1="58" y1="37.3" x2="662" y2="37.3"/><text x="50" y="41.3" text-anchor="end">250</text><polyline class="iso" points="58.0,221.4 59.6,224.0 61.2,226.6 62.7,229.2 64.3,231.8 65.9,234.4 67.5,237.0 69.1,239.6 70.6,242.2 72.2,244.8 73.8,247.4 75.4,250.0 77.0,252.6 78.5,255.2 80.1,257.8 81.7,260.4 83.3,263.0 84.9,265.5 86.4,268.1 88.0,270.7 89.6,273.3 91.2,275.9 92.8,278.5 94.3,281.1 95.9,283.7 97.5,286.3 99.1,288.9 100.7,291.5 102.2,294.1 103.8,296.7 105.4,299.3 107.0,301.9 108.6,304.5 110.1,307.1 111.7,309.7 113.3,312.3 114.9,314.9 116.5,317.5 118.0,320.0 119.6,322.6 121.2,325.2 122.8,327.8 124.4,330.4 125.9,333.0 127.5,335.6 129.1,338.2 130.7,340.8 132.3,343.4 133.8,346.0"/><text class="isol" x="64.0" y="215.4">2 MW</text><polyline class="iso" points="100.3,14.0 104.5,20.9 108.7,27.8 112.9,34.8 117.1,41.7 121.3,48.6 125.6,55.5 129.8,62.4 134.0,69.3 138.2,76.2 142.4,83.2 146.6,90.1 150.8,97.0 155.0,103.9 159.2,110.8 163.4,117.8 167.7,124.7 171.9,131.6 176.1,138.5 180.3,145.4 184.5,152.3 188.7,159.2 192.9,166.2 197.1,173.1 201.3,180.0 205.5,186.9 209.8,193.8 214.0,200.8 218.2,207.7 222.4,214.6 226.6,221.5 230.8,228.4 235.0,235.3 239.2,242.2 243.4,249.2 247.7,256.1 251.9,263.0 256.1,269.9 260.3,276.8 264.5,283.8 268.7,290.7 272.9,297.6 277.1,304.5 281.3,311.4 285.5,318.3 289.8,325.2 294.0,332.2 298.2,339.1 302.4,346.0"/><text class="isol" x="106.3" y="29.0">5 MW</text><polyline class="iso" points="227.8,14.0 232.0,20.9 236.2,27.8 240.4,34.8 244.6,41.7 248.9,48.6 253.1,55.5 257.3,62.4 261.5,69.3 265.7,76.2 269.9,83.2 274.1,90.1 278.3,97.0 282.5,103.9 286.7,110.8 291.0,117.8 295.2,124.7 299.4,131.6 303.6,138.5 307.8,145.4 312.0,152.3 316.2,159.2 320.4,166.2 324.6,173.1 328.8,180.0 333.1,186.9 337.3,193.8 341.5,200.8 345.7,207.7 349.9,214.6 354.1,221.5 358.3,228.4 362.5,235.3 366.7,242.2 371.0,249.2 375.2,256.1 379.4,263.0 383.6,269.9 387.8,276.8 392.0,283.8 396.2,290.7 400.4,297.6 404.6,304.5 408.8,311.4 413.1,318.3 417.3,325.2 421.5,332.2 425.7,339.1 429.9,346.0"/><text class="isol" x="233.8" y="29.0">10 MW</text><polyline class="iso" points="355.3,14.0 359.5,20.9 363.7,27.8 367.9,34.8 372.1,41.7 376.4,48.6 380.6,55.5 384.8,62.4 389.0,69.3 393.2,76.2 397.4,83.2 401.6,90.1 405.8,97.0 410.0,103.9 414.3,110.8 418.5,117.8 422.7,124.7 426.9,131.6 431.1,138.5 435.3,145.4 439.5,152.3 443.7,159.2 447.9,166.2 452.1,173.1 456.4,180.0 460.6,186.9 464.8,193.8 469.0,200.8 473.2,207.7 477.4,214.6 481.6,221.5 485.8,228.4 490.0,235.3 494.2,242.2 498.5,249.2 502.7,256.1 506.9,263.0 511.1,269.9 515.3,276.8 519.5,283.8 523.7,290.7 527.9,297.6 532.1,304.5 536.4,311.4 540.6,318.3 544.8,325.2 549.0,332.2 553.2,339.1 557.4,346.0"/><text class="isol" x="361.3" y="29.0">20 MW</text><polyline class="iso" points="429.9,14.0 434.1,20.9 438.3,27.8 442.5,34.8 446.7,41.7 450.9,48.6 455.2,55.5 459.4,62.4 463.6,69.3 467.8,76.2 472.0,83.2 476.2,90.1 480.4,97.0 484.6,103.9 488.8,110.8 493.0,117.8 497.3,124.7 501.5,131.6 505.7,138.5 509.9,145.4 514.1,152.3 518.3,159.2 522.5,166.2 526.7,173.1 530.9,180.0 535.2,186.9 539.4,193.8 543.6,200.8 547.8,207.7 552.0,214.6 556.2,221.5 560.4,228.4 564.6,235.3 568.8,242.2 573.0,249.2 577.3,256.1 581.5,263.0 585.7,269.9 589.9,276.8 594.1,283.8 598.3,290.7 602.5,297.6 606.7,304.5 610.9,311.4 615.1,318.3 619.4,325.2 623.6,332.2 627.8,339.1 632.0,346.0"/><text class="isol" x="435.9" y="29.0">30 MW</text><circle cx="588" cy="272" r="5.6" fill="#8e44ad"/><circle cx="551" cy="235" r="5.6" fill="#8e44ad"/><circle cx="566" cy="291" r="5.6" fill="#8e44ad"/><circle cx="573" cy="314" r="5.6" fill="#8e44ad"/><circle cx="527" cy="275" r="5.6" fill="#8e44ad"/><circle cx="529" cy="308" r="5.6" fill="#e74c3c"/><circle cx="455" cy="230" r="5.6" fill="#e74c3c"/><circle cx="498" cy="314" r="5.6" fill="#e74c3c"/><circle cx="422" cy="285" r="5.6" fill="#e74c3c"/><circle cx="407" cy="305" r="5.6" fill="#e74c3c"/><circle cx="383" cy="267" r="5.6" fill="#e74c3c"/><circle cx="343" cy="210" r="5.6" fill="#e67e22"/><circle cx="355" cy="242" r="5.6" fill="#e67e22"/><circle cx="366" cy="280" r="5.6" fill="#e67e22"/><circle cx="307" cy="190" r="5.6" fill="#e67e22"/><circle cx="380" cy="311" r="5.6" fill="#e67e22"/><circle cx="332" cy="233" r="5.6" fill="#e67e22"/><circle cx="361" cy="305" r="5.6" fill="#e67e22"/><circle cx="237" cy="102" r="5.6" fill="#e67e22"/><circle cx="330" cy="262" r="5.6" fill="#e67e22"/><circle cx="330" cy="262" r="5.6" fill="#e67e22"/><circle cx="324" cy="314" r="5.6" fill="#e67e22"/><circle cx="317" cy="314" r="5.6" fill="#e67e22"/><circle cx="306" cy="302" r="5.6" fill="#e67e22"/><circle cx="281" cy="285" r="5.6" fill="#e67e22"/><circle cx="287" cy="302" r="5.6" fill="#e67e22"/><circle cx="214" cy="206" r="5.6" fill="#f1c40f"/><circle cx="210" cy="208" r="5.6" fill="#f1c40f"/><circle cx="267" cy="302" r="5.6" fill="#f1c40f"/><circle cx="265" cy="314" r="5.6" fill="#f1c40f"/><circle cx="250" cy="305" r="5.6" fill="#f1c40f"/><circle cx="217" cy="294" r="5.6" fill="#f1c40f"/><circle cx="223" cy="308" r="5.6" fill="#f1c40f"/><circle cx="223" cy="308" r="5.6" fill="#f1c40f"/><circle cx="223" cy="308" r="5.6" fill="#f1c40f"/><circle cx="218" cy="314" r="5.6" fill="#f1c40f"/><circle cx="212" cy="305" r="5.6" fill="#f1c40f"/><circle cx="139" cy="188" r="5.6" fill="#f1c40f"/><circle cx="208" cy="308" r="5.6" fill="#f1c40f"/><circle cx="174" cy="314" r="5.6" fill="#f1c40f"/><circle cx="170" cy="314" r="5.6" fill="#f1c40f"/><circle cx="144" cy="272" r="5.6" fill="#f1c40f"/><circle cx="149" cy="294" r="5.6" fill="#f1c40f"/><circle cx="150" cy="302" r="5.6" fill="#f1c40f"/><circle cx="133" cy="308" r="5.6" fill="#f1c40f"/><text class="ax" x="360.0" y="392" text-anchor="middle">Caudal medio estimado, Q (m³/s)</text><text class="ax" transform="translate(15 180.0) rotate(-90)" text-anchor="middle">Caída estimada, H (m)</text></svg><svg class="sc sc--m" viewBox="0 0 370 420" role="img" aria-label="Dispersión de caudal medio estimado frente a caída estimada de los 75 sitios, con curvas de igual potencia"><line class="grid" x1="72.8" y1="14" x2="72.8" y2="366"/><text x="72.8" y="384" text-anchor="middle">2</text><line class="grid" x1="158.2" y1="14" x2="158.2" y2="366"/><text x="158.2" y="384" text-anchor="middle">5</text><line class="grid" x1="222.8" y1="14" x2="222.8" y2="366"/><text x="222.8" y="384" text-anchor="middle">10</text><line class="grid" x1="287.4" y1="14" x2="287.4" y2="366"/><text x="287.4" y="384" text-anchor="middle">20</text><line class="grid" x1="46" y1="332.2" x2="352" y2="332.2"/><text x="38" y="336.2" text-anchor="end">100</text><line class="grid" x1="46" y1="202.3" x2="352" y2="202.3"/><text x="38" y="206.3" text-anchor="end">150</text><line class="grid" x1="46" y1="110.2" x2="352" y2="110.2"/><text x="38" y="114.2" text-anchor="end">200</text><line class="grid" x1="46" y1="38.7" x2="352" y2="38.7"/><text x="38" y="42.7" text-anchor="end">250</text><polyline class="iso" points="46.0,233.9 46.8,236.7 47.6,239.4 48.4,242.2 49.2,244.9 50.0,247.7 50.8,250.4 51.6,253.2 52.4,255.9 53.2,258.7 54.0,261.4 54.8,264.2 55.6,266.9 56.4,269.7 57.2,272.4 58.0,275.2 58.8,277.9 59.6,280.7 60.4,283.5 61.2,286.2 62.0,289.0 62.8,291.7 63.6,294.5 64.4,297.2 65.2,300.0 66.0,302.7 66.8,305.5 67.6,308.2 68.4,311.0 69.2,313.7 70.0,316.5 70.8,319.2 71.6,322.0 72.4,324.7 73.2,327.5 74.0,330.2 74.8,333.0 75.6,335.7 76.4,338.5 77.2,341.2 78.0,344.0 78.8,346.7 79.6,349.5 80.4,352.2 81.2,355.0 82.0,357.7 82.8,360.5 83.6,363.2 84.4,366.0"/><text class="isol" x="52.0" y="227.9">2 MW</text><polyline class="iso" points="67.4,14.0 69.6,21.3 71.7,28.7 73.8,36.0 76.0,43.3 78.1,50.7 80.2,58.0 82.4,65.3 84.5,72.7 86.6,80.0 88.8,87.3 90.9,94.7 93.0,102.0 95.2,109.3 97.3,116.7 99.4,124.0 101.6,131.3 103.7,138.7 105.8,146.0 108.0,153.3 110.1,160.7 112.2,168.0 114.4,175.3 116.5,182.7 118.6,190.0 120.8,197.3 122.9,204.7 125.0,212.0 127.2,219.3 129.3,226.7 131.4,234.0 133.6,241.3 135.7,248.7 137.8,256.0 139.9,263.3 142.1,270.7 144.2,278.0 146.3,285.3 148.5,292.7 150.6,300.0 152.7,307.3 154.9,314.7 157.0,322.0 159.1,329.3 161.3,336.7 163.4,344.0 165.5,351.3 167.7,358.7 169.8,366.0"/><text class="isol" x="73.4" y="42.0">5 MW</text><polyline class="iso" points="132.0,14.0 134.2,21.3 136.3,28.7 138.4,36.0 140.6,43.3 142.7,50.7 144.8,58.0 147.0,65.3 149.1,72.7 151.2,80.0 153.4,87.3 155.5,94.7 157.6,102.0 159.8,109.3 161.9,116.7 164.0,124.0 166.2,131.3 168.3,138.7 170.4,146.0 172.6,153.3 174.7,160.7 176.8,168.0 179.0,175.3 181.1,182.7 183.2,190.0 185.4,197.3 187.5,204.7 189.6,212.0 191.7,219.3 193.9,226.7 196.0,234.0 198.1,241.3 200.3,248.7 202.4,256.0 204.5,263.3 206.7,270.7 208.8,278.0 210.9,285.3 213.1,292.7 215.2,300.0 217.3,307.3 219.5,314.7 221.6,322.0 223.7,329.3 225.9,336.7 228.0,344.0 230.1,351.3 232.3,358.7 234.4,366.0"/><text class="isol" x="138.0" y="29.0">10 MW</text><polyline class="iso" points="196.6,14.0 198.8,21.3 200.9,28.7 203.0,36.0 205.2,43.3 207.3,50.7 209.4,58.0 211.6,65.3 213.7,72.7 215.8,80.0 218.0,87.3 220.1,94.7 222.2,102.0 224.4,109.3 226.5,116.7 228.6,124.0 230.8,131.3 232.9,138.7 235.0,146.0 237.2,153.3 239.3,160.7 241.4,168.0 243.5,175.3 245.7,182.7 247.8,190.0 249.9,197.3 252.1,204.7 254.2,212.0 256.3,219.3 258.5,226.7 260.6,234.0 262.7,241.3 264.9,248.7 267.0,256.0 269.1,263.3 271.3,270.7 273.4,278.0 275.5,285.3 277.7,292.7 279.8,300.0 281.9,307.3 284.1,314.7 286.2,322.0 288.3,329.3 290.5,336.7 292.6,344.0 294.7,351.3 296.9,358.7 299.0,366.0"/><text class="isol" x="202.6" y="42.0">20 MW</text><polyline class="iso" points="234.4,14.0 236.5,21.3 238.7,28.7 240.8,36.0 242.9,43.3 245.1,50.7 247.2,58.0 249.3,65.3 251.5,72.7 253.6,80.0 255.7,87.3 257.9,94.7 260.0,102.0 262.1,109.3 264.3,116.7 266.4,124.0 268.5,131.3 270.7,138.7 272.8,146.0 274.9,153.3 277.1,160.7 279.2,168.0 281.3,175.3 283.5,182.7 285.6,190.0 287.7,197.3 289.9,204.7 292.0,212.0 294.1,219.3 296.3,226.7 298.4,234.0 300.5,241.3 302.7,248.7 304.8,256.0 306.9,263.3 309.1,270.7 311.2,278.0 313.3,285.3 315.5,292.7 317.6,300.0 319.7,307.3 321.9,314.7 324.0,322.0 326.1,329.3 328.3,336.7 330.4,344.0 332.5,351.3 334.7,358.7 336.8,366.0"/><text class="isol" x="240.4" y="29.0">30 MW</text><circle cx="315" cy="287" r="4.4" fill="#8e44ad"/><circle cx="296" cy="248" r="4.4" fill="#8e44ad"/><circle cx="303" cy="308" r="4.4" fill="#8e44ad"/><circle cx="307" cy="332" r="4.4" fill="#8e44ad"/><circle cx="284" cy="290" r="4.4" fill="#8e44ad"/><circle cx="285" cy="326" r="4.4" fill="#e74c3c"/><circle cx="247" cy="243" r="4.4" fill="#e74c3c"/><circle cx="269" cy="332" r="4.4" fill="#e74c3c"/><circle cx="230" cy="302" r="4.4" fill="#e74c3c"/><circle cx="223" cy="323" r="4.4" fill="#e74c3c"/><circle cx="210" cy="282" r="4.4" fill="#e74c3c"/><circle cx="191" cy="222" r="4.4" fill="#e67e22"/><circle cx="197" cy="256" r="4.4" fill="#e67e22"/><circle cx="202" cy="296" r="4.4" fill="#e67e22"/><circle cx="172" cy="200" r="4.4" fill="#e67e22"/><circle cx="209" cy="329" r="4.4" fill="#e67e22"/><circle cx="185" cy="246" r="4.4" fill="#e67e22"/><circle cx="200" cy="323" r="4.4" fill="#e67e22"/><circle cx="136" cy="107" r="4.4" fill="#e67e22"/><circle cx="184" cy="277" r="4.4" fill="#e67e22"/><circle cx="184" cy="277" r="4.4" fill="#e67e22"/><circle cx="181" cy="332" r="4.4" fill="#e67e22"/><circle cx="177" cy="332" r="4.4" fill="#e67e22"/><circle cx="172" cy="320" r="4.4" fill="#e67e22"/><circle cx="159" cy="302" r="4.4" fill="#e67e22"/><circle cx="162" cy="320" r="4.4" fill="#e67e22"/><circle cx="125" cy="218" r="4.4" fill="#f1c40f"/><circle cx="123" cy="220" r="4.4" fill="#f1c40f"/><circle cx="152" cy="320" r="4.4" fill="#f1c40f"/><circle cx="151" cy="332" r="4.4" fill="#f1c40f"/><circle cx="143" cy="323" r="4.4" fill="#f1c40f"/><circle cx="127" cy="311" r="4.4" fill="#f1c40f"/><circle cx="130" cy="326" r="4.4" fill="#f1c40f"/><circle cx="130" cy="326" r="4.4" fill="#f1c40f"/><circle cx="129" cy="326" r="4.4" fill="#f1c40f"/><circle cx="127" cy="332" r="4.4" fill="#f1c40f"/><circle cx="124" cy="323" r="4.4" fill="#f1c40f"/><circle cx="87" cy="198" r="4.4" fill="#f1c40f"/><circle cx="122" cy="326" r="4.4" fill="#f1c40f"/><circle cx="105" cy="332" r="4.4" fill="#f1c40f"/><circle cx="103" cy="332" r="4.4" fill="#f1c40f"/><circle cx="90" cy="287" r="4.4" fill="#f1c40f"/><circle cx="92" cy="311" r="4.4" fill="#f1c40f"/><circle cx="93" cy="320" r="4.4" fill="#f1c40f"/><circle cx="84" cy="326" r="4.4" fill="#f1c40f"/><text class="ax" x="199.0" y="412" text-anchor="middle">Caudal medio estimado, Q (m³/s)</text><text class="ax" transform="translate(15 190.0) rotate(-90)" text-anchor="middle">Caída estimada, H (m)</text></svg>
+        <ul class="lg" aria-label="Rangos de potencia estimada">
+          <li><i style="background:#f1c40f"></i>2 a 5 MW <b>19</b></li><li><i style="background:#e67e22"></i>5 a 10 MW <b>15</b></li><li><i style="background:#e74c3c"></i>10 a 20 MW <b>6</b></li><li><i style="background:#8e44ad"></i>≥ 20 MW <b>5</b></li>
+        </ul>
+        <p class="figcap">Cada punto es un sitio; las líneas punteadas son curvas de igual potencia. Las caídas se concentran entre 100 y 202 m, de modo que la potencia depende sobre todo del caudal.</p>
+      </div>
+      <div class="fig">
+        <h3>Síntesis</h3>
+        <div class="keyfacts">
+          <div><b>45</b><span>sitios identificados</span></div>
+          <div><b>≈ 390</b><span>MW de potencia hidráulica estimada</span></div>
+          <div><b>6,0 MW</b><span>mediana por sitio</span></div>
+          <div><b>26</b><span>sitios de 5 MW o más</span></div>
+          <div><b>15</b><span>sitios bajo jurisdicción de la CAR</span></div>
+          <div><b>609–2.959</b><span>msnm, rango de elevación</span></div>
+        </div>
+        <p class="figcap">Cifras agregadas del portafolio; no revelan la ubicación de ningún sitio.</p>
+      </div>
+    </div>
+    <div class="mapframe reveal">
+      <div class="mapframe__bar">
+        <span class="mapframe__title"><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg><span>Figura 2 · Ubicación aproximada de los 45 sitios</span></span>
+        <div class="mapframe__acts">
+          <a class="mapframe__open" href="mapa-portafolio.html" target="_blank" rel="noopener">Pantalla completa <svg class="i" aria-hidden="true"><use href="#i-expand"/></svg></a>
+        </div>
+      </div>
+      <div class="mapframe__body">
+        <div class="mapframe__ph" aria-hidden="true"><svg class="i"><use href="#i-pin"/></svg><span>Cargando el mapa…</span></div>
+        <iframe id="mapfr" data-src="mapa-portafolio.html" title="Mapa del portafolio de PCH de Regenergy"></iframe>
+        <noscript><p style="position:absolute;inset:0;display:grid;place-content:center;color:#fff;text-align:center;padding:24px"><a class="btn btn--orange" href="mapa-portafolio.html">Abrir el mapa</a></p></noscript>
+      </div>
+    </div>
+    <p class="figcap" style="margin-top:14px"><b>Figura 2.</b> Un punto por sitio, desplazado de su ubicación real y coloreado por rango de potencia. Permite filtrar por departamento y por jurisdicción de la CAR. La ubicación exacta se entrega bajo acuerdo de confidencialidad.</p>
+  </div>
+</section>
+
+<section class="sec" id="lectura" aria-labelledby="h-lectura">
+  <div class="wrap">
+    <div class="sec__head reveal">
+      <p class="eyebrow">Lectura técnica</p>
+      <h2 id="h-lectura">Lo que los datos dicen del portafolio</h2>
+      <p class="lead">Cuatro conclusiones que orientan cómo se estudia cada sitio y qué se verifica primero.</p>
+    </div>
+    <div class="comp">
+      <article class="card reveal"><p class="big">≈ 13×</p><h3>El caudal diferencia a los proyectos</h3><p>La caída estimada va de 100 a 202 m (mediana 104 m), mientras el caudal medio va de 2,3 a 26,8 m³/s. La potencia, de 2,3 a 30,2 MW, depende sobre todo del caudal; por eso la hidrología es el primer filtro de la prefactibilidad.</p></article>
+      <article class="card reveal" style="--d:.05s"><p class="big">&gt; 130 km²</p><h3>Cuencas con aportes representativos</h3><p>Solo se incluyen cuencas aportantes de más de 130 km² (mediana 223 km², máxima 1.310 km²). Las cuencas mayores amortiguan la variabilidad de los caudales y facilitan transferir los registros de las estaciones del IDEAM. El rendimiento específico mediano es de 19 L/s/km² (rango de 9 a 36).</p></article>
+      <article class="card reveal" style="--d:.1s"><p class="big">100–202 m</p><h3>Caída media: varias turbinas posibles</h3><p>En este rango de caída la selección se da sobre todo entre turbinas Francis y Turgo, con Pelton como alternativa en los sitios de menor caudal. La elección depende de la variabilidad del caudal y del comportamiento a carga parcial, y se define en la prefactibilidad.</p></article>
+      <article class="card reveal" style="--d:.15s"><p class="big">34 de 45</p><h3>Escala de pequeña central</h3><p>34 sitios (76 %) estiman menos de 10 MW y 11 superan ese valor. La escala condiciona la ruta ambiental y de conexión, que se verifica caso por caso con la normativa vigente.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--flush" id="fases" aria-labelledby="h-fases">
+  <div class="wrap">
+    <div class="sec__head reveal">
+      <p class="eyebrow">Capacidad en cada fase</p>
+      <h2 id="h-fases">De la identificación a la construcción</h2>
+      <p class="lead">Regenergy puede ejecutar o coordinar cada una de las siete fases de un proyecto hidroeléctrico. La participación en cada una se define con cada inversionista.</p>
+    </div>
+    <ol class="phases reveal">
+      <li><span class="pn">1</span><h3>Identificación del recurso</h3><p>Portafolio propio de 45 sitios caracterizados por balance hídrico y caída del tramo, ampliable a una zona de interés con los mismos criterios.</p></li>
+      <li><span class="pn">2</span><h3>Prefactibilidad</h3><p>Hidrología, obras, componente electromecánico, geología, conexión, aspectos ambientales, sociales y prediales, y evaluación financiera, con imagen satelital de 0,5 m y visita con dron. Informe firmado por un ingeniero con matrícula profesional.</p></li>
+      <li><span class="pn">3</span><h3>Factibilidad</h3><p>Aforos continuos, topografía, geotecnia y estudios de soporte de los permisos, con coordinación de los especialistas.</p></li>
+      <li><span class="pn">4</span><h3>Permisos y conexión</h3><p>Preparación y seguimiento de los trámites ambientales, la concesión de aguas, el concepto de conexión y la gestión predial.</p></li>
+      <li><span class="pn">5</span><h3>Diseños de detalle</h3><p>Diseños hasta dejar el proyecto listo para construir: obras civiles, componente electromecánico y conexión.</p></li>
+      <li><span class="pn">6</span><h3>Capital</h3><p>Estructuración del proyecto y presentación a inversionistas, o venta del proyecto listo para construir, con contrato de energía y financiación.</p></li>
+      <li><span class="pn">7</span><h3>Construcción</h3><p>Acompañamiento técnico hacia la ejecución, con los permisos, los diseños y la financiación en firme.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec sec--flush" id="proceso" aria-labelledby="h-proceso">
+  <div class="wrap">
+    <div class="sec__head reveal">
+      <p class="eyebrow">Proceso</p>
+      <h2 id="h-proceso">Un recorrido general, a la medida de cada inversionista</h2>
+      <p class="lead">El número de sitios, el alcance, los entregables y los plazos se acuerdan con cada inversionista según sus criterios de decisión.</p>
+    </div>
+    <ol class="steps4">
+      <li class="card reveal"><span class="num" aria-hidden="true">1</span><h3>Criterios</h3><p>El inversionista define lo que busca: potencia, rentabilidad objetivo, conexión, zona.</p></li>
+      <li class="card reveal" style="--d:.08s"><span class="num" aria-hidden="true">2</span><h3>Selección</h3><p>Se identifican en el portafolio los sitios que los cumplen. Si el interés es una zona, se consulta primero lo existente y, si hace falta, se hace un estudio zonal aparte.</p></li>
+      <li class="card reveal" style="--d:.16s"><span class="num" aria-hidden="true">3</span><h3>Prefactibilidad</h3><p>Estudio de cada sitio, desde 5 hasta los 45, con un reporte parcial antes del informe final.</p></li>
+      <li class="card reveal" style="--d:.24s"><span class="num" aria-hidden="true">4</span><h3>Ruta</h3><p>Informe por sitio, comparativo frente a los criterios y hoja de ruta hacia las fases siguientes.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec sec--flush" id="marco" aria-labelledby="h-marco">
+  <div class="wrap">
+    <div class="sec__head reveal">
+      <p class="eyebrow">Marco técnico</p>
+      <h2 id="h-marco">Información oficial y normativa con las que se trabaja</h2>
+      <p class="lead">Cada resultado se apoya en fuentes públicas identificables, de modo que el inversionista puede auditar de dónde proviene cada dato.</p>
+    </div>
+    <div class="mini">
+      <article class="card reveal"><span class="chip chip--lg"><svg class="i" aria-hidden="true"><use href="#i-cloud"/></svg></span><h3>Datos y cartografía</h3><ul class="dots"><li>IDEAM: hidrología y clima</li><li>Servicio Geológico Colombiano: cartografía geológica y movimientos en masa (SIMMA)</li><li>IGAC: cartografía y predios</li></ul></article>
+      <article class="card reveal" style="--d:.1s"><span class="chip chip--lg"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg></span><h3>Ambiental y técnico</h3><ul class="dots"><li>RUNAP, páramos y reservas forestales de la Ley 2.ª de 1959</li><li>Decreto 1076 de 2015 y Decreto 852 de 2024, sobre competencias de licenciamiento ambiental</li><li>Reglamento NSR-10, para amenaza sísmica</li></ul></article>
+      <article class="card reveal" style="--d:.2s"><span class="chip chip--lg"><svg class="i" aria-hidden="true"><use href="#i-zap"/></svg></span><h3>Sector eléctrico e incentivos</h3><ul class="dots"><li>UPME, XM y operador de red: conexión</li><li>Leyes 1715 de 2014 y 2099 de 2021: incentivos a las energías renovables</li><li>Ministerio del Interior: comunidades étnicas</li></ul></article>
+    </div>
+    <p class="srcnote reveal">Cada informe lo firma un ingeniero con matrícula profesional. Las potencias son estimaciones de gabinete y la ubicación exacta de los sitios se entrega con el informe, bajo acuerdo de confidencialidad.</p>
+  </div>
+</section>
+
+<section class="sec close dark" id="contacto" aria-labelledby="h-cierre">
+  <div class="wrap">
+    <div class="sec__head reveal">
+      <p class="eyebrow">Contacto</p>
+      <h2 id="h-cierre">Conversemos sobre los sitios que le interesan</h2>
+      <p class="lead">Cuéntenos qué busca y le proponemos cómo avanzar, con alcance, plazo y valor definidos para su caso.</p>
+    </div>
+    <div class="close__grid">
+      <div class="glass reveal">
+        <p class="eyebrow">Para empezar</p>
+        <h3>Tres datos</h3>
+        <ul class="form-need">
+          <li><b>Sitios o zona.</b> Cuántos sitios le interesan (desde 5), cuáles ya tiene identificados o su zona de interés.</li>
+          <li><b>Criterios.</b> Por ejemplo, potencia mínima, rentabilidad objetivo y distancia máxima a la red.</li>
+          <li><b>Plazo.</b> Fecha en que necesita los resultados.</li>
+        </ul>
+      </div>
+      <div class="next reveal" style="--d:.12s">
+        <p class="eyebrow">Escríbanos</p>
+        <div class="contact">
+          <a class="btn btn--orange" href="mailto:gerencia@regenergy-pro.com?subject=Cotizaci%C3%B3n%20de%20prefactibilidad%20de%20PCH"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg>gerencia@regenergy-pro.com</a>
+          <a class="btn btn--ghost" href="https://wa.me/573054212200?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20prefactibilidad%20de%20PCH%20de%20Regenergy%20Projects%20y%20quisiera%20pedir%20una%20cotizaci%C3%B3n." target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-whatsapp"/></svg>+57 305 421 2200</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="brand" href="#inicio"><img src="assets/logo-regenergy-256.png" width="40" height="40" alt=""><span>REGENERGY<b>PROJECTS</b></span></a>
+    <p>Regenergy Projects SAS · Cali, Colombia. Las potencias son estimaciones de gabinete, sujetas a verificación en la prefactibilidad, y las ubicaciones del mapa son aproximadas; la ubicación exacta se entrega bajo acuerdo de confidencialidad.<br>Contacto: <a href="https://wa.me/573054212200?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20prefactibilidad%20de%20PCH%20de%20Regenergy%20Projects%20y%20quisiera%20pedir%20una%20cotizaci%C3%B3n." target="_blank" rel="noopener">WhatsApp +57 305 421 2200</a> · <a href="mailto:gerencia@regenergy-pro.com?subject=Cotizaci%C3%B3n%20de%20prefactibilidad%20de%20PCH">gerencia@regenergy-pro.com</a></p>
+  </div>
+</footer>
+
+<aside class="dock" id="dock" aria-label="Contacto">
+  <a class="dock__wa" href="https://wa.me/573054212200?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20prefactibilidad%20de%20PCH%20de%20Regenergy%20Projects%20y%20quisiera%20pedir%20una%20cotizaci%C3%B3n." target="_blank" rel="noopener" aria-label="Escribir por WhatsApp al +57 305 421 2200"><svg class="i" aria-hidden="true"><use href="#i-whatsapp"/></svg><span><small>WhatsApp</small>+57 305 421 2200</span></a>
+  <a class="dock__mail" href="mailto:gerencia@regenergy-pro.com?subject=Cotizaci%C3%B3n%20de%20prefactibilidad%20de%20PCH" aria-label="Escribir a gerencia@regenergy-pro.com"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg><span><small>Correo</small>gerencia@regenergy-pro.com</span></a>
+</aside>
+
+<script>
+(function(){
+  var d=document, root=d.documentElement;
+  root.classList.add('js');
+  var top=d.getElementById('top');
+  function stuck(){ top.classList.toggle('is-stuck', (window.scrollY||root.scrollTop)>24); }
+  stuck(); window.addEventListener('scroll', stuck, {passive:true});
+
+  var burger=d.querySelector('.burger'), nav=d.getElementById('nav');
+  function setMenu(open){
+    top.classList.toggle('is-open', open);
+    burger.setAttribute('aria-expanded', open);
+    burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+  }
+  burger.addEventListener('click', function(){ setMenu(!top.classList.contains('is-open')); });
+  nav.addEventListener('click', function(e){ if(e.target.closest('a')) setMenu(false); });
+  d.addEventListener('keydown', function(e){ if(e.key==='Escape') setMenu(false); });
+
+  var reveals=[].slice.call(d.querySelectorAll('.reveal'));
+  var calm=window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if('IntersectionObserver' in window && !calm){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+    },{threshold:.12, rootMargin:'0px 0px -6% 0px'});
+    reveals.forEach(function(el){ io.observe(el); });
+  } else {
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  // el mapa se carga cuando ya está a la vista (evita descargar Leaflet y mosaicos antes de tiempo
+  // y que el foco automático del campo de código mueva la página)
+  var mf=d.getElementById('mapfr');
+  if(mf){
+    var loadMap=function(){
+      if(mf.getAttribute('src')) return;
+      mf.addEventListener('load', function(){ mf.parentNode.classList.add('is-loaded'); });
+      mf.setAttribute('src', mf.getAttribute('data-src'));
+    };
+    if('IntersectionObserver' in window){
+      var mo=new IntersectionObserver(function(es){
+        es.forEach(function(en){
+          if(en.isIntersecting && (en.intersectionRatio>=.6 || en.intersectionRect.height>=window.innerHeight*.85)){ loadMap(); mo.disconnect(); }
+        });
+      },{threshold:[0,.2,.4,.6,.8,1]});
+      mo.observe(mf.parentNode);
+    } else { loadMap(); }
+  }
+
+  // la barra de contacto se oculta cuando ya se ve el cierre o el pie (ahí el contacto está completo)
+  var dock=d.getElementById('dock'), seen={};
+  if(dock && 'IntersectionObserver' in window){
+    var dockUpdate=function(){ dock.classList.toggle('is-off', (window.scrollY||root.scrollTop)<80 || !!(seen.contacto||seen.foot)); };
+    var dobs=new IntersectionObserver(function(es){
+      es.forEach(function(en){ seen[en.target.id||'foot']=en.isIntersecting; });
+      dockUpdate();
+    },{threshold:0});
+    window.addEventListener('scroll', dockUpdate, {passive:true}); dockUpdate();
+    var tg=[d.getElementById('contacto'), d.querySelector('footer')];
+    tg.forEach(function(t){ if(t) dobs.observe(t); });
+  }
+
+  // enlace activo según la sección visible
+  var links={}; [].forEach.call(nav.querySelectorAll('a[href^="#"]'), function(a){ links[a.getAttribute('href').slice(1)]=a; });
+  if('IntersectionObserver' in window){
+    var so=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        var a=links[en.target.id]; if(!a) return;
+        if(en.isIntersecting){ Object.keys(links).forEach(function(k){ links[k].classList.remove('is-active'); }); a.classList.add('is-active'); }
+      });
+    },{rootMargin:'-45% 0px -50% 0px'});
+    Object.keys(links).forEach(function(id){ var s=d.getElementById(id); if(s) so.observe(s); });
+  }
+})();
+</script>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}.bar{width:calc(var(--w) / 24 * 100%)!important}</style></noscript>
+</body>
+</html>
