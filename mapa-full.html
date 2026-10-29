@@ -709,6 +709,13 @@ svg.leaflet-image-layer.leaflet-interactive path {
     font-size: 13px;
     user-select: none;
   }
+  .toggle-control { max-height: calc(100vh - 24px); overflow-y: auto; }
+  .nv-sw { display:inline-block; width:12px; height:12px; border-radius:50%; border:3px solid #999; background:#fff; box-sizing:border-box; flex:none; }
+  .nv-chip { display:inline-block; color:#fff; font-weight:bold; font-size:11px; padding:0 6px; border-radius:8px; }
+  .nv-btns { display:flex; gap:4px; margin:2px 0 4px; }
+  .nv-btns button { flex:1; font-size:11px; padding:2px 4px; cursor:pointer; border:1px solid #aaa; border-radius:4px; background:#f4f4f4; }
+  .nv-btns button:hover { background:#e6e6e6; }
+  .nv-note { font-size:10.5px; color:#666; line-height:1.3; margin-bottom:2px; }
   .toggle-control label {
     display: flex;
     align-items: center;
@@ -959,6 +966,19 @@ function conexResumen(p) {
   if (c.w) html += '<span style="color:#b45f06;">' + c.w + '</span><br>';
   return html;
 }
+const NIVEL = {"R05":{"n":"A","c":280,"t":12.2,"p":18.3,"f":"Media","g":[]},"CAR-06":{"n":"A","c":311,"t":10.4,"p":16.9,"f":"Media","g":[]},"CAR-08":{"n":"A","c":314,"t":10.3,"p":15.2,"f":"Alta","g":["R13"]},"R13":{"n":"A","c":316,"t":10.2,"p":14.7,"f":"Media","g":["CAR-08"]},"R08":{"n":"B","c":325,"t":9.7,"p":7.1,"f":"Media","g":[]},"CAR-07":{"n":"B","c":339,"t":9.1,"p":13.0,"f":"Alta","g":["R15"]},"P39":{"n":"B","c":344,"t":8.9,"p":6.1,"f":"Media","g":[]},"P31":{"n":"B","c":348,"t":8.8,"p":10.2,"f":"Baja","g":[]},"P35":{"n":"B","c":350,"t":8.7,"p":5.9,"f":"Media","g":[]},"P32":{"n":"B","c":351,"t":8.6,"p":4.8,"f":"Baja","g":[]},"P26":{"n":"B","c":352,"t":8.6,"p":4.8,"f":"Alta","g":[]},"R15":{"n":"B","c":353,"t":8.5,"p":11.8,"f":"Alta","g":["CAR-07"]},"P30":{"n":"B","c":356,"t":8.4,"p":4.6,"f":"Media","g":["P42"]},"P42":{"n":"B","c":356,"t":8.4,"p":4.6,"f":"Media","g":["P30"]},"P38":{"n":"B","c":365,"t":8.0,"p":5.2,"f":"Media","g":[]},"P34":{"n":"B","c":372,"t":7.8,"p":5.3,"f":"Media","g":[]},"CAR-20":{"n":"B","c":375,"t":7.7,"p":5.2,"f":"Alta","g":[]},"CAR-21":{"n":"B","c":390,"t":7.1,"p":5.7,"f":"Media","g":[]},"R16":{"n":"C","c":396,"t":6.9,"p":6.1,"f":"Baja","g":[]},"R17":{"n":"C","c":397,"t":6.9,"p":9.7,"f":"Baja","g":[]},"P27":{"n":"C","c":399,"t":6.8,"p":5.2,"f":"Baja","g":[]},"P36":{"n":"C","c":403,"t":6.7,"p":2.6,"f":"Media","g":[]},"P37":{"n":"C","c":412,"t":6.4,"p":2.7,"f":"Media","g":[]},"R09":{"n":"C","c":427,"t":5.9,"p":3.3,"f":"Baja","g":[]},"P33":{"n":"C","c":428,"t":5.9,"p":2.1,"f":"Baja","g":[]},"R11":{"n":"C","c":431,"t":5.8,"p":3.6,"f":"Media","g":[]},"P21":{"n":"C","c":441,"t":5.5,"p":2.9,"f":"Alta","g":[]},"CAR-10":{"n":"C","c":450,"t":5.2,"p":3.0,"f":"Alta","g":[]},"R14":{"n":"C","c":454,"t":5.1,"p":3.8,"f":"Media","g":[]},"R12":{"n":"C","c":467,"t":4.8,"p":2.9,"f":"Media","g":[]},"P23":{"n":"C","c":489,"t":4.2,"p":3.2,"f":"Baja","g":[]},"R03":{"n":"C","c":498,"t":3.9,"p":3.6,"f":"Baja","g":[]},"CAR-11":{"n":"C","c":502,"t":3.8,"p":2.2,"f":"Alta","g":[]},"R06":{"n":"C","c":520,"t":3.4,"p":1.7,"f":"Media","g":["CAR-30","CAR-31"]},"CAR-31":{"n":"C","c":531,"t":3.1,"p":1.6,"f":"Media","g":["CAR-30","R06"]},"CAR-30":{"n":"C","c":542,"t":2.9,"p":1.6,"f":"Media","g":["CAR-31","R06"]},"R10":{"n":"C","c":587,"t":1.9,"p":1.6,"f":"Alta","g":["CAR-18","CAR-19"]},"CAR-19":{"n":"C","c":587,"t":1.9,"p":1.5,"f":"Alta","g":["CAR-18","R10"]},"CAR-01":{"n":"C","c":594,"t":1.8,"p":2.3,"f":"Media","g":["P43"]},"CAR-23":{"n":"C","c":605,"t":1.6,"p":2.1,"f":"Media","g":[]},"CAR-03":{"n":"C","c":609,"t":1.5,"p":2.2,"f":"Media","g":["P44"]},"P44":{"n":"C","c":609,"t":1.5,"p":2.2,"f":"Media","g":["CAR-03"]},"P43":{"n":"C","c":612,"t":1.4,"p":2.1,"f":"Media","g":["CAR-01"]},"CAR-18":{"n":"C","c":627,"t":1.1,"p":1.4,"f":"Alta","g":["CAR-19","R10"]},"CAR-02":{"n":"C","c":642,"t":0.8,"p":2.1,"f":"Baja","g":[]}};
+const NIVEL_COLOR = {A:'#1e8449', B:'#1f77b4', C:'#7f8c8d'};
+const NIVEL_N = {A:0,B:0,C:0};
+Object.values(NIVEL).forEach(v => { NIVEL_N[v.n]++; });
+function nivelLinea(p) {
+  const v = NIVEL[p.id];
+  if (!v) return '';
+  const alt = v.g.length ? '<br><span style="color:#8a5a00;">Mismo tramo (&le;1,5 km) que ' + v.g.join(', ') + ': alternativas, no se suman.</span>' : '';
+  return '<b>Viabilidad preliminar:</b> <span class="nv-chip" style="background:' + NIVEL_COLOR[v.n] + '">Nivel ' + v.n + '</span> ' +
+    'costo nivelado ' + fmt(v.c,0) + ' COP/kWh &middot; TIR ' + fmt(v.t,1) + ' %<br>' +
+    '<span style="color:#555;">P neta indicativa ~' + fmt(v.p,1) + ' MW &middot; confiabilidad del dato: ' + v.f + '</span>' + alt + '<br>';
+}
+
 function conexLinea(p) {
   const c = CON[p.id];
   const x = c && c.s.find(y => y[2] === 1);
@@ -981,6 +1001,8 @@ let labelsOn = false;
 let detailsOn = false;
 let deptoFilter = 'todos';
 let carFilter = 'todos';
+const nivelChecked = {A:true, B:true, C:true};
+let nivelRing = true;
 let colorMetric = 'potencia';
 const FIXED_RADIUS = 8;
 
@@ -1048,6 +1070,7 @@ function popupContent(p) {
     `<b>Potencia hidraulica:</b> ${fmt(p.p_hidraulica_mw,2)} MW <span style="color:#777;">(P = 9.81 x Q x H / 1000)</span><br>` +
     `<b>Depto / Municipio:</b> ${p.departamento} / ${p.municipio}<br>` +
     `<b>Coordenada:</b> ${p.lat}, ${p.lon}<br>` +
+    nivelLinea(p) +
     conexLinea(p) +
     `<details style="margin-top:4px;"><summary style="cursor:pointer;color:#1a5276;">Ver datos hidrologicos</summary>` +
     `<b>Area cuenca:</b> ${fmt(p.area_km2,0)} km2<br>` +
@@ -1079,6 +1102,7 @@ points.forEach(p => {
   marker._colorCaudal = p.color_caudal;
   marker._depto = p.departamento;
   marker._enCar = (p.tipo === 'CAR');
+  marker._nivel = (NIVEL[p.id] || {}).n || 'C';
   marker._data = p;
 
   marker.bindTooltip(shortContent(p), {permanent: false, direction: 'top', className: '', offset: [0,-FIXED_RADIUS]});
@@ -1093,6 +1117,13 @@ points.forEach(p => {
   marker.addTo(map);
   allMarkers.push(marker);
 });
+
+function applyRing() {
+  allMarkers.forEach(m => {
+    m.setStyle(nivelRing ? {color: NIVEL_COLOR[m._nivel], weight: 3} : {color: '#333', weight: 1});
+  });
+}
+applyRing();
 
 function applyColorMetric() {
   allMarkers.forEach(m => {
@@ -1114,7 +1145,8 @@ function updateVisibility() {
     const bandOk = bandChecked[colorMetric][idx];
     const deptoOk = (deptoFilter === 'todos') || (m._depto === deptoFilter);
     const carOk = (carFilter === 'todos') || (carFilter === 'solo_car' ? m._enCar : !m._enCar);
-    const shouldShow = bandOk && deptoOk && carOk;
+    const nivelOk = nivelChecked[m._nivel];
+    const shouldShow = bandOk && deptoOk && carOk && nivelOk;
     const isOnMap = map.hasLayer(m);
     if (shouldShow && !isOnMap) {
       m.addTo(map);
@@ -1178,6 +1210,16 @@ function renderToggleControl() {
   html += `<label><input type="checkbox" id="chk-labels" ${labelsOn ? 'checked' : ''}> Mostrar etiquetas</label>`;
   html += `<label><input type="checkbox" id="chk-details" ${detailsOn ? 'checked' : ''}> Mostrar detalles</label>`;
   html += `<hr style="margin:6px 0;">`;
+  html += `<label><b>Nivel de viabilidad</b> (preliminar)</label>`;
+  ['A','B','C'].forEach(n => {
+    const desc = {A:'rinde', B:'marginal', C:'no cierra'}[n];
+    html += `<label><input type="checkbox" class="chk-nivel" data-n="${n}" ${nivelChecked[n] ? 'checked' : ''}>` +
+            `<span class="nv-sw" style="border-color:${NIVEL_COLOR[n]}"></span>Nivel ${n} &middot; ${desc} (${NIVEL_N[n]})</label>`;
+  });
+  html += `<div class="nv-btns"><button type="button" data-nv="A">Solo A</button><button type="button" data-nv="AB">A + B</button><button type="button" data-nv="ABC">Todos</button></div>`;
+  html += `<label><input type="checkbox" id="chk-ring" ${nivelRing ? 'checked' : ''}> Contorno por nivel</label>`;
+  html += `<div class="nv-note">Con precio de referencia y costos supuestos (ver Excel de viabilidad). Es un filtro, no una prefactibilidad.</div>`;
+  html += `<hr style="margin:6px 0;">`;
   html += `<label>Colorear por:</label>`;
   html += `<label><input type="radio" name="color-metric" value="potencia" ${colorMetric === 'potencia' ? 'checked' : ''}> Potencia (MW)</label>`;
   html += `<label><input type="radio" name="color-metric" value="caudal" ${colorMetric === 'caudal' ? 'checked' : ''}> Caudal (m3/s)</label>`;
@@ -1224,6 +1266,24 @@ function renderToggleControl() {
       renderToggleControl();
       updateVisibility();
     });
+  });
+  document.querySelectorAll('.chk-nivel').forEach(chk => {
+    chk.addEventListener('change', function(e) {
+      nivelChecked[e.target.dataset.n] = e.target.checked;
+      updateVisibility();
+    });
+  });
+  document.querySelectorAll('.nv-btns button').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      const sel = e.target.dataset.nv;
+      ['A','B','C'].forEach(n => { nivelChecked[n] = sel.indexOf(n) >= 0; });
+      renderToggleControl();
+      updateVisibility();
+    });
+  });
+  document.getElementById('chk-ring').addEventListener('change', function(e) {
+    nivelRing = e.target.checked;
+    applyRing();
   });
   document.querySelectorAll('.chk-band').forEach(chk => {
     chk.addEventListener('change', function(e) {
