@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Regenergy Projects · Prefactibilidad de PCH: evidencia antes de comprometer capital</title>
-<meta name="description" content="Prefactibilidad de pequeñas centrales hidroeléctricas: de 5 a 75 sitios de un portafolio de 75 proyectos, con un informe por sitio, un comparativo frente a los criterios del inversionista y la ruta hacia la factibilidad.">
+<title>Regenergy Projects · 75 PCH identificadas y capacidad para desarrollarlas</title>
+<meta name="description" content="Portafolio de 75 pequeñas centrales hidroeléctricas identificadas y caracterizadas en Colombia, y capacidad para acompañar cada proyecto desde la prefactibilidad hasta que esté listo para construir.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#072D5C">
 <link rel="icon" type="image/png" href="assets/logo-regenergy-256.png">
@@ -12,8 +12,8 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_CO">
 <meta property="og:site_name" content="Regenergy Projects">
-<meta property="og:title" content="Regenergy Projects · Prefactibilidad de PCH: evidencia antes de comprometer capital">
-<meta property="og:description" content="Evidencia técnica y financiera antes de comprometer capital en una PCH: prefactibilidad de 5 a 75 sitios, con un informe por sitio y la ruta hacia la factibilidad.">
+<meta property="og:title" content="Regenergy Projects · 75 PCH identificadas y capacidad para desarrollarlas">
+<meta property="og:description" content="75 sitios hidroeléctricos caracterizados con datos hidrológicos y topográficos, y capacidad en cada fase del proyecto.">
 <meta property="og:url" content="https://hernandoarteaga.github.io/REGENERGY-PROJECTS/prefactibilidad.html">
 <meta property="og:image" content="https://hernandoarteaga.github.io/REGENERGY-PROJECTS/assets/og-inversionistas.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -466,10 +466,39 @@ footer{background:#041A38;color:var(--on-dark);padding:36px 0 calc(36px + env(sa
 @media (max-width:560px){
   .steps4,.journey{grid-template-columns:1fr}
 }
+
+/* ---- v2: credibilidad ---- */
+.figs--w{grid-template-columns:minmax(0,1.55fr) minmax(0,.8fr)}
+.figs--w .keyfacts{grid-template-columns:repeat(2,1fr)}
+.figs--w .keyfacts b{font-size:25px}
+.fig .keyfacts span{display:block;line-height:1.3;margin-top:6px}
+.sc{width:100%;height:auto;display:block}
+.sc text{font:500 12.5px var(--body);fill:#b9c8e0}
+.sc .ax{font-size:13px;fill:#dbe6f6}
+.sc .grid{stroke:rgba(255,255,255,.1);stroke-width:1}
+.sc .iso{stroke:rgba(255,255,255,.42);stroke-width:1.2;stroke-dasharray:5 5;fill:none}
+.sc .isol{fill:#cfe0f7;font-size:12.5px;font-weight:600}
+.sc circle{stroke:#072D5C;stroke-width:1.2;opacity:.93}
+.lg{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px}
+.lg li{display:flex;align-items:center;gap:7px}
+.lg i{width:12px;height:12px;border-radius:50%;display:inline-block}
+.lg b{color:#fff}
+.comp .big{font:600 34px/1.05 var(--head);letter-spacing:-.03em;color:var(--navy)}
+.phases{display:grid;border:1px solid var(--line);border-radius:var(--r);background:var(--card);overflow:hidden}
+.phases li{display:grid;grid-template-columns:36px minmax(190px,270px) minmax(0,1fr);gap:8px 24px;align-items:start;padding:20px 28px;border-top:1px solid var(--line)}
+.phases li:first-child{border-top:0}
+.phases .pn{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--pale);color:var(--navy);font:600 18px/1 var(--head)}
+.phases h3{font-size:20px;line-height:1.25;padding-top:5px}
+.phases p{font-size:16.5px;line-height:1.55;padding-top:4px}
+@media (max-width:960px){.figs--w{grid-template-columns:1fr}.figs--w .keyfacts{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:760px){.phases li{grid-template-columns:36px minmax(0,1fr);padding:18px 18px}.phases p{grid-column:1/-1;padding-top:0}.figs--w .keyfacts{grid-template-columns:repeat(2,1fr)}}
+.sc--m{display:none}
+@media (max-width:640px){.sc{display:none}.sc.sc--m{display:block}}
+@media (max-width:560px){.figs--w .keyfacts b{font-size:22px}}
 </style>
 </head>
 <body>
-<a class="skip" href="#resumen">Saltar al contenido</a>
+<a class="skip" href="#portafolio">Saltar al contenido</a>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></symbol>
@@ -500,13 +529,12 @@ footer{background:#041A38;color:var(--on-dark);padding:36px 0 calc(36px + env(sa
     <a class="brand" href="#inicio" aria-label="Regenergy Projects, inicio"><img src="assets/logo-regenergy-256.png" width="40" height="40" alt=""><span>REGENERGY<b>PROJECTS</b></span></a>
     <button class="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú"><span></span><span></span><span></span></button>
     <nav class="nav" id="nav" aria-label="Secciones">
-      <a href="#resumen">Resumen</a>
       <a href="#portafolio">Portafolio</a>
-      <a href="#modalidades">Modalidades</a>
-      <a href="#proceso">Método</a>
-      <a href="#alcance">Alcance</a>
-      <a href="#despues">Ruta</a>
-      <a class="btn btn--orange btn--sm" href="#contacto">Solicitar propuesta</a>
+      <a href="#lectura">Lectura técnica</a>
+      <a href="#fases">Capacidad</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#marco">Marco técnico</a>
+      <a class="btn btn--orange btn--sm" href="#contacto">Contacto</a>
     </nav>
   </div>
 </header>
@@ -516,13 +544,13 @@ footer{background:#041A38;color:var(--on-dark);padding:36px 0 calc(36px + env(sa
 <section class="hero dark" id="inicio" aria-labelledby="h-hero">
   <div class="wrap hero__grid">
     <div class="hero__copy">
-      <p class="eyebrow">Prefactibilidad de pequeñas centrales hidroeléctricas (PCH)</p>
-      <h1 id="h-hero" style="margin-top:18px">Evidencia técnica y financiera antes de comprometer capital en una PCH</h1>
+      <p class="eyebrow">Pequeñas centrales hidroeléctricas · Colombia</p>
+      <h1 id="h-hero" style="margin-top:18px">75 pequeñas centrales hidroeléctricas identificadas y caracterizadas</h1>
       <span class="rule" aria-hidden="true"></span>
-      <p class="hero__sub">Estudios de prefactibilidad de 5 a 75 sitios de un portafolio de 75 proyectos, con un informe por sitio, un comparativo frente a los criterios del inversionista y la ruta hacia la factibilidad.</p>
+      <p class="hero__sub">Un portafolio construido con criterio técnico y la capacidad para acompañar cada proyecto desde la prefactibilidad hasta que esté listo para construir.</p>
       <div class="cta">
-        <a class="btn btn--orange" href="#contacto"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg>Solicitar propuesta</a>
-        <a class="btn btn--ghost" href="#resumen"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg>Leer el resumen</a>
+        <a class="btn btn--orange" href="#contacto"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg>Conversemos</a>
+        <a class="btn btn--ghost" href="#portafolio"><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg>Ver el portafolio</a>
       </div>
       <p class="hero__meta"><b>Regenergy Projects SAS</b> · Cali, Colombia</p>
       <p class="hero__meta hero__contact">Contacto: <a href="https://wa.me/573054212200?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20prefactibilidad%20de%20PCH%20de%20Regenergy%20Projects%20y%20quisiera%20pedir%20una%20cotizaci%C3%B3n." target="_blank" rel="noopener">WhatsApp +57 305 421 2200</a> · <a href="mailto:gerencia@regenergy-pro.com?subject=Cotizaci%C3%B3n%20de%20prefactibilidad%20de%20PCH">gerencia@regenergy-pro.com</a></p>
@@ -534,62 +562,46 @@ footer{background:#041A38;color:var(--on-dark);padding:36px 0 calc(36px + env(sa
   </div>
   <div class="wrap">
     <ul class="stats" aria-label="Datos clave">
-      <li><b>75</b><span>sitios caracterizados en 8 departamentos</span></li>
+      <li><b>75</b><span>sitios caracterizados en 7 departamentos y Bogotá D.C.</span></li>
       <li><b>≈ 490 MW</b><span>de potencia hidráulica estimada en el portafolio</span></li>
-      <li><b>5 a 75</b><span>sitios por estudio, a elección del cliente</span></li>
-      <li><b>12 semanas</b><span>de plazo para un estudio de 5 sitios</span></li>
+      <li><b>0,6 a 30 MW</b><span>rango de potencia estimada por sitio</span></li>
+      <li><b>7 fases</b><span>acompañadas, de la identificación a la construcción</span></li>
     </ul>
   </div>
   <svg class="wave" viewBox="0 0 1440 96" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46C180 96 330 8 560 34c230 26 330 66 560 38 130-16 220-40 320-26V96H0Z" fill="#072D5C"/></svg>
 </section>
 
-<section class="sec" id="resumen" aria-labelledby="h-resumen">
-  <div class="wrap">
-    <div class="sec__head reveal">
-      <p class="eyebrow">Resumen</p>
-      <h2 id="h-resumen">Reducir la incertidumbre antes del gasto de campo</h2>
-      <p class="lead">La fase de campo de un proyecto hidroeléctrico concentra el mayor gasto de su desarrollo. La prefactibilidad permite descartar, priorizar y presupuestar con información verificable, de modo que el capital se asigne solo a los sitios con mayor probabilidad de llegar a construcción.</p>
-    </div>
-    <article class="card abs reveal">
-      <div class="row"><b>Objetivo</b><span>Determinar, con información pública oficial y trabajo propio en cada sitio, cuáles proyectos hidroeléctricos de pequeña escala satisfacen los criterios técnicos, financieros y ambientales del inversionista, antes de incurrir en los costos de la fase de factibilidad.</span></div>
-      <div class="row"><b>Método</b><span>Estudio de gabinete por sitio (hidrología, caída y obras, componente electromecánico, geología regional, conexión, aspectos ambientales, sociales y prediales, y evaluación financiera), complementado con imagen satelital de 0,5 m y una visita de campo con sobrevuelo de dron.</span></div>
-      <div class="row"><b>Productos</b><span>Un informe por sitio suscrito por un ingeniero con matrícula profesional, un comparativo con matriz de riesgos frente a los criterios del inversionista y una hoja de ruta con el alcance, el presupuesto y el cronograma de la factibilidad.</span></div>
-      <div class="row"><b>Aplicación</b><span>Priorización y descarte de proyectos con evidencia, y asignación escalonada del capital hacia los sitios con mayor probabilidad de convertirse en proyectos listos para construir.</span></div>
-      <p class="kw"><i>Palabras clave:</i> pequeñas centrales hidroeléctricas, prefactibilidad, evaluación de proyectos, gestión del riesgo de inversión, Colombia.</p>
-    </article>
-  </div>
-</section>
-
 <section class="sec mapsec dark" id="portafolio" aria-labelledby="h-mapa">
   <div class="wrap">
     <div class="sec__head reveal">
-      <p class="eyebrow">Caracterización del portafolio</p>
-      <h2 id="h-mapa">75 sitios identificados y caracterizados</h2>
-      <p class="lead">El portafolio comprende 75 sitios en 8 departamentos, con una potencia hidráulica estimada de ≈ 490 MW y una mediana de 4,3 MW por sitio. De ellos, 32 sitios (43 %) se localizan bajo jurisdicción de la CAR. Para proteger cada proyecto, las ubicaciones del mapa son aproximadas; la ubicación exacta se entrega con el informe final.</p>
+      <p class="eyebrow">El portafolio</p>
+      <h2 id="h-mapa">Sitios sustentados en datos hidrológicos y topográficos</h2>
+      <p class="lead">Cada sitio se caracterizó con el caudal medio de su cuenca, obtenido por balance hídrico (Q = (P − ET) · A), y con la caída estimada del tramo de interés. La potencia hidráulica resulta de P = 9,81 · Q · H. Son estimaciones de gabinete que la prefactibilidad verifica sitio por sitio.</p>
     </div>
-    <div class="figs reveal">
+    <div class="figs figs--w reveal">
       <div class="fig">
-        <h3>Figura 1</h3>
-        <ul class="bars" aria-label="Número de sitios por rango de potencia">
-          <li><span>&lt; 2 MW</span><span class="t"><i style="--w:12.5%;background:#2ecc71"></i></span><b>5</b></li>
-          <li><span>2 a 5 MW</span><span class="t"><i style="--w:100%;background:#f1c40f"></i></span><b>40</b></li>
-          <li><span>5 a 10 MW</span><span class="t"><i style="--w:47.5%;background:#e67e22"></i></span><b>19</b></li>
-          <li><span>10 a 20 MW</span><span class="t"><i style="--w:15%;background:#e74c3c"></i></span><b>6</b></li>
-          <li><span>≥ 20 MW</span><span class="t"><i style="--w:12.5%;background:#8e44ad"></i></span><b>5</b></li>
+        <h3>Figura 1 · Caudal, caída y potencia de los 75 sitios</h3>
+        <svg class="sc" viewBox="0 0 680 400" role="img" aria-label="Dispersión de caudal medio estimado frente a caída estimada de los 75 sitios, con curvas de igual potencia"><line class="grid" x1="140.5" y1="14" x2="140.5" y2="346"/><text x="140.5" y="364" text-anchor="middle">0,5</text><line class="grid" x1="223.0" y1="14" x2="223.0" y2="346"/><text x="223.0" y="364" text-anchor="middle">1</text><line class="grid" x1="305.5" y1="14" x2="305.5" y2="346"/><text x="305.5" y="364" text-anchor="middle">2</text><line class="grid" x1="414.5" y1="14" x2="414.5" y2="346"/><text x="414.5" y="364" text-anchor="middle">5</text><line class="grid" x1="497.0" y1="14" x2="497.0" y2="346"/><text x="497.0" y="364" text-anchor="middle">10</text><line class="grid" x1="579.5" y1="14" x2="579.5" y2="346"/><text x="579.5" y="364" text-anchor="middle">20</text><line class="grid" x1="58" y1="312.2" x2="662" y2="312.2"/><text x="50" y="316.2" text-anchor="end">100</text><line class="grid" x1="58" y1="228.0" x2="662" y2="228.0"/><text x="50" y="232.0" text-anchor="end">150</text><line class="grid" x1="58" y1="168.2" x2="662" y2="168.2"/><text x="50" y="172.2" text-anchor="end">200</text><line class="grid" x1="58" y1="83.9" x2="662" y2="83.9"/><text x="50" y="87.9" text-anchor="end">300</text><line class="grid" x1="58" y1="24.1" x2="662" y2="24.1"/><text x="50" y="28.1" text-anchor="end">400</text><polyline class="iso" points="58.0,20.2 61.9,26.9 65.8,33.7 69.7,40.5 73.6,47.3 77.4,54.1 81.3,60.9 85.2,67.7 89.1,74.5 93.0,81.2 96.9,88.0 100.8,94.8 104.7,101.6 108.5,108.4 112.4,115.2 116.3,122.0 120.2,128.8 124.1,135.6 128.0,142.3 131.9,149.1 135.8,155.9 139.6,162.7 143.5,169.5 147.4,176.3 151.3,183.1 155.2,189.9 159.1,196.7 163.0,203.4 166.9,210.2 170.7,217.0 174.6,223.8 178.5,230.6 182.4,237.4 186.3,244.2 190.2,251.0 194.1,257.7 198.0,264.5 201.8,271.3 205.7,278.1 209.6,284.9 213.5,291.7 217.4,298.5 221.3,305.3 225.2,312.1 229.1,318.8 232.9,325.6 236.8,332.4 240.7,339.2 244.6,346.0"/><text class="isol" x="64.0" y="14.2">1 MW</text><polyline class="iso" points="137.0,14.0 140.9,20.9 144.9,27.8 148.9,34.7 152.8,41.7 156.8,48.6 160.7,55.5 164.7,62.4 168.7,69.3 172.6,76.2 176.6,83.2 180.5,90.1 184.5,97.0 188.5,103.9 192.4,110.8 196.4,117.8 200.3,124.7 204.3,131.6 208.3,138.5 212.2,145.4 216.2,152.3 220.2,159.2 224.1,166.2 228.1,173.1 232.0,180.0 236.0,186.9 240.0,193.8 243.9,200.8 247.9,207.7 251.8,214.6 255.8,221.5 259.8,228.4 263.7,235.3 267.7,242.2 271.6,249.2 275.6,256.1 279.6,263.0 283.5,269.9 287.5,276.8 291.5,283.8 295.4,290.7 299.4,297.6 303.3,304.5 307.3,311.4 311.3,318.3 315.2,325.3 319.2,332.2 323.1,339.1 327.1,346.0"/><text class="isol" x="143.0" y="29.0">2 MW</text><polyline class="iso" points="246.0,14.0 250.0,20.9 253.9,27.8 257.9,34.7 261.9,41.7 265.8,48.6 269.8,55.5 273.7,62.4 277.7,69.3 281.7,76.2 285.6,83.2 289.6,90.1 293.5,97.0 297.5,103.9 301.5,110.8 305.4,117.8 309.4,124.7 313.4,131.6 317.3,138.5 321.3,145.4 325.2,152.3 329.2,159.2 333.2,166.2 337.1,173.1 341.1,180.0 345.0,186.9 349.0,193.8 353.0,200.8 356.9,207.7 360.9,214.6 364.8,221.5 368.8,228.4 372.8,235.3 376.7,242.2 380.7,249.2 384.7,256.1 388.6,263.0 392.6,269.9 396.5,276.8 400.5,283.8 404.5,290.7 408.4,297.6 412.4,304.5 416.3,311.4 420.3,318.3 424.3,325.3 428.2,332.2 432.2,339.1 436.1,346.0"/><text class="isol" x="252.0" y="29.0">5 MW</text><polyline class="iso" points="328.5,14.0 332.5,20.9 336.4,27.8 340.4,34.7 344.4,41.7 348.3,48.6 352.3,55.5 356.2,62.4 360.2,69.3 364.2,76.2 368.1,83.2 372.1,90.1 376.0,97.0 380.0,103.9 384.0,110.8 387.9,117.8 391.9,124.7 395.8,131.6 399.8,138.5 403.8,145.4 407.7,152.3 411.7,159.2 415.7,166.2 419.6,173.1 423.6,180.0 427.5,186.9 431.5,193.8 435.5,200.8 439.4,207.7 443.4,214.6 447.3,221.5 451.3,228.4 455.3,235.3 459.2,242.2 463.2,249.2 467.1,256.1 471.1,263.0 475.1,269.9 479.0,276.8 483.0,283.8 487.0,290.7 490.9,297.6 494.9,304.5 498.8,311.4 502.8,318.3 506.8,325.3 510.7,332.2 514.7,339.1 518.6,346.0"/><text class="isol" x="334.5" y="29.0">10 MW</text><polyline class="iso" points="411.0,14.0 415.0,20.9 418.9,27.8 422.9,34.7 426.8,41.7 430.8,48.6 434.8,55.5 438.7,62.4 442.7,69.3 446.7,76.2 450.6,83.2 454.6,90.1 458.5,97.0 462.5,103.9 466.5,110.8 470.4,117.8 474.4,124.7 478.3,131.6 482.3,138.5 486.3,145.4 490.2,152.3 494.2,159.2 498.1,166.2 502.1,173.1 506.1,180.0 510.0,186.9 514.0,193.8 517.9,200.8 521.9,207.7 525.9,214.6 529.8,221.5 533.8,228.4 537.8,235.3 541.7,242.2 545.7,249.2 549.6,256.1 553.6,263.0 557.6,269.9 561.5,276.8 565.5,283.8 569.4,290.7 573.4,297.6 577.4,304.5 581.3,311.4 585.3,318.3 589.2,325.3 593.2,332.2 597.2,339.1 601.1,346.0"/><text class="isol" x="417.0" y="29.0">20 MW</text><circle cx="614" cy="283" r="5.6" fill="#8e44ad"/><circle cx="590" cy="258" r="5.6" fill="#8e44ad"/><circle cx="600" cy="296" r="5.6" fill="#8e44ad"/><circle cx="605" cy="312" r="5.6" fill="#8e44ad"/><circle cx="575" cy="285" r="5.6" fill="#8e44ad"/><circle cx="576" cy="308" r="5.6" fill="#e74c3c"/><circle cx="528" cy="255" r="5.6" fill="#e74c3c"/><circle cx="556" cy="312" r="5.6" fill="#e74c3c"/><circle cx="506" cy="292" r="5.6" fill="#e74c3c"/><circle cx="497" cy="306" r="5.6" fill="#e74c3c"/><circle cx="481" cy="280" r="5.6" fill="#e74c3c"/><circle cx="456" cy="241" r="5.6" fill="#e67e22"/><circle cx="464" cy="263" r="5.6" fill="#e67e22"/><circle cx="471" cy="289" r="5.6" fill="#e67e22"/><circle cx="432" cy="227" r="5.6" fill="#e67e22"/><circle cx="479" cy="310" r="5.6" fill="#e67e22"/><circle cx="448" cy="256" r="5.6" fill="#e67e22"/><circle cx="467" cy="306" r="5.6" fill="#e67e22"/><circle cx="387" cy="166" r="5.6" fill="#e67e22"/><circle cx="447" cy="276" r="5.6" fill="#e67e22"/><circle cx="447" cy="276" r="5.6" fill="#e67e22"/><circle cx="307" cy="55" r="5.6" fill="#e67e22"/><circle cx="443" cy="312" r="5.6" fill="#e67e22"/><circle cx="439" cy="312" r="5.6" fill="#e67e22"/><circle cx="432" cy="304" r="5.6" fill="#e67e22"/><circle cx="307" cy="92" r="5.6" fill="#e67e22"/><circle cx="424" cy="302" r="5.6" fill="#e67e22"/><circle cx="415" cy="292" r="5.6" fill="#e67e22"/><circle cx="420" cy="304" r="5.6" fill="#e67e22"/><circle cx="424" cy="312" r="5.6" fill="#e67e22"/><circle cx="372" cy="238" r="5.6" fill="#f1c40f"/><circle cx="397" cy="283" r="5.6" fill="#f1c40f"/><circle cx="370" cy="239" r="5.6" fill="#f1c40f"/><circle cx="406" cy="304" r="5.6" fill="#f1c40f"/><circle cx="405" cy="312" r="5.6" fill="#f1c40f"/><circle cx="306" cy="142" r="5.6" fill="#f1c40f"/><circle cx="381" cy="273" r="5.6" fill="#f1c40f"/><circle cx="396" cy="306" r="5.6" fill="#f1c40f"/><circle cx="323" cy="194" r="5.6" fill="#f1c40f"/><circle cx="333" cy="217" r="5.6" fill="#f1c40f"/><circle cx="374" cy="298" r="5.6" fill="#f1c40f"/><circle cx="378" cy="308" r="5.6" fill="#f1c40f"/><circle cx="378" cy="308" r="5.6" fill="#f1c40f"/><circle cx="378" cy="308" r="5.6" fill="#f1c40f"/><circle cx="360" cy="280" r="5.6" fill="#f1c40f"/><circle cx="375" cy="312" r="5.6" fill="#f1c40f"/><circle cx="371" cy="306" r="5.6" fill="#f1c40f"/><circle cx="370" cy="306" r="5.6" fill="#f1c40f"/><circle cx="323" cy="225" r="5.6" fill="#f1c40f"/><circle cx="368" cy="308" r="5.6" fill="#f1c40f"/><circle cx="362" cy="310" r="5.6" fill="#f1c40f"/><circle cx="346" cy="312" r="5.6" fill="#f1c40f"/><circle cx="344" cy="312" r="5.6" fill="#f1c40f"/><circle cx="327" cy="283" r="5.6" fill="#f1c40f"/><circle cx="313" cy="263" r="5.6" fill="#f1c40f"/><circle cx="330" cy="298" r="5.6" fill="#f1c40f"/><circle cx="292" cy="235" r="5.6" fill="#f1c40f"/><circle cx="325" cy="292" r="5.6" fill="#f1c40f"/><circle cx="331" cy="304" r="5.6" fill="#f1c40f"/><circle cx="309" cy="266" r="5.6" fill="#f1c40f"/><circle cx="318" cy="283" r="5.6" fill="#f1c40f"/><circle cx="255" cy="176" r="5.6" fill="#f1c40f"/><circle cx="272" cy="213" r="5.6" fill="#f1c40f"/><circle cx="317" cy="296" r="5.6" fill="#f1c40f"/><circle cx="317" cy="296" r="5.6" fill="#f1c40f"/><circle cx="314" cy="292" r="5.6" fill="#f1c40f"/><circle cx="283" cy="239" r="5.6" fill="#f1c40f"/><circle cx="320" cy="308" r="5.6" fill="#f1c40f"/><circle cx="164" cy="48" r="5.6" fill="#f1c40f"/><circle cx="278" cy="251" r="5.6" fill="#f1c40f"/><circle cx="298" cy="298" r="5.6" fill="#2ecc71"/><circle cx="253" cy="232" r="5.6" fill="#2ecc71"/><circle cx="295" cy="310" r="5.6" fill="#2ecc71"/><circle cx="274" cy="291" r="5.6" fill="#2ecc71"/><circle cx="90" cy="178" r="5.6" fill="#2ecc71"/><text class="ax" x="360.0" y="392" text-anchor="middle">Caudal medio estimado, Q (m³/s)</text><text class="ax" transform="translate(15 180.0) rotate(-90)" text-anchor="middle">Caída estimada, H (m)</text></svg><svg class="sc sc--m" viewBox="0 0 370 420" role="img" aria-label="Dispersión de caudal medio estimado frente a caída estimada de los 75 sitios, con curvas de igual potencia"><line class="grid" x1="87.8" y1="14" x2="87.8" y2="366"/><text x="87.8" y="384" text-anchor="middle">0,5</text><line class="grid" x1="129.6" y1="14" x2="129.6" y2="366"/><text x="129.6" y="384" text-anchor="middle">1</text><line class="grid" x1="171.4" y1="14" x2="171.4" y2="366"/><text x="171.4" y="384" text-anchor="middle">2</text><line class="grid" x1="226.6" y1="14" x2="226.6" y2="366"/><text x="226.6" y="384" text-anchor="middle">5</text><line class="grid" x1="268.4" y1="14" x2="268.4" y2="366"/><text x="268.4" y="384" text-anchor="middle">10</text><line class="grid" x1="310.2" y1="14" x2="310.2" y2="366"/><text x="310.2" y="384" text-anchor="middle">20</text><line class="grid" x1="46" y1="330.2" x2="352" y2="330.2"/><text x="38" y="334.2" text-anchor="end">100</text><line class="grid" x1="46" y1="240.9" x2="352" y2="240.9"/><text x="38" y="244.9" text-anchor="end">150</text><line class="grid" x1="46" y1="177.5" x2="352" y2="177.5"/><text x="38" y="181.5" text-anchor="end">200</text><line class="grid" x1="46" y1="88.1" x2="352" y2="88.1"/><text x="38" y="92.1" text-anchor="end">300</text><line class="grid" x1="46" y1="24.7" x2="352" y2="24.7"/><text x="38" y="28.7" text-anchor="end">400</text><polyline class="iso" points="46.0,20.5 48.0,27.7 49.9,34.9 51.9,42.1 53.9,49.3 55.8,56.5 57.8,63.7 59.8,70.9 61.8,78.1 63.7,85.3 65.7,92.5 67.7,99.7 69.6,106.9 71.6,114.1 73.6,121.3 75.5,128.5 77.5,135.7 79.5,142.9 81.5,150.1 83.4,157.3 85.4,164.5 87.4,171.7 89.3,178.9 91.3,186.1 93.3,193.3 95.2,200.5 97.2,207.7 99.2,214.9 101.1,222.1 103.1,229.2 105.1,236.4 107.1,243.6 109.0,250.8 111.0,258.0 113.0,265.2 114.9,272.4 116.9,279.6 118.9,286.8 120.8,294.0 122.8,301.2 124.8,308.4 126.8,315.6 128.7,322.8 130.7,330.0 132.7,337.2 134.6,344.4 136.6,351.6 138.6,358.8 140.5,366.0"/><text class="isol" x="52.0" y="14.5">1 MW</text><polyline class="iso" points="86.0,14.0 88.0,21.3 90.0,28.7 92.0,36.0 94.0,43.3 96.0,50.7 98.0,58.0 100.1,65.3 102.1,72.7 104.1,80.0 106.1,87.3 108.1,94.7 110.1,102.0 112.1,109.3 114.1,116.7 116.1,124.0 118.1,131.3 120.1,138.7 122.1,146.0 124.1,153.3 126.1,160.7 128.1,168.0 130.2,175.3 132.2,182.7 134.2,190.0 136.2,197.3 138.2,204.7 140.2,212.0 142.2,219.3 144.2,226.7 146.2,234.0 148.2,241.3 150.2,248.7 152.2,256.0 154.2,263.3 156.2,270.7 158.3,278.0 160.3,285.3 162.3,292.7 164.3,300.0 166.3,307.3 168.3,314.7 170.3,322.0 172.3,329.3 174.3,336.7 176.3,344.0 178.3,351.3 180.3,358.7 182.3,366.0"/><text class="isol" x="92.0" y="42.0">2 MW</text><polyline class="iso" points="141.3,14.0 143.3,21.3 145.3,28.7 147.3,36.0 149.3,43.3 151.3,50.7 153.3,58.0 155.3,65.3 157.3,72.7 159.3,80.0 161.3,87.3 163.3,94.7 165.3,102.0 167.3,109.3 169.3,116.7 171.4,124.0 173.4,131.3 175.4,138.7 177.4,146.0 179.4,153.3 181.4,160.7 183.4,168.0 185.4,175.3 187.4,182.7 189.4,190.0 191.4,197.3 193.4,204.7 195.4,212.0 197.4,219.3 199.4,226.7 201.5,234.0 203.5,241.3 205.5,248.7 207.5,256.0 209.5,263.3 211.5,270.7 213.5,278.0 215.5,285.3 217.5,292.7 219.5,300.0 221.5,307.3 223.5,314.7 225.5,322.0 227.5,329.3 229.6,336.7 231.6,344.0 233.6,351.3 235.6,358.7 237.6,366.0"/><text class="isol" x="147.3" y="29.0">5 MW</text><polyline class="iso" points="183.0,14.0 185.1,21.3 187.1,28.7 189.1,36.0 191.1,43.3 193.1,50.7 195.1,58.0 197.1,65.3 199.1,72.7 201.1,80.0 203.1,87.3 205.1,94.7 207.1,102.0 209.1,109.3 211.1,116.7 213.1,124.0 215.2,131.3 217.2,138.7 219.2,146.0 221.2,153.3 223.2,160.7 225.2,168.0 227.2,175.3 229.2,182.7 231.2,190.0 233.2,197.3 235.2,204.7 237.2,212.0 239.2,219.3 241.2,226.7 243.2,234.0 245.3,241.3 247.3,248.7 249.3,256.0 251.3,263.3 253.3,270.7 255.3,278.0 257.3,285.3 259.3,292.7 261.3,300.0 263.3,307.3 265.3,314.7 267.3,322.0 269.3,329.3 271.3,336.7 273.4,344.0 275.4,351.3 277.4,358.7 279.4,366.0"/><text class="isol" x="189.0" y="42.0">10 MW</text><polyline class="iso" points="224.8,14.0 226.8,21.3 228.9,28.7 230.9,36.0 232.9,43.3 234.9,50.7 236.9,58.0 238.9,65.3 240.9,72.7 242.9,80.0 244.9,87.3 246.9,94.7 248.9,102.0 250.9,109.3 252.9,116.7 254.9,124.0 256.9,131.3 259.0,138.7 261.0,146.0 263.0,153.3 265.0,160.7 267.0,168.0 269.0,175.3 271.0,182.7 273.0,190.0 275.0,197.3 277.0,204.7 279.0,212.0 281.0,219.3 283.0,226.7 285.0,234.0 287.0,241.3 289.1,248.7 291.1,256.0 293.1,263.3 295.1,270.7 297.1,278.0 299.1,285.3 301.1,292.7 303.1,300.0 305.1,307.3 307.1,314.7 309.1,322.0 311.1,329.3 313.1,336.7 315.1,344.0 317.1,351.3 319.2,358.7 321.2,366.0"/><text class="isol" x="230.8" y="29.0">20 MW</text><circle cx="328" cy="299" r="4.4" fill="#8e44ad"/><circle cx="316" cy="272" r="4.4" fill="#8e44ad"/><circle cx="320" cy="313" r="4.4" fill="#8e44ad"/><circle cx="323" cy="330" r="4.4" fill="#8e44ad"/><circle cx="308" cy="301" r="4.4" fill="#8e44ad"/><circle cx="308" cy="326" r="4.4" fill="#e74c3c"/><circle cx="284" cy="269" r="4.4" fill="#e74c3c"/><circle cx="298" cy="330" r="4.4" fill="#e74c3c"/><circle cx="273" cy="309" r="4.4" fill="#e74c3c"/><circle cx="269" cy="324" r="4.4" fill="#e74c3c"/><circle cx="260" cy="296" r="4.4" fill="#e74c3c"/><circle cx="248" cy="254" r="4.4" fill="#e67e22"/><circle cx="251" cy="278" r="4.4" fill="#e67e22"/><circle cx="255" cy="305" r="4.4" fill="#e67e22"/><circle cx="235" cy="239" r="4.4" fill="#e67e22"/><circle cx="260" cy="328" r="4.4" fill="#e67e22"/><circle cx="244" cy="271" r="4.4" fill="#e67e22"/><circle cx="253" cy="324" r="4.4" fill="#e67e22"/><circle cx="213" cy="175" r="4.4" fill="#e67e22"/><circle cx="243" cy="292" r="4.4" fill="#e67e22"/><circle cx="243" cy="292" r="4.4" fill="#e67e22"/><circle cx="172" cy="57" r="4.4" fill="#e67e22"/><circle cx="241" cy="330" r="4.4" fill="#e67e22"/><circle cx="239" cy="330" r="4.4" fill="#e67e22"/><circle cx="235" cy="322" r="4.4" fill="#e67e22"/><circle cx="172" cy="96" r="4.4" fill="#e67e22"/><circle cx="231" cy="319" r="4.4" fill="#e67e22"/><circle cx="227" cy="309" r="4.4" fill="#e67e22"/><circle cx="229" cy="322" r="4.4" fill="#e67e22"/><circle cx="231" cy="330" r="4.4" fill="#e67e22"/><circle cx="205" cy="251" r="4.4" fill="#f1c40f"/><circle cx="218" cy="299" r="4.4" fill="#f1c40f"/><circle cx="204" cy="253" r="4.4" fill="#f1c40f"/><circle cx="222" cy="322" r="4.4" fill="#f1c40f"/><circle cx="222" cy="330" r="4.4" fill="#f1c40f"/><circle cx="172" cy="150" r="4.4" fill="#f1c40f"/><circle cx="210" cy="288" r="4.4" fill="#f1c40f"/><circle cx="217" cy="324" r="4.4" fill="#f1c40f"/><circle cx="180" cy="204" r="4.4" fill="#f1c40f"/><circle cx="185" cy="229" r="4.4" fill="#f1c40f"/><circle cx="206" cy="315" r="4.4" fill="#f1c40f"/><circle cx="208" cy="326" r="4.4" fill="#f1c40f"/><circle cx="208" cy="326" r="4.4" fill="#f1c40f"/><circle cx="208" cy="326" r="4.4" fill="#f1c40f"/><circle cx="199" cy="296" r="4.4" fill="#f1c40f"/><circle cx="207" cy="330" r="4.4" fill="#f1c40f"/><circle cx="204" cy="324" r="4.4" fill="#f1c40f"/><circle cx="204" cy="324" r="4.4" fill="#f1c40f"/><circle cx="180" cy="238" r="4.4" fill="#f1c40f"/><circle cx="203" cy="326" r="4.4" fill="#f1c40f"/><circle cx="200" cy="328" r="4.4" fill="#f1c40f"/><circle cx="192" cy="330" r="4.4" fill="#f1c40f"/><circle cx="191" cy="330" r="4.4" fill="#f1c40f"/><circle cx="182" cy="299" r="4.4" fill="#f1c40f"/><circle cx="175" cy="278" r="4.4" fill="#f1c40f"/><circle cx="184" cy="315" r="4.4" fill="#f1c40f"/><circle cx="165" cy="248" r="4.4" fill="#f1c40f"/><circle cx="181" cy="309" r="4.4" fill="#f1c40f"/><circle cx="184" cy="322" r="4.4" fill="#f1c40f"/><circle cx="173" cy="281" r="4.4" fill="#f1c40f"/><circle cx="178" cy="299" r="4.4" fill="#f1c40f"/><circle cx="146" cy="185" r="4.4" fill="#f1c40f"/><circle cx="154" cy="225" r="4.4" fill="#f1c40f"/><circle cx="177" cy="313" r="4.4" fill="#f1c40f"/><circle cx="177" cy="313" r="4.4" fill="#f1c40f"/><circle cx="176" cy="309" r="4.4" fill="#f1c40f"/><circle cx="160" cy="253" r="4.4" fill="#f1c40f"/><circle cx="179" cy="326" r="4.4" fill="#f1c40f"/><circle cx="99" cy="50" r="4.4" fill="#f1c40f"/><circle cx="157" cy="266" r="4.4" fill="#f1c40f"/><circle cx="167" cy="315" r="4.4" fill="#2ecc71"/><circle cx="145" cy="245" r="4.4" fill="#2ecc71"/><circle cx="166" cy="328" r="4.4" fill="#2ecc71"/><circle cx="155" cy="307" r="4.4" fill="#2ecc71"/><circle cx="62" cy="188" r="4.4" fill="#2ecc71"/><text class="ax" x="199.0" y="412" text-anchor="middle">Caudal medio estimado, Q (m³/s)</text><text class="ax" transform="translate(15 190.0) rotate(-90)" text-anchor="middle">Caída estimada, H (m)</text></svg>
+        <ul class="lg" aria-label="Rangos de potencia estimada">
+          <li><i style="background:#2ecc71"></i>&lt; 2 MW <b>5</b></li>
+          <li><i style="background:#f1c40f"></i>2 a 5 MW <b>40</b></li>
+          <li><i style="background:#e67e22"></i>5 a 10 MW <b>19</b></li>
+          <li><i style="background:#e74c3c"></i>10 a 20 MW <b>6</b></li>
+          <li><i style="background:#8e44ad"></i>≥ 20 MW <b>5</b></li>
         </ul>
-        <p class="figcap"><b>Distribución de los 75 sitios por rango de potencia hidráulica estimada.</b> La mayoría (59 sitios) se ubica entre 2 y 10 MW. Estimación de gabinete, P = 9,81·Q·H / 1000, sujeta a verificación en la prefactibilidad.</p>
+        <p class="figcap">Cada punto es un sitio; las líneas punteadas son curvas de igual potencia. Las caídas se concentran entre 100 y 357 m, de modo que la potencia depende sobre todo del caudal.</p>
       </div>
       <div class="fig">
         <h3>Síntesis</h3>
         <div class="keyfacts">
-          <div><b>75</b><span>sitios</span></div>
-          <div><b>8</b><span>departamentos</span></div>
+          <div><b>75</b><span>sitios identificados</span></div>
+          <div><b>≈ 490</b><span>MW de potencia hidráulica estimada</span></div>
           <div><b>4,3 MW</b><span>mediana por sitio</span></div>
           <div><b>30</b><span>sitios de 5 MW o más</span></div>
           <div><b>32</b><span>sitios bajo jurisdicción de la CAR</span></div>
-          <div><b>≈ 490 MW</b><span>potencia hidráulica estimada</span></div>
+          <div><b>609–3.130</b><span>msnm, rango de elevación</span></div>
         </div>
-        <p class="figcap">Las cifras son agregados del portafolio y no revelan la ubicación de ningún sitio.</p>
+        <p class="figcap">Cifras agregadas del portafolio; no revelan la ubicación de ningún sitio.</p>
       </div>
     </div>
     <div class="mapframe reveal">
@@ -605,179 +617,96 @@ footer{background:#041A38;color:var(--on-dark);padding:36px 0 calc(36px + env(sa
         <noscript><p style="position:absolute;inset:0;display:grid;place-content:center;color:#fff;text-align:center;padding:24px"><a class="btn btn--orange" href="mapa-75pchs.html">Abrir el mapa</a></p></noscript>
       </div>
     </div>
-    <p class="figcap" style="margin-top:14px"><b>Figura 2.</b> Un punto por sitio, desplazado de su ubicación real y coloreado por rango de potencia. Permite filtrar por departamento y por jurisdicción de la CAR.</p>
+    <p class="figcap" style="margin-top:14px"><b>Figura 2.</b> Un punto por sitio, desplazado de su ubicación real y coloreado por rango de potencia. Permite filtrar por departamento y por jurisdicción de la CAR. La ubicación exacta se entrega bajo acuerdo de confidencialidad.</p>
   </div>
 </section>
 
-<section class="sec" id="modalidades" aria-labelledby="h-empezar">
+<section class="sec" id="lectura" aria-labelledby="h-lectura">
   <div class="wrap">
     <div class="sec__head reveal">
-      <p class="eyebrow">Modalidades de estudio</p>
-      <h2 id="h-empezar">Tres modalidades según el grado de definición del inversionista</h2>
-      <p class="lead">Cada modalidad produce la misma evidencia por sitio; difieren en el punto de partida y en la forma de optimizar el capital destinado al estudio.</p>
+      <p class="eyebrow">Lectura técnica</p>
+      <h2 id="h-lectura">Lo que los datos dicen del portafolio</h2>
+      <p class="lead">Cuatro conclusiones que orientan cómo se estudia cada sitio y qué se verifica primero.</p>
     </div>
-    <div class="paths">
-      <article class="card path reveal">
-        <p class="n">Modalidad A</p>
-        <h3>Sitios seleccionados</h3>
-        <p>El cliente selecciona de 5 a 75 sitios del portafolio. Cada uno se somete a una prefactibilidad completa y los resultados se contrastan con los criterios de decisión definidos por el inversionista.</p>
-        <a class="btn btn--ink btn--sm" href="mailto:gerencia@regenergy-pro.com?subject=Cotizaci%C3%B3n%20-%20Sitios%20escogidos">Solicitar propuesta</a>
-      </article>
-      <article class="card path reveal" style="--d:.1s">
-        <p class="n">Modalidad B</p>
-        <h3>Priorización del portafolio</h3>
-        <p>Se aplica un tamiz de gabinete al portafolio completo y se elabora un ranking multicriterio. La prefactibilidad completa se concentra en los sitios mejor clasificados, lo que optimiza el uso del capital.</p>
-        <a class="btn btn--ink btn--sm" href="mailto:gerencia@regenergy-pro.com?subject=Cotizaci%C3%B3n%20-%20Priorizaci%C3%B3n%20del%20portafolio">Solicitar propuesta</a>
-      </article>
-      <article class="card path path--dark reveal" style="--d:.2s">
-        <p class="n">Modalidad C</p>
-        <h3>Zona de interés</h3>
-        <p>Se consulta la oferta del portafolio y de la base de datos existente en la zona de interés. Si no satisface los criterios, un estudio zonal identifica sitios adicionales con los mismos criterios.</p>
-        <p class="aside">El estudio zonal tiene alcance y valor independientes.</p>
-        <a class="btn btn--orange btn--sm" href="mailto:gerencia@regenergy-pro.com?subject=Cotizaci%C3%B3n%20-%20Zona%20de%20inter%C3%A9s">Consultar mi zona</a>
-      </article>
+    <div class="comp">
+      <article class="card reveal"><p class="big">≈ 50×</p><h3>El caudal diferencia a los proyectos</h3><p>La caída estimada va de 100 a 357 m (mediana 110 m), mientras el caudal medio va de 0,3 a 26,8 m³/s. La potencia, de 0,6 a 30,2 MW, depende sobre todo del caudal; por eso la hidrología es el primer filtro de la prefactibilidad.</p></article>
+      <article class="card reveal" style="--d:.05s"><p class="big">22 L/s/km²</p><h3>Rendimiento hídrico caracterizado</h3><p>El rendimiento específico mediano es de 22 L/s/km² (rango de 9 a 42), con precipitaciones de 1.079 a 2.410 mm/año y una lámina de escorrentía (P − ET) mediana de 694 mm/año.</p></article>
+      <article class="card reveal" style="--d:.1s"><p class="big">100–357 m</p><h3>Caída media: varias turbinas posibles</h3><p>En este rango de caída compiten turbinas Francis, Turgo y Pelton. La elección depende de la variabilidad del caudal y del comportamiento a carga parcial, y se define en la prefactibilidad.</p></article>
+      <article class="card reveal" style="--d:.15s"><p class="big">64 de 75</p><h3>Escala de pequeña central</h3><p>64 sitios (85 %) estiman menos de 10 MW y 11 superan ese valor. La escala condiciona la ruta ambiental y de conexión, que se verifica caso por caso con la normativa vigente.</p></article>
     </div>
+  </div>
+</section>
+
+<section class="sec sec--flush" id="fases" aria-labelledby="h-fases">
+  <div class="wrap">
+    <div class="sec__head reveal">
+      <p class="eyebrow">Capacidad en cada fase</p>
+      <h2 id="h-fases">De la identificación a la construcción</h2>
+      <p class="lead">Regenergy puede ejecutar o coordinar cada una de las siete fases de un proyecto hidroeléctrico. La participación en cada una se define con cada inversionista.</p>
+    </div>
+    <ol class="phases reveal">
+      <li><span class="pn">1</span><h3>Identificación del recurso</h3><p>Portafolio propio de 75 sitios caracterizados por balance hídrico y caída del tramo, ampliable a una zona de interés con los mismos criterios.</p></li>
+      <li><span class="pn">2</span><h3>Prefactibilidad</h3><p>Hidrología, obras, componente electromecánico, geología, conexión, aspectos ambientales, sociales y prediales, y evaluación financiera, con imagen satelital de 0,5 m y visita con dron. Informe firmado por un ingeniero con matrícula profesional.</p></li>
+      <li><span class="pn">3</span><h3>Factibilidad</h3><p>Aforos continuos, topografía, geotecnia y estudios de soporte de los permisos, con coordinación de los especialistas.</p></li>
+      <li><span class="pn">4</span><h3>Permisos y conexión</h3><p>Preparación y seguimiento de los trámites ambientales, la concesión de aguas, el concepto de conexión y la gestión predial.</p></li>
+      <li><span class="pn">5</span><h3>Diseños de detalle</h3><p>Diseños hasta dejar el proyecto listo para construir: obras civiles, componente electromecánico y conexión.</p></li>
+      <li><span class="pn">6</span><h3>Capital</h3><p>Estructuración del proyecto y presentación a inversionistas, o venta del proyecto listo para construir, con contrato de energía y financiación.</p></li>
+      <li><span class="pn">7</span><h3>Construcción</h3><p>Acompañamiento técnico hacia la ejecución, con los permisos, los diseños y la financiación en firme.</p></li>
+    </ol>
   </div>
 </section>
 
 <section class="sec sec--flush" id="proceso" aria-labelledby="h-proceso">
   <div class="wrap">
     <div class="sec__head reveal">
-      <p class="eyebrow">Método y cronograma</p>
-      <h2 id="h-proceso">Un estudio de tres meses con resultados parciales verificables</h2>
-      <p class="lead">El procedimiento incorpora un reporte parcial y una ronda de comentarios del cliente antes de la entrega final.</p>
+      <p class="eyebrow">Proceso</p>
+      <h2 id="h-proceso">Un recorrido general, a la medida de cada inversionista</h2>
+      <p class="lead">El número de sitios, el alcance, los entregables y los plazos se acuerdan con cada inversionista según sus criterios de decisión.</p>
     </div>
     <ol class="steps4">
-      <li class="card reveal"><span class="num" aria-hidden="true">1</span><h3>Definición</h3><p>Selección de los sitios o de la zona y de los criterios de decisión: potencia mínima, TIR objetivo, capex por kW, riesgos y conexión.</p><span class="when">Al confirmar</span></li>
-      <li class="card reveal" style="--d:.08s"><span class="num" aria-hidden="true">2</span><h3>Verificación</h3><p>Revisión de exclusiones (áreas protegidas, páramos) y reemplazo por el suplente de los sitios que las presenten.</p><span class="when">Semana 1</span></li>
-      <li class="card reveal" style="--d:.16s"><span class="num" aria-hidden="true">3</span><h3>Estudio</h3><p>Análisis de gabinete con información pública oficial y visita de campo con sobrevuelo de dron en cada sitio.</p><span class="when">Semanas 2 a 12</span></li>
-      <li class="card reveal" style="--d:.24s"><span class="num" aria-hidden="true">4</span><h3>Entrega</h3><p>Reporte parcial en la semana 9, comentarios del cliente y reporte completo con comparativo y presentación en la semana 12.</p><span class="when">Semanas 9 y 12</span></li>
+      <li class="card reveal"><span class="num" aria-hidden="true">1</span><h3>Criterios</h3><p>El inversionista define lo que busca: potencia, rentabilidad objetivo, conexión, zona.</p></li>
+      <li class="card reveal" style="--d:.08s"><span class="num" aria-hidden="true">2</span><h3>Selección</h3><p>Se identifican en el portafolio los sitios que los cumplen. Si el interés es una zona, se consulta primero lo existente y, si hace falta, se hace un estudio zonal aparte.</p></li>
+      <li class="card reveal" style="--d:.16s"><span class="num" aria-hidden="true">3</span><h3>Prefactibilidad</h3><p>Estudio de cada sitio, desde 5 hasta los 75, con un reporte parcial antes del informe final.</p></li>
+      <li class="card reveal" style="--d:.24s"><span class="num" aria-hidden="true">4</span><h3>Ruta</h3><p>Informe por sitio, comparativo frente a los criterios y hoja de ruta hacia las fases siguientes.</p></li>
     </ol>
   </div>
 </section>
 
-<section class="sec sec--flush" id="alcance" aria-labelledby="h-alcance">
+<section class="sec sec--flush" id="marco" aria-labelledby="h-marco">
   <div class="wrap">
     <div class="sec__head reveal">
-      <p class="eyebrow">Alcance técnico</p>
-      <h2 id="h-alcance">Ocho componentes por sitio, suscritos por un ingeniero con matrícula profesional</h2>
-      <p class="lead">El estudio integra la evaluación técnica, ambiental y financiera en un solo informe por sitio, con trazabilidad a las fuentes oficiales.</p>
-    </div>
-    <div class="comp">
-      <article class="card reveal"><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-cloud"/></svg></span><h3>Hidrología</h3><p>Reconstrucción de series de caudal con estaciones del IDEAM, transferidas por área de drenaje y precipitación. Caudales medios mensuales, curva de duración, caudal ecológico y de diseño.</p></article>
-      <article class="card reveal" style="--d:.05s"><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-wrench"/></svg></span><h3>Caída, obras y potencia</h3><p>Captación, conducción, tanque de carga, tubería de presión y casa de máquinas en dos alternativas. Caída bruta y neta, potencia, energía media anual y factor de planta.</p></article>
-      <article class="card reveal" style="--d:.1s"><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-zap"/></svg></span><h3>Componente electromecánico</h3><p>Selección de turbina, generador y transformador elevador; diseño conceptual de la subestación y de la línea de conexión; evaluación preliminar de transitorios hidráulicos.</p></article>
-      <article class="card reveal" style="--d:.15s"><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg></span><h3>Geología regional</h3><p>Litología, estructuras, geomorfología y zonas inestables, con cartografía del Servicio Geológico Colombiano, inventario de movimientos en masa (SIMMA) y amenaza sísmica (NSR-10).</p></article>
-      <article class="card reveal"><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-link"/></svg></span><h3>Conexión eléctrica</h3><p>Localización de subestaciones y líneas con información de la UPME, XM y el operador de red. Alternativa de conexión, longitud y costo.</p></article>
-      <article class="card reveal" style="--d:.05s"><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg></span><h3>Ambiental, social y predial</h3><p>Cruce con áreas protegidas (RUNAP), páramos, reservas forestales de la Ley 2.ª de 1959 y uso del suelo; autoridad ambiental, ruta de permisos, comunidades étnicas y consulta registral de predios.</p></article>
-      <article class="card reveal" style="--d:.1s"><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-chart"/></svg></span><h3>Evaluación financiera</h3><p>Presupuesto por componente, opex, ingresos por energía y flujo de caja descontado. VPN, TIR, capex por kW y sensibilidad a caudal, capex y precio de la energía, con los incentivos de las Leyes 1715 de 2014 y 2099 de 2021.</p></article>
-      <article class="card reveal" style="--d:.15s"><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg></span><h3>Trabajo propio en cada sitio</h3><p>Imagen satelital de 0,5 m de resolución para afinar la caída y ubicar las obras, y visita de campo con sobrevuelo de dron y video del tramo de interés.</p></article>
-    </div>
-    <p class="srcnote reveal">Fuentes: IDEAM, Servicio Geológico Colombiano, UPME, XM, RUNAP, IGAC, Ministerio de Ambiente y Ministerio del Interior, entre otras.</p>
-  </div>
-</section>
-
-<section class="sec sec--flush" id="entregables" aria-labelledby="h-ent">
-  <div class="wrap">
-    <div class="sec__head reveal">
-      <p class="eyebrow">Productos</p>
-      <h2 id="h-ent">Instrumentos para la decisión de inversión</h2>
-      <p class="lead">Los resultados se presentan en formatos aptos para un comité de inversión y para el modelado financiero propio del inversionista.</p>
+      <p class="eyebrow">Marco técnico</p>
+      <h2 id="h-marco">Información oficial y normativa con las que se trabaja</h2>
+      <p class="lead">Cada resultado se apoya en fuentes públicas identificables, de modo que el inversionista puede auditar de dónde proviene cada dato.</p>
     </div>
     <div class="mini">
-      <article class="card reveal">
-        <span class="chip chip--lg"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg></span>
-        <h3>Por cada sitio</h3>
-        <ul class="dots"><li>Informe técnico en PDF</li><li>Modelo financiero en Excel</li><li>Datos geográficos en KMZ</li><li>Mapa geológico regional</li><li>Video del sobrevuelo</li></ul>
-      </article>
-      <article class="card reveal" style="--d:.1s">
-        <span class="chip chip--lg"><svg class="i" aria-hidden="true"><use href="#i-chart"/></svg></span>
-        <h3>Para el conjunto</h3>
-        <ul class="dots"><li>Comparativo frente a los criterios del inversionista: cumple, cumple parcialmente o no cumple</li><li>Matriz de riesgos: hidrológico, geológico, ambiental, social, predial, de conexión y regulatorio</li><li>Presentación para el comité de inversión</li></ul>
-      </article>
-      <article class="card reveal" style="--d:.2s;background:var(--ink);border-color:var(--ink);color:var(--on-dark)">
-        <span class="chip chip--orange chip--lg"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span>
-        <h3 style="color:#fff">Hoja de ruta por sitio</h3>
-        <ul class="dots"><li>Alcance, presupuesto y cronograma de la factibilidad</li><li>Ruta de licencia ambiental, concesión de aguas, conexión y predios</li><li>Riesgos principales y criterios de continuidad o descarte</li></ul>
-      </article>
+      <article class="card reveal"><span class="chip chip--lg"><svg class="i" aria-hidden="true"><use href="#i-cloud"/></svg></span><h3>Datos y cartografía</h3><ul class="dots"><li>IDEAM: hidrología y clima</li><li>Servicio Geológico Colombiano: cartografía geológica y movimientos en masa (SIMMA)</li><li>IGAC: cartografía y predios</li></ul></article>
+      <article class="card reveal" style="--d:.1s"><span class="chip chip--lg"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg></span><h3>Ambiental y técnico</h3><ul class="dots"><li>RUNAP, páramos y reservas forestales de la Ley 2.ª de 1959</li><li>Decreto 1076 de 2015 y Decreto 852 de 2024, sobre competencias de licenciamiento ambiental</li><li>Reglamento NSR-10, para amenaza sísmica</li></ul></article>
+      <article class="card reveal" style="--d:.2s"><span class="chip chip--lg"><svg class="i" aria-hidden="true"><use href="#i-zap"/></svg></span><h3>Sector eléctrico e incentivos</h3><ul class="dots"><li>UPME, XM y operador de red: conexión</li><li>Leyes 1715 de 2014 y 2099 de 2021: incentivos a las energías renovables</li><li>Ministerio del Interior: comunidades étnicas</li></ul></article>
     </div>
-  </div>
-</section>
-
-<section class="sec sec--flush" id="despues" aria-labelledby="h-desp">
-  <div class="wrap">
-    <div class="sec__head reveal">
-      <p class="eyebrow">Ruta posterior</p>
-      <h2 id="h-desp">Asignación escalonada del capital hasta el proyecto listo para construir</h2>
-      <p class="lead">La prefactibilidad es la segunda de siete etapas. Cada informe cuantifica el alcance, el presupuesto y el cronograma de la etapa siguiente, de modo que el capital se comprometa por tramos y con una decisión explícita en cada transición. Regenergy puede acompañar las etapas siguientes, sin que ello constituya una obligación para el cliente.</p>
-    </div>
-    <ol class="journey reveal">
-      <li class="done"><b>Recursos hidroenergéticos</b>Portafolio de 75 sitios identificados.<span class="tag">Disponible</span></li>
-      <li class="here"><b>Prefactibilidad</b>Priorización y descarte con evidencia.<span class="tag">Este estudio</span></li>
-      <li class="next-s"><b>Factibilidad</b>Aforos, topografía, geotecnia y estudios para los permisos.<span class="tag">Etapa siguiente</span></li>
-      <li><b>Permisos</b>Licencia ambiental, concesión de aguas y conexión.</li>
-      <li><b>Diseños de detalle</b>Hasta dejar el proyecto listo para construir.</li>
-      <li><b>Capital o venta</b>Vinculación de inversionistas o venta del proyecto listo.</li>
-      <li><b>Construcción</b>Con permisos, diseños y financiación en firme.</li>
-    </ol>
-    <div class="road" style="margin-top:28px">
-      <div class="card gantt reveal">
-        <h3>Figura 3 · Frentes posteriores a la prefactibilidad (meses)</h3>
-        <div class="grow-row"><span class="name">Factibilidad</span><div class="track"><span class="bar" style="--w:6"></span><span class="bar bar--x" style="--w:3"></span></div><span class="val">6 a 9 meses</span></div>
-        <div class="grow-row"><span class="name">Predios</span><div class="track"><span class="bar" style="--w:3"></span><span class="bar bar--x" style="--w:9"></span></div><span class="val">3 a 12 meses</span></div>
-        <div class="grow-row"><span class="name">Conexión</span><div class="track"><span class="bar" style="--w:6"></span><span class="bar bar--x" style="--w:6"></span></div><span class="val">6 a 12 meses</span></div>
-        <div class="grow-row"><span class="name">Licencia y concesión</span><div class="track"><span class="bar" style="--w:12"></span><span class="bar bar--x" style="--w:12"></span></div><span class="val">12 a 24 meses</span></div>
-        <div class="axis" aria-hidden="true"><i></i><div><span style="left:0">0</span><span style="left:25%">6</span><span style="left:50%">12</span><span style="left:75%">18</span><span style="left:100%">24</span></div><i></i></div>
-        <div class="legend"><span><i></i>Duración mínima</span><span><i class="x"></i>Hasta la máxima</span></div>
-        <p class="note">Los frentes se desarrollan en paralelo; la factibilidad incluye aforos continuos, topografía y geotecnia.</p>
-      </div>
-      <div class="after">
-        <div class="box box--ink reveal" style="--d:.1s"><p class="eyebrow">Posterior</p><h3>Diseños, contrato de energía y financiación</h3><p class="t">6 a 12 meses</p></div>
-        <span class="down" aria-hidden="true"></span>
-        <div class="box box--or reveal" style="--d:.2s"><p class="eyebrow">Final</p><h3>Construcción</h3><p class="t">Con todas las condiciones cumplidas</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="sec sec--flush" id="confianza" aria-labelledby="h-conf">
-  <div class="wrap">
-    <div class="sec__head reveal">
-      <p class="eyebrow">Aseguramiento</p>
-      <h2 id="h-conf">Trazabilidad, responsabilidad profesional y confidencialidad</h2>
-    </div>
-    <div class="mini">
-      <article class="card reveal"><span class="chip chip--lg"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg></span><h3>Trazabilidad</h3><p>Cada resultado se apoya en información pública oficial identificable, de modo que el inversionista puede auditar la procedencia de los datos.</p></article>
-      <article class="card reveal" style="--d:.1s"><span class="chip chip--lg"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg></span><h3>Responsabilidad profesional</h3><p>Cada informe es suscrito por un ingeniero con matrícula profesional, que responde por su contenido técnico.</p></article>
-      <article class="card reveal" style="--d:.2s"><span class="chip chip--lg"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg></span><h3>Confidencialidad</h3><p>El reporte parcial se entrega sin coordenadas exactas. La ubicación exacta de los sitios se entrega con el informe final, bajo acuerdo de confidencialidad.</p></article>
-    </div>
+    <p class="srcnote reveal">Cada informe lo firma un ingeniero con matrícula profesional. Las potencias son estimaciones de gabinete y la ubicación exacta de los sitios se entrega con el informe, bajo acuerdo de confidencialidad.</p>
   </div>
 </section>
 
 <section class="sec close dark" id="contacto" aria-labelledby="h-cierre">
   <div class="wrap">
     <div class="sec__head reveal">
-      <p class="eyebrow">Solicitud de propuesta</p>
-      <h2 id="h-cierre">Una propuesta a la medida de su portafolio de decisión</h2>
-      <p class="lead">Con tres datos se prepara una propuesta que incluye alcance, plazo, valor y forma de pago.</p>
+      <p class="eyebrow">Contacto</p>
+      <h2 id="h-cierre">Conversemos sobre los sitios que le interesan</h2>
+      <p class="lead">Cuéntenos qué busca y le proponemos cómo avanzar, con alcance, plazo y valor definidos para su caso.</p>
     </div>
     <div class="close__grid">
       <div class="glass reveal">
-        <p class="eyebrow">Información requerida</p>
+        <p class="eyebrow">Para empezar</p>
         <h3>Tres datos</h3>
         <ul class="form-need">
-          <li><b>Sitios o zona.</b> Número de sitios a estudiar (de 5 a 75), sitios ya identificados o zona de interés.</li>
+          <li><b>Sitios o zona.</b> Cuántos sitios le interesan (desde 5), cuáles ya tiene identificados o su zona de interés.</li>
           <li><b>Criterios.</b> Por ejemplo, potencia mínima, rentabilidad objetivo y distancia máxima a la red.</li>
-          <li><b>Plazo.</b> Fecha en que se requieren los resultados.</li>
+          <li><b>Plazo.</b> Fecha en que necesita los resultados.</li>
         </ul>
       </div>
       <div class="next reveal" style="--d:.12s">
-        <p class="eyebrow">Procedimiento</p>
-        <ol>
-          <li><span class="n" aria-hidden="true">1</span><div><h3>Solicitud</h3><p>Por WhatsApp o correo, con los tres datos anteriores.</p></div></li>
-          <li><span class="n" aria-hidden="true">2</span><div><h3>Propuesta</h3><p>Alcance, plazo, valor y forma de pago.</p></div></li>
-          <li><span class="n" aria-hidden="true">3</span><div><h3>Inicio</h3><p>Al confirmar la propuesta comienza el estudio de tres meses.</p></div></li>
-        </ol>
+        <p class="eyebrow">Escríbanos</p>
         <div class="contact">
           <a class="btn btn--orange" href="mailto:gerencia@regenergy-pro.com?subject=Cotizaci%C3%B3n%20de%20prefactibilidad%20de%20PCH"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg>gerencia@regenergy-pro.com</a>
           <a class="btn btn--ghost" href="https://wa.me/573054212200?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20prefactibilidad%20de%20PCH%20de%20Regenergy%20Projects%20y%20quisiera%20pedir%20una%20cotizaci%C3%B3n." target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-whatsapp"/></svg>+57 305 421 2200</a>
@@ -792,7 +721,7 @@ footer{background:#041A38;color:var(--on-dark);padding:36px 0 calc(36px + env(sa
 <footer>
   <div class="wrap foot">
     <a class="brand" href="#inicio"><img src="assets/logo-regenergy-256.png" width="40" height="40" alt=""><span>REGENERGY<b>PROJECTS</b></span></a>
-    <p>Regenergy Projects SAS · Cali, Colombia. Las potencias son estimaciones de gabinete, sujetas a verificación en la prefactibilidad, y las ubicaciones del mapa son aproximadas; la ubicación exacta se entrega con el informe final.<br>Contacto: <a href="https://wa.me/573054212200?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20prefactibilidad%20de%20PCH%20de%20Regenergy%20Projects%20y%20quisiera%20pedir%20una%20cotizaci%C3%B3n." target="_blank" rel="noopener">WhatsApp +57 305 421 2200</a> · <a href="mailto:gerencia@regenergy-pro.com?subject=Cotizaci%C3%B3n%20de%20prefactibilidad%20de%20PCH">gerencia@regenergy-pro.com</a></p>
+    <p>Regenergy Projects SAS · Cali, Colombia. Las potencias son estimaciones de gabinete, sujetas a verificación en la prefactibilidad, y las ubicaciones del mapa son aproximadas; la ubicación exacta se entrega bajo acuerdo de confidencialidad.<br>Contacto: <a href="https://wa.me/573054212200?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20prefactibilidad%20de%20PCH%20de%20Regenergy%20Projects%20y%20quisiera%20pedir%20una%20cotizaci%C3%B3n." target="_blank" rel="noopener">WhatsApp +57 305 421 2200</a> · <a href="mailto:gerencia@regenergy-pro.com?subject=Cotizaci%C3%B3n%20de%20prefactibilidad%20de%20PCH">gerencia@regenergy-pro.com</a></p>
   </div>
 </footer>
 
