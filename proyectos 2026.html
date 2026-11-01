@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Cartera PCH Revisada</title>
 <meta name="robots" content="noindex, nofollow">
 <style>
@@ -116,16 +121,38 @@ html,body{height:100%;margin:0;background:#e6e8e2;color:var(--ink);font-family:A
 .watermark-grid span{font-size:24px;font-weight:800;color:rgba(90,90,90,.16);white-space:nowrap}
 .mob-btn{display:none}
 @media (max-width:700px){
-  .toggle-control,.conex-panel{width:200px;font-size:12px}
+  .panel{font-size:15px;padding:8px 10px}
+  .toggle-control,.conex-panel{width:min(80vw,310px)}
+  .toggle-control{max-height:calc(100vh - 170px)}
   .collapsible.closed .body{display:none}
-  .mob-btn{display:block;width:100%;margin-bottom:4px}
-  .title-box{max-width:190px;font-size:11px}
-  .legend{font-size:11px;line-height:1.4}
-  .toggle-control{max-height:calc(100vh - 200px)}
+  .collapsible.closed{width:auto;min-height:0;max-height:none;padding:4px}
+  .collapsible.closed .mob-btn{margin-bottom:0}
+  .watermark-grid span{font-size:20px}
+  .mob-btn{display:block;width:100%;margin-bottom:6px;font-size:15px;font-weight:700;padding:9px 12px}
+  .panel label{min-height:34px;margin-bottom:2px}
+  .panel input[type=checkbox],.panel input[type=radio]{width:20px;height:20px;flex:none}
+  .toggle-control select{font-size:16px;padding:7px}
+  .btns button,.btn{font-size:14px;padding:8px 6px}
+  .ttl{font-size:15px}
+  .note,.conex-info{font-size:13px}
+  .legend{font-size:13.5px;line-height:1.5;padding:8px 10px}
+  .legend.closed .body{display:none}
+  .info-box{font-size:13px}
   .title-box{display:none}
+  .leaflet-bar a{width:42px;height:42px;line-height:42px}
+  .leaflet-popup-content{font-size:14.5px;line-height:1.4;margin:12px 16px 12px 12px}
+  .pop b.t{font-size:16px}
+  .pop .tir{grid-template-columns:repeat(2,auto);gap:4px 14px}
+  .pop .tir span{font-size:12px}
+  .pop .tir b{font-size:16px}
+  .pop .contact{font-size:12px}
+  .coord-copy{font-size:13px;padding:4px 8px}
+  .leaflet-tooltip{font-size:13px}
+  .lbl{font-size:12.5px}
+  .leaflet-tooltip.conex-km{font-size:12.5px}
+  .leaflet-control-attribution{font-size:10px}
 }
 @media (prefers-reduced-motion:reduce){.leaflet-zoom-anim .leaflet-zoom-animated{transition:none}}
-
 /* acceso */
 #map{display:none}
 .access-gate{position:fixed;inset:0;z-index:9000;background:linear-gradient(135deg,#0b2340,#072D5C);display:flex;align-items:center;justify-content:center;padding:16px}
@@ -137,6 +164,9 @@ html,body{height:100%;margin:0;background:#e6e8e2;color:var(--ink);font-family:A
 .access-gate-box button:hover{background:#0b2340}
 .access-gate-error{color:#c0392b;font-size:12px;margin-top:8px;min-height:14px}
 </style>
+</head>
+<body>
+
 
 <div class="access-gate" id="access-gate"><div class="access-gate-box">
 <h2>Regenergy Projects</h2><p>Cartera PCH priorizada · acceso restringido.<br>Ingresa el código de acceso.</p>
@@ -177,6 +207,7 @@ function bandIdx(m,p){ const v=BANDS[m].v(p); const b=BANDS[m].b; for(let i=0;i<
 function hav(a,b,c,d){ const R=6371,r=Math.PI/180,dp=(c-a)*r,dl=(d-b)*r; const x=Math.sin(dp/2)**2+Math.cos(a*r)*Math.cos(c*r)*Math.sin(dl/2)**2; return 2*R*Math.asin(Math.sqrt(x)); }
 
 // ---------- mapa base
+const MOB=window.matchMedia('(max-width:700px)').matches;
 const map=L.map('map',{preferCanvas:true,zoomSnap:0.5,minZoom:5,maxZoom:15,zoomControl:false});
 L.control.zoom({position:'topleft'}).addTo(map);
 L.control.scale({position:'bottomleft',imperial:false}).addTo(map);
@@ -218,11 +249,11 @@ function popup(p){
    '<span class="contact">'+CONTACT+'</span></div>';
 }
 const markers=P.map(p=>{
-  const m=L.circleMarker([p.lk,p.gk],{pane:'pch',radius:8,color:'#333',weight:1,fillColor:'#999',fillOpacity:0.9});
+  const m=L.circleMarker([p.lk,p.gk],{pane:'pch',radius:MOB?10:8,color:'#333',weight:1,fillColor:'#999',fillOpacity:0.9});
   m._p=p;
-  m.bindPopup(()=>popup(p),{maxWidth:330});
+  m.bindPopup(()=>popup(p),MOB?{maxWidth:Math.min(330,window.innerWidth-40),maxHeight:Math.max(260,window.innerHeight-260),autoPanPaddingTopLeft:[12,150],autoPanPaddingBottomRight:[12,90]}:{maxWidth:330,autoPanPadding:[12,12]});
   m.bindTooltip(p.id+' · '+esc(p.rio||p.mun)+' · '+fmt(p.P,1)+' MW · TIR '+fmt(p[scen],1)+' %',{direction:'top',offset:[0,-8]});
-  m.on('click',e=>{ if(e.originalEvent) e.originalEvent._pch=true; showConex(p); });
+  m.on('click',e=>{ if(e.originalEvent) e.originalEvent._pch=true; if(MOB) document.querySelectorAll('.collapsible').forEach(c=>c.classList.add('closed')); showConex(p); });
   m._line=L.polyline([[p.lk,p.gk],[p.lc,p.gc]],{pane:'lines',color:'#0b3d6e',weight:2.5,opacity:.85,interactive:false});
   m._lbl=L.tooltip({permanent:true,direction:'right',offset:[9,0],className:'lbl',interactive:false}).setLatLng([p.lk,p.gk]).setContent(p.id);
   return m;
@@ -247,13 +278,14 @@ function update(fit){
 
 // ---------- leyenda
 const legend=L.control({position:'bottomright'}); let legEl;
-legend.onAdd=()=>{ legEl=L.DomUtil.create('div','legend'); L.DomEvent.disableClickPropagation(legEl); return legEl; }; legend.addTo(map);
+legend.onAdd=()=>{ legEl=L.DomUtil.create('div','legend'+(MOB?' closed':'')); L.DomEvent.disableClickPropagation(legEl); return legEl; }; legend.addTo(map);
 function renderLegend(){
   const B=BANDS[colorMetric]; let h='<b>'+B.t+(colorMetric==='tir'?' ('+SCEN[scen].split(' (')[0].toLowerCase()+')':'')+'</b>';
   B.b.forEach(b=>{ h+='<div class="row"><span class="swatch" style="background:'+b[2]+'"></span>'+b[3]+'</div>'; });
   if(ringOn){ h+='<div style="margin-top:4px"><b>Contorno: riesgo</b></div>'; Object.values(RISK).forEach(r=>{ h+='<div class="row"><span class="rk-sw" style="border-color:'+r.c+'"></span>'+r.t+'</div>'; }); }
   if(exOn){ h+='<div style="margin-top:4px"><b>Centrales existentes</b></div><div class="row"><span class="swatch" style="background:#34495e;border-radius:2px;transform:rotate(45deg)"></span>Ubicación precisa</div><div class="row"><span class="swatch" style="background:#fff;border:2px solid #34495e;border-radius:2px;transform:rotate(45deg)"></span>Solo municipio</div>'; }
-  legEl.innerHTML=h;
+  legEl.innerHTML=(MOB?'<button type="button" class="btn mob-btn" id="lg-toggle">Leyenda</button>':'')+'<div class="body">'+h+'</div>';
+  const lb=document.getElementById('lg-toggle'); if(lb) lb.onclick=()=>legEl.classList.toggle('closed');
 }
 
 // ---------- título
@@ -287,7 +319,7 @@ function renderPanel(){
   h+='</div>';
   tcDiv.innerHTML=h;
   const q=s=>tcDiv.querySelector(s), qa=s=>tcDiv.querySelectorAll(s);
-  q('#tc-toggle').onclick=()=>tcDiv.classList.toggle('closed');
+  q('#tc-toggle').onclick=()=>{ tcDiv.classList.toggle('closed'); if(!tcDiv.classList.contains('closed')) document.querySelectorAll('.collapsible').forEach(c=>{ if(c!==tcDiv) c.classList.add('closed'); }); };
   q('#sel-scen').onchange=e=>{ scen=e.target.value; restyle(); renderLegend(); update(); };
   q('#sel-min').onchange=e=>{ minTir=+e.target.value; update(); };
   qa('.chk-risk').forEach(c=>c.onchange=e=>{ riskChecked[e.target.dataset.r]=e.target.checked; update(); });
@@ -321,7 +353,7 @@ function showConex(p){
       .bindPopup('<div class="pop"><b class="t">'+esc(s.n||'Sin nombre')+'</b><br>Tensión: '+s.v+'<br>'+esc(s.s)+'<br>Distancia a '+p.id+': '+km(d)+' en línea recta<br>Coordenada: '+s.l+', '+s.g+'<br><span class="note">Fuente: UPME (subestaciones de distribución y transmisión). El trazado real suele ser 20–40 % más largo en montaña.</span></div>');
     h+=(k+1)+'. '+esc(s.n||'Sin nombre')+' · '+s.v+' · <b>'+km(d)+'</b><br>'; });
   const el=document.getElementById('conex-info'); if(el) el.innerHTML=h;
-  map.fitBounds(b,{paddingTopLeft:[260,80],paddingBottomRight:[260,80],maxZoom:12,animate:false});
+  map.fitBounds(b,MOB?{padding:[40,40],maxZoom:12,animate:false}:{paddingTopLeft:[260,80],paddingBottomRight:[260,80],maxZoom:12,animate:false});
 }
 map.on('click',e=>{ if(measureMode) return; if(e.originalEvent&&e.originalEvent._pch) return; if(conexSel) clearConex(); });
 
@@ -339,7 +371,7 @@ tl.onAdd=()=>{ const d=L.DomUtil.create('div','panel conex-panel collapsible');
    '<button type="button" class="btn" id="m-clear" hidden style="width:100%;margin-top:4px">Borrar medición</button></div>';
   L.DomEvent.disableClickPropagation(d); L.DomEvent.disableScrollPropagation(d); return d; };
 tl.addTo(map);
-document.getElementById('tl-toggle').onclick=e=>e.target.closest('.collapsible').classList.toggle('closed');
+document.getElementById('tl-toggle').onclick=e=>{ const c=e.target.closest('.collapsible'); c.classList.toggle('closed'); if(!c.classList.contains('closed')) document.querySelectorAll('.collapsible').forEach(x=>{ if(x!==c) x.classList.add('closed'); }); };
 function mUpdate(){ let t=0; for(let i=1;i<mPts.length;i++) t+=hav(mPts[i-1][0],mPts[i-1][1],mPts[i][0],mPts[i][1]);
   document.getElementById('m-dist').textContent=mPts.length>=2?'Distancia total: '+fmt(t,2)+' km':(mPts.length?'Haz clic para el siguiente punto.':'Haz clic en el mapa para empezar a medir.');
   if(mLine){ mLayer.removeLayer(mLine); mLine=null; } if(mPts.length>=2) mLine=L.polyline(mPts,{color:'#e74c3c',weight:3,dashArray:'6,6'}).addTo(mLayer); }
@@ -394,3 +426,6 @@ document.getElementById('access-code-btn').addEventListener('click',tryUnlock);
 document.getElementById('access-code-input').addEventListener('keydown',e=>{ if(e.key==='Enter') tryUnlock(); });
 document.getElementById('access-code-input').focus();
 </script>
+
+</body>
+</html>
