@@ -120,39 +120,48 @@ html,body{height:100%;margin:0;background:#e6e8e2;color:var(--ink);font-family:A
 .watermark{position:fixed;inset:0;z-index:5000;pointer-events:none;overflow:hidden}
 .watermark-grid{position:absolute;top:-60vh;left:-60vw;width:220vw;height:220vh;transform:rotate(-30deg);display:flex;flex-wrap:wrap;align-content:flex-start;gap:56px 84px;padding:20px;box-sizing:border-box}
 .watermark-grid span{font-size:24px;font-weight:800;color:rgba(90,90,90,.16);white-space:nowrap}
-.mob-btn{display:none}
-@media (max-width:700px){
-  .panel{font-size:15px;padding:8px 10px}
-  .toggle-control,.conex-panel{width:min(80vw,310px)}
-  .toggle-control{max-height:calc(100vh - 170px)}
-  .collapsible.closed .body{display:none}
-  .collapsible.closed{width:auto;min-height:0;max-height:none;padding:4px}
-  .collapsible.closed .mob-btn{margin-bottom:0}
-  .watermark-grid span{font-size:20px}
-  .mob-btn{display:block;width:100%;margin-bottom:6px;font-size:15px;font-weight:700;padding:9px 12px}
-  .panel label{min-height:34px;margin-bottom:2px}
-  .panel input[type=checkbox],.panel input[type=radio]{width:20px;height:20px;flex:none}
-  .toggle-control select{font-size:16px;padding:7px}
-  .btns button,.btn{font-size:14px;padding:8px 6px}
-  .ttl{font-size:15px}
-  .note,.conex-info{font-size:13px}
-  .legend{font-size:13.5px;line-height:1.5;padding:8px 10px}
-  .legend.closed .body{display:none}
-  .info-box{font-size:13px}
-  .title-box{display:none}
-  .leaflet-bar a{width:42px;height:42px;line-height:42px}
-  .leaflet-popup-content{font-size:14.5px;line-height:1.4;margin:12px 16px 12px 12px}
-  .pop b.t{font-size:16px}
-  .pop .tir{grid-template-columns:repeat(2,auto);gap:4px 14px}
-  .pop .tir span{font-size:12px}
-  .pop .tir b{font-size:16px}
-  .pop .contact{font-size:12px}
-  .coord-copy{font-size:13px;padding:4px 8px}
-  .leaflet-tooltip{font-size:13px}
-  .lbl{font-size:12.5px}
-  .leaflet-tooltip.conex-km{font-size:12.5px}
-  .leaflet-control-attribution{font-size:10px}
-}
+/* paneles plegables (todas las pantallas) */
+.mob-btn{display:block;width:100%;margin:0 0 6px;font-weight:700;font-size:12.5px;padding:4px 8px;text-align:left}
+.mob-btn:after{content:'\25B4';float:right;margin-left:8px}
+.closed .mob-btn:after{content:'\25BE'}
+.collapsible.closed .body,.legend.closed .body{display:none}
+.collapsible.closed{width:auto;min-height:0;max-height:none;padding:4px}
+.collapsible.closed .mob-btn,.legend.closed .mob-btn{margin-bottom:0}
+/* celular y pantallas táctiles pequeñas */
+html.mob .pop .tir{font-size:inherit}
+html.mob .pop table td{font-size:15.5px}
+html.mob .pop .warn{font-size:14px}
+html.mob .pop .note{font-size:13.5px}
+html.mob .panel{font-size:16.5px;padding:8px 10px}
+html.mob .toggle-control,html.mob .conex-panel{width:min(80vw,310px)}
+html.mob .toggle-control{max-height:calc(100vh - 170px)}
+html.mob .collapsible.closed .body{display:none}
+html.mob .collapsible.closed{width:auto;min-height:0;max-height:none;padding:4px}
+html.mob .collapsible.closed .mob-btn{margin-bottom:0}
+html.mob .watermark-grid span{font-size:20px}
+html.mob .mob-btn{display:block;width:100%;margin-bottom:6px;font-size:16.5px;font-weight:700;padding:9px 12px}
+html.mob .panel label{min-height:34px;margin-bottom:2px}
+html.mob .panel input[type=checkbox],html.mob .panel input[type=radio]{width:20px;height:20px;flex:none}
+html.mob .toggle-control select{font-size:17px;padding:7px}
+html.mob .btns button,html.mob .btn{font-size:15.5px;padding:8px 6px}
+html.mob .ttl{font-size:17px}
+html.mob .note,html.mob .conex-info{font-size:14.5px}
+html.mob .legend{font-size:15px;line-height:1.5;padding:8px 10px}
+html.mob .legend.closed .body{display:none}
+html.mob .info-box{font-size:14.5px}
+html.mob .title-box{display:none}
+html.mob .leaflet-bar a{width:42px;height:42px;line-height:42px}
+html.mob .leaflet-popup-content{font-size:16px;line-height:1.4;margin:12px 16px 12px 12px}
+html.mob .pop b.t{font-size:18px}
+html.mob .pop .tir{grid-template-columns:repeat(2,auto);gap:4px 14px}
+html.mob .pop .tir span{font-size:13.5px}
+html.mob .pop .tir b{font-size:18px}
+html.mob .pop .contact{font-size:13px}
+html.mob .coord-copy{font-size:14px;padding:4px 8px}
+html.mob .leaflet-tooltip{font-size:14.5px}
+html.mob .lbl{font-size:14px}
+html.mob .leaflet-tooltip.conex-km{font-size:14px}
+html.mob .leaflet-control-attribution{font-size:11px}
 @media (prefers-reduced-motion:reduce){.leaflet-zoom-anim .leaflet-zoom-animated{transition:none}}
 /* acceso */
 #map{display:none}
@@ -208,7 +217,9 @@ function bandIdx(m,p){ const v=BANDS[m].v(p); const b=BANDS[m].b; for(let i=0;i<
 function hav(a,b,c,d){ const R=6371,r=Math.PI/180,dp=(c-a)*r,dl=(d-b)*r; const x=Math.sin(dp/2)**2+Math.cos(a*r)*Math.cos(c*r)*Math.sin(dl/2)**2; return 2*R*Math.asin(Math.sqrt(x)); }
 
 // ---------- mapa base
-const MOB=window.matchMedia('(max-width:700px)').matches;
+const MOB=window.matchMedia('(max-width:820px)').matches || (window.matchMedia('(pointer:coarse)').matches && Math.min(screen.width,screen.height)<=820);
+if(MOB){ document.documentElement.classList.add('mob');
+  if(!document.querySelector('meta[name=viewport]')){ const mv=document.createElement('meta'); mv.name='viewport'; mv.content='width=device-width, initial-scale=1'; document.head.appendChild(mv); } }
 const map=L.map('map',{preferCanvas:true,zoomSnap:0.5,minZoom:5,maxZoom:15,zoomControl:false});
 L.control.zoom({position:'topleft'}).addTo(map);
 L.control.scale({position:'bottomleft',imperial:false}).addTo(map);
@@ -286,7 +297,7 @@ function renderLegend(){
   if(ringOn){ h+='<div style="margin-top:4px"><b>Contorno: riesgo</b></div>'; Object.values(RISK).forEach(r=>{ h+='<div class="row"><span class="rk-sw" style="border-color:'+r.c+'"></span>'+r.t+'</div>'; }); }
   if(exOn){ h+='<div style="margin-top:4px"><b>Centrales existentes</b></div><div class="row"><span class="swatch" style="background:#34495e;border-radius:2px;transform:rotate(45deg)"></span>Ubicación precisa</div><div class="row"><span class="swatch" style="background:#fff;border:2px solid #34495e;border-radius:2px;transform:rotate(45deg)"></span>Solo municipio</div>'; }
   if(conexSel){ h+='<div style="margin-top:4px"><b>Conexión ('+conexSel+')</b></div><div class="row"><span class="swatch" style="background:#27ae60"></span>Punto recomendado</div><div class="row"><span class="swatch" style="background:#f1c40f"></span>S/E ≥ 57,5 kV</div><div class="row"><span class="swatch" style="background:#b4b9c1"></span>S/E 34,5 kV</div><div class="row"><span class="swatch" style="background:#e67e22;height:4px"></span>Línea 110–138 kV</div><div class="row"><span class="swatch" style="background:#c0392b;height:4px"></span>Línea 220–230 kV</div><div class="row"><span class="swatch" style="background:#7d3c98;height:4px"></span>Línea 500 kV</div>'; }
-  legEl.innerHTML=(MOB?'<button type="button" class="btn mob-btn" id="lg-toggle">Leyenda</button>':'')+'<div class="body">'+h+'</div>';
+  legEl.innerHTML='<button type="button" class="btn mob-btn" id="lg-toggle">Leyenda</button>'+'<div class="body">'+h+'</div>';
   const lb=document.getElementById('lg-toggle'); if(lb) lb.onclick=()=>legEl.classList.toggle('closed');
 }
 
@@ -321,7 +332,7 @@ function renderPanel(){
   h+='</div>';
   tcDiv.innerHTML=h;
   const q=s=>tcDiv.querySelector(s), qa=s=>tcDiv.querySelectorAll(s);
-  q('#tc-toggle').onclick=()=>{ tcDiv.classList.toggle('closed'); if(!tcDiv.classList.contains('closed')) document.querySelectorAll('.collapsible').forEach(c=>{ if(c!==tcDiv) c.classList.add('closed'); }); };
+  q('#tc-toggle').onclick=()=>{ tcDiv.classList.toggle('closed'); if(MOB&&!tcDiv.classList.contains('closed')) document.querySelectorAll('.collapsible').forEach(c=>{ if(c!==tcDiv) c.classList.add('closed'); }); };
   q('#sel-scen').onchange=e=>{ scen=e.target.value; restyle(); renderLegend(); update(); };
   q('#sel-min').onchange=e=>{ minTir=+e.target.value; update(); };
   qa('.chk-risk').forEach(c=>c.onchange=e=>{ riskChecked[e.target.dataset.r]=e.target.checked; update(); });
@@ -397,7 +408,7 @@ tl.onAdd=()=>{ const d=L.DomUtil.create('div','panel conex-panel collapsible');
    '<button type="button" class="btn" id="m-clear" hidden style="width:100%;margin-top:4px">Borrar medición</button></div>';
   L.DomEvent.disableClickPropagation(d); L.DomEvent.disableScrollPropagation(d); return d; };
 tl.addTo(map);
-document.getElementById('tl-toggle').onclick=e=>{ const c=e.target.closest('.collapsible'); c.classList.toggle('closed'); if(!c.classList.contains('closed')) document.querySelectorAll('.collapsible').forEach(x=>{ if(x!==c) x.classList.add('closed'); }); };
+document.getElementById('tl-toggle').onclick=e=>{ const c=e.target.closest('.collapsible'); c.classList.toggle('closed'); if(MOB&&!c.classList.contains('closed')) document.querySelectorAll('.collapsible').forEach(x=>{ if(x!==c) x.classList.add('closed'); }); };
 function mUpdate(){ let t=0; for(let i=1;i<mPts.length;i++) t+=hav(mPts[i-1][0],mPts[i-1][1],mPts[i][0],mPts[i][1]);
   document.getElementById('m-dist').textContent=mPts.length>=2?'Distancia total: '+fmt(t,2)+' km':(mPts.length?'Haz clic para el siguiente punto.':'Haz clic en el mapa para empezar a medir.');
   if(mLine){ mLayer.removeLayer(mLine); mLine=null; } if(mPts.length>=2) mLine=L.polyline(mPts,{color:'#e74c3c',weight:3,dashArray:'6,6'}).addTo(mLayer); }
@@ -425,8 +436,9 @@ function copy(t,b){ const done=()=>{ b.textContent='Copiado'; setTimeout(()=>b.t
 map.on('popupopen',e=>{ const el=e.popup.getElement(); if(!el) return; el.querySelectorAll('.coord-copy').forEach(b=>{ b.onclick=()=>copy(b.dataset.c,b); }); });
 
 // ---------- inicio
+if(MOB){ const cerrar=()=>document.querySelectorAll('.collapsible,.legend').forEach(c=>c.classList.add('closed')); map.on('click',cerrar); map.on('dragstart',cerrar); }
 restyle(); renderPanel(); renderLegend(); update(true);
-if(window.innerWidth<700){ document.querySelectorAll('.collapsible').forEach(c=>c.classList.add('closed')); }
+if(MOB){ document.querySelectorAll('.collapsible').forEach(c=>c.classList.add('closed')); }
 let touched=false; ['mousedown','touchstart','wheel','keydown'].forEach(ev=>map.getContainer().addEventListener(ev,()=>{touched=true;},{passive:true}));
 [300,1000,2500].forEach(t=>setTimeout(()=>{ map.invalidateSize(); if(!touched) update(true); },t));
 window.addEventListener('resize',()=>{ map.invalidateSize(); });
