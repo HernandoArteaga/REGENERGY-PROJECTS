@@ -243,6 +243,7 @@ map.createPane('lines').style.zIndex=630;
 map.createPane('pch').style.zIndex=650;
 map.createPane('conex').style.zIndex=640;
 map.createPane('subs').style.zIndex=655;
+map.createPane('est').style.zIndex=652; const estR=L.svg({pane:'est'});
 const lineLayer=L.layerGroup().addTo(map);
 
 // ---------- marcadores
@@ -468,7 +469,7 @@ function estPop(s){ const q=QST[s[0]]; let h='<div class="pop"><b class="t">'+es
   else h+='<br><i>Sin serie de caudal medio publicada.</i>';
   return h+'<br>Coordenada: <span class="coord-sel">'+s[8]+', '+s[9]+'</span><br><span class="note">Caudales medios anuales y mensuales del IDEAM (datos.ideam.gov.co, consultado 1-nov-2026). El área es la de la red del modelo, ubicando la estación sobre el cauce más cercano; puede fallar en confluencias.</span></div>'; }
 EST.forEach(s=>{ const q=QST[s[0]]; if(s[3]!==0 && !q) return;
-  const mk=L.circleMarker([s[8],s[9]],{pane:'lines',radius:q?(MOB?7:6):4.5,weight:1.5,color:q?'#004d55':'#00646e',fillColor:q?'#00838f':'#7fd3dc',fillOpacity:.95})
+  const mk=L.circleMarker([s[8],s[9]],{pane:'est',renderer:estR,radius:q?(MOB?8:6):(MOB?6:4.5),weight:1.5,color:q?'#004d55':'#00646e',fillColor:q?'#00838f':'#7fd3dc',fillOpacity:.95})
   .bindTooltip(esc(s[1])+' · '+esc(s[12]||'')+(q?' · '+fmt(q[0],2)+' m³/s':''),{direction:'top'}).bindPopup(()=>estPop(s),{maxWidth:MOB?Math.min(330,window.innerWidth-40):330,maxHeight:Math.max(240,window.innerHeight-(MOB?260:200)),autoPanPaddingTopLeft:MOB?[12,150]:[12,12],autoPanPaddingBottomRight:MOB?[12,90]:[12,12]});
   if(s[3]===0) estLayer.addLayer(mk); else estLayer2.addLayer(mk); });
 document.getElementById('chk-est').onchange=e=>{ estOn=e.target.checked; if(estOn) estLayer.addTo(map); else map.removeLayer(estLayer); renderLegend(); };
