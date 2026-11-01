@@ -883,7 +883,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   <div class="access-gate-box">
     <h2>REGENERGY PROJECTS</h2>
     <p>Acceso restringido. Solicita el codigo vigente escribiendo a <a href="mailto:gerencia@regenergy-pro.com">gerencia@regenergy-pro.com</a> o llamando al +57 305 421 2200.</p>
-    <input type="text" inputmode="numeric" maxlength="6" id="access-code-input" placeholder="Codigo de 6 digitos" autocomplete="off">
+    <input type="text" inputmode="numeric" maxlength="5" id="access-code-input" placeholder="Codigo de 5 digitos" autocomplete="off">
     <button id="access-code-btn">Ingresar</button>
     <div class="access-gate-error" id="access-code-error"></div>
   </div>
@@ -891,31 +891,13 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
-const ACCESS_SEED = 'RegEnergy-2026-PCH-Seed';
-
-async function sha256Hex(text) {
-  const enc = new TextEncoder().encode(text);
-  const buf = await crypto.subtle.digest('SHA-256', enc);
-  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
-function bogotaDateAndSlot() {
-  const fmt = new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'America/Bogota', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', hour12: false
-  });
-  const parts = {};
-  fmt.formatToParts(new Date()).forEach(p => { parts[p.type] = p.value; });
-  const dateStr = `${parts.year}-${parts.month}-${parts.day}`;
-  const hour = parseInt(parts.hour, 10) % 24;
-  const slot = hour < 8 ? 0 : (hour < 16 ? 1 : 2);
-  return { dateStr, slot };
-}
-
-async function expectedCode() {
-  const { dateStr, slot } = bogotaDateAndSlot();
-  const hash = await sha256Hex(ACCESS_SEED + '|' + dateStr + '|' + slot);
-  const num = parseInt(hash.slice(0, 8), 16) % 1000000;
-  return String(num).padStart(6, '0');
+// Código de acceso: hora militar de Bogotá (HHMM) seguida de 1. Se aceptan el minuto actual y los dos anteriores.
+function codigoBogota(offsetMin) {
+  const d = new Date(Date.now() - offsetMin * 60000);
+  const p = {};
+  new Intl.DateTimeFormat('en-GB', { timeZone: 'America/Bogota', hour: '2-digit', minute: '2-digit', hour12: false })
+    .formatToParts(d).forEach(x => { p[x.type] = x.value; });
+  return (p.hour === '24' ? '00' : p.hour) + p.minute + '1';
 }
 
 async function tryUnlock() {
@@ -926,13 +908,12 @@ async function tryUnlock() {
     errorEl.textContent = 'Ingresa un codigo.';
     return;
   }
-  const valid = await expectedCode();
-  if (code === valid) {
+  if ([0, 1, 2].some(m => codigoBogota(m) === code)) {
     document.getElementById('access-gate').style.display = 'none';
     document.getElementById('map').style.display = 'block';
     initApp();
   } else {
-    errorEl.textContent = 'Codigo incorrecto o vencido (cambia cada 8 horas).';
+    errorEl.textContent = 'Codigo incorrecto o vencido.';
     input.value = '';
     input.focus();
   }
