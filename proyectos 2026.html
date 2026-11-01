@@ -351,5 +351,7 @@ map.on('popupopen',e=>{ const el=e.popup.getElement(); if(!el) return; el.queryS
 // ---------- inicio
 restyle(); renderPanel(); renderLegend(); update(true);
 if(window.innerWidth<700){ document.querySelectorAll('.collapsible').forEach(c=>c.classList.add('closed')); }
-setTimeout(()=>{ map.invalidateSize(); },300);
+let touched=false; ['mousedown','touchstart','wheel','keydown'].forEach(ev=>map.getContainer().addEventListener(ev,()=>{touched=true;},{passive:true}));
+[300,1000,2500].forEach(t=>setTimeout(()=>{ map.invalidateSize(); if(!touched) update(true); },t));
+window.addEventListener('resize',()=>{ map.invalidateSize(); });
 </script>
