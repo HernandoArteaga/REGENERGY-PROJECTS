@@ -206,15 +206,20 @@ function initApp(){
 const P=DATA.points, LIN=DATA.lin, EXS=DATA.exist, EST=DATA.est, P75=DATA.p75||[];
 const RISK={B:{t:'Bajo',c:'#1e8449',d:'sin resguardo ni consejo'},M:{t:'Medio',c:'#1f77b4',d:'cerca de un punto del Atlas UPME'},A:{t:'Alto',c:'#7f8c8d',d:'resguardo o consejo comunitario'}};
 const BANDS={
-  potencia:{t:'Potencia',u:'MW',v:p=>p.P,b:[[0,5,'#f1c40f','< 5 MW'],[5,10,'#e67e22','5 – 10 MW'],[10,19.5,'#e74c3c','10 – 19,5 MW'],[19.5,99,'#8e44ad','19,9 MW (tope PCH)']]},
+  potencia:{t:'Potencia (caudal más creíble)',u:'MW',v:p=>(p.tr&&p.tr.P!=null?p.tr.P:p.P),b:[[0,5,'#f1c40f','< 5 MW'],[5,10,'#e67e22','5 – 10 MW'],[10,19.5,'#e74c3c','10 – 19,5 MW'],[19.5,99,'#8e44ad','19,9 MW (tope PCH)']]},
   tir:{t:'TIR del escenario',u:'%',v:p=>p[scen],b:[[0,12,'#bdc3c7','< 12 %'],[12,14,'#f1c40f','12 – 14 %'],[14,16,'#e67e22','14 – 16 %'],[16,18,'#e74c3c','16 – 18 %'],[18,99,'#8e44ad','≥ 18 %']]},
+  area:{t:'Área de cuenca',u:'km²',v:p=>p.A,b:[[0,100,'#f1c40f','< 100 km²'],[100,200,'#e67e22','100 – 200 km²'],[200,500,'#e74c3c','200 – 500 km²'],[500,1e12,'#8e44ad','> 500 km²']]},
   caudal:{t:'Caudal medio más creíble',u:'m³/s',v:p=>p.Qc,b:[[0,2,'#2ecc71','< 2 m³/s'],[2,5,'#f1c40f','2 – 5 m³/s'],[5,10,'#e67e22','5 – 10 m³/s'],[10,20,'#e74c3c','10 – 20 m³/s'],[20,1e9,'#8e44ad','≥ 20 m³/s']]}
 };
 const SCEN={tq:'Con el caudal más creíble (×1,17)',t1:'ENA calibrada conservadora (×1,17)',t2:'ENA calibrada central (×1,32)',t0:'ENA sin calibrar'};
 let colorMetric='potencia', scen='tq', labelsOn=false, linesOn=true, ringOn=true, deptoFilter='todos', minTir=0;
 const riskChecked={B:true,M:true,A:true};
 let p75On=false, p75Solo=false;
-const bandChecked={potencia:[1,1,1,1],tir:[1,1,1,1,1],caudal:[1,1,1,1,1]};
+const bandChecked={potencia:[1,1,1,1],tir:[1,1,1,1,1],caudal:[1,1,1,1,1],area:[1,1,1,1]};
+const AREAS=[[0,100,'< 100 km²'],[100,150,'100 – 150 km²'],[150,200,'150 – 200 km²'],[200,300,'200 – 300 km²'],[300,500,'300 – 500 km²'],[500,1e12,'> 500 km²']];
+const areaChecked=[1,1,1,1,1,1];
+function areaIdx(a){ if(a==null) return -1; for(let i=0;i<AREAS.length;i++){ if(a>=AREAS[i][0]&&a<AREAS[i][1]) return i; } return AREAS.length-1; }
+function areaOk(a){ const i=areaIdx(a); return i<0||!!areaChecked[i]; }
 const CONTACT='Para más información: gerencia@regenergy-pro.com · +57 305 421 2200';
 
 function fmt(v,d){ if(v===null||v===undefined) return 'N/D'; return Number(v).toLocaleString('es-CO',{minimumFractionDigits:d,maximumFractionDigits:d}); }
@@ -294,7 +299,7 @@ function restyle(){
     m.setStyle({fillColor:b[2],color:ringOn?RISK[p.risk].c:'#333',weight:ringOn?3:1});
     m.setTooltipContent(p.id+' · '+esc(p.rio||p.mun)+' · '+fmt(p.P,1)+' MW · TIR '+fmt(p[scen],1)+' %'); });
 }
-function visible(m){ const p=m._p; return riskChecked[p.risk] && bandChecked[colorMetric][bandIdx(colorMetric,p)] && (deptoFilter==='todos'||(deptoFilter==='__CAR'?p.car===1:p.dep===deptoFilter)) && (p[scen]==null||p[scen]>=minTir); }
+function visible(m){ const p=m._p; return riskChecked[p.risk] && areaOk(p.A) && bandChecked[colorMetric][bandIdx(colorMetric,p)] && (deptoFilter==='todos'||(deptoFilter==='__CAR'?p.car===1:p.dep===deptoFilter)) && (p[scen]==null||p[scen]>=minTir); }
 function update(fit){
   let n=0; const ll=[];
   markers.forEach(m=>{ const ok=visible(m), on=map.hasLayer(m);
@@ -343,8 +348,10 @@ function renderPanel(){
   ['B','M','A'].forEach(r=>{ h+='<label><input type="checkbox" class="chk-risk" data-r="'+r+'"'+(riskChecked[r]?' checked':'')+'><span class="rk-sw" style="border-color:'+RISK[r].c+'"></span>'+RISK[r].t+' · '+RISK[r].d+' ('+cnt(r)+')</label>'; });
   h+='<div class="btns"><button type="button" data-rs="B">Solo bajo</button><button type="button" data-rs="BM">Bajo + medio</button><button type="button" data-rs="BMA">Todos</button></div>';
   h+='<label><input type="checkbox" id="chk-ring"'+(ringOn?' checked':'')+'> Contorno por riesgo</label><hr>';
+  h+='<div class="ttl">Área de cuenca aportante</div>'+AREAS.map((a,i)=>'<label><input type="checkbox" class="chk-area" data-i="'+i+'"'+(areaChecked[i]?' checked':'')+'> '+a[2]+' ('+P.filter(p=>areaIdx(p.A)===i).length+')</label>').join('')+
+     '<div class="btns"><button type="button" data-ar="all">Todas</button><button type="button" data-ar="pch">100 – 500</button><button type="button" data-ar="none">Ninguna</button></div><span class="note">Las PCH construidas tienen 109–334 km² en la mitad central. También filtra los 75 del estudio anterior.</span><hr>';
   h+='<div class="ttl">Colorear por</div>';
-  [['potencia','Potencia (MW)'],['tir','TIR del escenario'],['caudal','Caudal (m³/s)']].forEach(([v,t])=>{ h+='<label><input type="radio" name="cm" value="'+v+'"'+(v===colorMetric?' checked':'')+'> '+t+'</label>'; });
+  [['potencia','Potencia (MW)'],['tir','TIR del escenario'],['caudal','Caudal (m³/s)'],['area','Área de cuenca (km²)']].forEach(([v,t])=>{ h+='<label><input type="radio" name="cm" value="'+v+'"'+(v===colorMetric?' checked':'')+'> '+t+'</label>'; });
   BANDS[colorMetric].b.forEach((b,i)=>{ h+='<label><input type="checkbox" class="chk-band" data-i="'+i+'"'+(bandChecked[colorMetric][i]?' checked':'')+'><span class="swatch" style="background:'+b[2]+'"></span>'+b[3]+'</label>'; });
   h+='<hr><div class="ttl">Estudio anterior</div><label><input type="checkbox" id="chk-75"'+(p75On?' checked':'')+'><span class="sq75"></span> Mostrar los 75 sitios ('+P75.length+')</label>'+
      (p75On?'<label style="margin-left:22px"><input type="checkbox" id="chk-75solo"'+(p75Solo?' checked':'')+'> Solo los '+P75.filter(x=>x.in111).length+' que siguen en la cartera</label>':'');
@@ -359,10 +366,12 @@ function renderPanel(){
   q('#sel-scen').onchange=e=>{ scen=e.target.value; restyle(); renderLegend(); update(); };
   q('#sel-min').onchange=e=>{ minTir=+e.target.value; update(); };
   qa('.chk-risk').forEach(c=>c.onchange=e=>{ riskChecked[e.target.dataset.r]=e.target.checked; update(); });
-  qa('.btns button').forEach(b=>b.onclick=e=>{ const s=e.target.dataset.rs; ['B','M','A'].forEach(r=>riskChecked[r]=s.includes(r)); renderPanel(); update(); });
+  qa('.btns button[data-rs]').forEach(b=>b.onclick=e=>{ const s=e.target.dataset.rs; ['B','M','A'].forEach(r=>riskChecked[r]=s.includes(r)); renderPanel(); update(); });
   q('#chk-ring').onchange=e=>{ ringOn=e.target.checked; restyle(); renderLegend(); };
   qa('input[name=cm]').forEach(r=>r.onchange=e=>{ colorMetric=e.target.value; restyle(); renderLegend(); renderPanel(); update(); });
   qa('.chk-band').forEach(c=>c.onchange=e=>{ bandChecked[colorMetric][+e.target.dataset.i]=e.target.checked; update(); });
+  qa('.chk-area').forEach(c=>c.onchange=e=>{ areaChecked[+e.target.dataset.i]=e.target.checked?1:0; update(); upd75(); });
+  qa('[data-ar]').forEach(b=>b.onclick=e=>{ const k=e.target.dataset.ar; AREAS.forEach((a,i)=>areaChecked[i]=k==='all'?1:(k==='none'?0:((a[0]>=100&&a[1]<=500)?1:0))); renderPanel(); update(); upd75(); });
   q('#sel-dep').onchange=e=>{ deptoFilter=e.target.value; update(true); };
   q('#chk-75').onchange=e=>{ p75On=e.target.checked; upd75(); renderPanel(); renderLegend(); };
   const s75=q('#chk-75solo'); if(s75) s75.onchange=e=>{ p75Solo=e.target.checked; upd75(); };
@@ -514,7 +523,7 @@ function pop75(x){
 const m75=P75.map(x=>{ const m=L.marker([x.la,x.lo],{pane:'subs',icon:icon75(x)}).bindTooltip(esc(x.c)+' · '+esc(x.mun)+(x.in111?' · sigue como '+(x.sid||''):' · no entra'),{direction:'top',offset:[0,-8]})
   .bindPopup(()=>pop75(x),MOB?{maxWidth:Math.min(330,window.innerWidth-40),maxHeight:Math.max(260,window.innerHeight-260),autoPanPaddingTopLeft:[12,150],autoPanPaddingBottomRight:[12,90]}:{maxWidth:330});
   m._x=x; return m; });
-function upd75(){ l75.clearLayers(); if(!p75On){ map.removeLayer(l75); return; } m75.forEach(m=>{ if(!p75Solo||m._x.in111) l75.addLayer(m); }); l75.addTo(map); }
+function upd75(){ l75.clearLayers(); if(!p75On){ map.removeLayer(l75); return; } m75.forEach(m=>{ const a=m._x.qc&&m._x.qc.A!=null?m._x.qc.A:m._x.A; if((!p75Solo||m._x.in111)&&areaOk(a)) l75.addLayer(m); }); l75.addTo(map); }
 map.on('popupopen',e=>{ const el=e.popup.getElement(); if(!el) return; el.querySelectorAll('[data-goto]').forEach(b=>{ b.onclick=()=>{ const mk=markers.find(m=>m._p.id===b.dataset.goto); if(!mk) return; map.closePopup(); if(!map.hasLayer(mk)) mk.addTo(map); mk.fire('click'); mk.openPopup(); }; }); });
 
 // ---------- inicio
