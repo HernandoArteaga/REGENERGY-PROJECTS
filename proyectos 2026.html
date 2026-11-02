@@ -104,6 +104,16 @@ html,body{height:100%;margin:0;background:#e6e8e2;color:var(--ink);font-family:A
 .coord-sel{user-select:all;-webkit-user-select:all}
 .coord-copy{font-size:10.5px;padding:0 6px;margin-left:4px;cursor:pointer;border:1px solid #aaa;border-radius:4px;background:#f4f4f4}
 .leaflet-popup-content{user-select:text;-webkit-user-select:text}
+html:not(.mob) .leaflet-popup{visibility:hidden}
+.card{position:fixed;z-index:1200;width:360px;max-height:calc(100vh - 20px);display:flex;flex-direction:column;background:#fff;border-radius:8px;box-shadow:0 3px 14px rgba(0,0,0,.35);font-size:12.5px;line-height:1.35}
+.card[hidden]{display:none}
+.card,.card table{font-family:'Helvetica Neue',Arial,Helvetica,sans-serif;font-size:12.5px}
+.card .pop table td{font-size:12.5px}
+.card-h{display:flex;align-items:center;gap:8px;padding:6px 8px 6px 12px;background:var(--navy);color:#fff;border-radius:8px 8px 0 0;cursor:move;user-select:none;font-size:11.5px}
+.card-h span{flex:1;opacity:.9}
+.card-x{border:0;background:none;color:#fff;font-size:20px;line-height:1;cursor:pointer;padding:0 4px}
+.card-b{overflow:auto;padding:10px 16px 12px 14px;user-select:text;-webkit-user-select:text}
+.card.drag{opacity:.92;box-shadow:0 6px 20px rgba(0,0,0,.4)}
 .lbl{background:rgba(255,255,255,.93);border:1px solid #9aa;padding:1px 5px;font:700 11px Arial,sans-serif;color:var(--navy);box-shadow:none}
 .lbl:before{display:none}
 .dep-tip{background:transparent;border:none;box-shadow:none;font:700 11px Arial,sans-serif;color:#6b5a78;text-transform:uppercase;letter-spacing:.06em;padding:0}
@@ -246,6 +256,7 @@ function hav(a,b,c,d){ const R=6371,r=Math.PI/180,dp=(c-a)*r,dl=(d-b)*r; const x
 
 // ---------- mapa base
 const MOB=window.matchMedia('(max-width:820px)').matches || (window.matchMedia('(pointer:coarse)').matches && Math.min(screen.width,screen.height)<=820);
+if(!MOB) L.Popup.mergeOptions({autoPan:false});
 if(MOB){ document.documentElement.classList.add('mob');
   if(!document.querySelector('meta[name=viewport]')){ const mv=document.createElement('meta'); mv.name='viewport'; mv.content='width=device-width, initial-scale=1'; document.head.appendChild(mv); } }
 const map=L.map('map',{preferCanvas:true,zoomSnap:0.5,minZoom:5,maxZoom:15,zoomControl:false});
@@ -592,7 +603,35 @@ const m75=P75.map(x=>{ const m=L.marker([x.la,x.lo],{pane:'subs',icon:icon75(x)}
   .bindPopup(()=>pop75(x),MOB?{maxWidth:Math.min(330,window.innerWidth-40),maxHeight:Math.max(260,window.innerHeight-260),autoPanPaddingTopLeft:[12,150],autoPanPaddingBottomRight:[12,90]}:{maxWidth:330});
   m._x=x; return m; });
 function upd75(){ l75.clearLayers(); if(!p75On){ map.removeLayer(l75); return; } m75.forEach(m=>{ const a=m._x.qc&&m._x.qc.A!=null?m._x.qc.A:m._x.A; if((!p75Solo||m._x.in111)&&areaOk(a)) l75.addLayer(m); }); l75.addTo(map); }
-map.on('popupopen',e=>{ const el=e.popup.getElement(); if(!el) return; el.querySelectorAll('[data-goto]').forEach(b=>{ b.onclick=()=>{ const mk=markers.find(m=>m._p.id===b.dataset.goto); if(!mk) return; map.closePopup(); if(!map.hasLayer(mk)) mk.addTo(map); mk.fire('click'); mk.openPopup(); }; }); });
+function bindGoto(root){ root.querySelectorAll('[data-goto]').forEach(b=>{ b.onclick=()=>{ const mk=markers.find(m=>m._p.id===b.dataset.goto); if(!mk) return; map.closePopup(); hideCard(); if(!map.hasLayer(mk)) mk.addTo(map); mk.fire('click'); mk.openPopup(); }; }); }
+// ficha flotante (escritorio): aparece arriba a la derecha y se arrastra por la barra
+const card=document.createElement('div'); card.className='card'; card.id='card'; card.hidden=true;
+card.innerHTML='<div class="card-h" title="Arrastra para mover"><span>Detalle del sitio · arrastra para mover</span><button type="button" class="card-x" aria-label="Cerrar">×</button></div><div class="card-b"></div>';
+document.body.appendChild(card); L.DomEvent.disableClickPropagation(card); L.DomEvent.disableScrollPropagation(card);
+const cardB=card.querySelector('.card-b'); let cardMoved=false, cardAt=0;
+function placeCard(){ if(cardMoved) return; let r=10; const tp=document.querySelector('.toggle-control'); if(tp&&!tp.classList.contains('closed')){ const b=tp.getBoundingClientRect(); if(b.width&&window.innerWidth-b.left+10+370<window.innerWidth-60) r=window.innerWidth-b.left+10; }
+  card.style.left='auto'; card.style.right=r+'px'; card.style.top='10px'; }
+function fitH(){ const t=card.getBoundingClientRect().top; card.style.maxHeight=Math.max(160,window.innerHeight-Math.max(t,0)-10)+'px'; }
+function showCard(html){ cardB.innerHTML=html; card.hidden=false; placeCard(); fitH(); cardB.scrollTop=0; bindGoto(cardB); cardAt=Date.now(); }
+function hideCard(){ card.hidden=true; }
+card.querySelector('.card-x').onclick=()=>{ hideCard(); };
+(()=>{ const h=card.querySelector('.card-h'); let sx,sy,ox,oy,on=false;
+  h.addEventListener('mousedown',e=>{ if(e.target.closest('.card-x')) return; const b=card.getBoundingClientRect(); on=true; sx=e.clientX; sy=e.clientY; ox=b.left; oy=b.top; card.classList.add('drag'); e.preventDefault(); });
+  document.addEventListener('mousemove',e=>{ if(!on) return; const w=card.offsetWidth, hh=card.querySelector('.card-h').offsetHeight;
+    const x=Math.min(Math.max(ox+e.clientX-sx,-w+80),window.innerWidth-80), y=Math.min(Math.max(oy+e.clientY-sy,0),window.innerHeight-hh);
+    card.style.right='auto'; card.style.left=x+'px'; card.style.top=y+'px'; cardMoved=true; fitH(); });
+  document.addEventListener('mouseup',()=>{ if(on){ on=false; card.classList.remove('drag'); } });
+  h.addEventListener('dblclick',()=>{ cardMoved=false; placeCard(); fitH(); });
+})();
+map.on('popupopen',e=>{ const el=e.popup.getElement(); if(!el) return;
+  if(MOB){ bindGoto(el); return; }
+  const c=el.querySelector('.leaflet-popup-content'); if(!c) return;
+  showCard(c.innerHTML); setTimeout(()=>{ if(e.popup.isOpen()) map.closePopup(e.popup); },0);
+  const src=e.popup._source; if(src&&src.getLatLng) setTimeout(()=>{ if(card.hidden) return; const pt=map.latLngToContainerPoint(src.getLatLng()), mr=map.getContainer().getBoundingClientRect(), r=card.getBoundingClientRect(); const x=pt.x+mr.left, y=pt.y+mr.top;
+    if(x>r.left-40&&x<r.right+40&&y>r.top-20&&y<r.bottom+20){ const pl=document.querySelector('.conex-panel'), pr=document.querySelector('.toggle-control'); const lo=(pl&&!pl.classList.contains('closed')?pl.getBoundingClientRect().right:mr.left)+40, hi=(pr&&!pr.classList.contains('closed')?pr.getBoundingClientRect().left:mr.right)-40;
+      const c=[r.left-110,r.right+110].filter(t=>t>=lo&&t<=hi).sort((a,b)=>Math.abs(a-x)-Math.abs(b-x)); if(c.length) map.panBy([x-c.at(0),0],{duration:.4}); } },450); });
+map.on('click',()=>{ if(!MOB&&!card.hidden&&Date.now()-cardAt>400) hideCard(); });
+window.addEventListener('resize',()=>{ if(!card.hidden){ placeCard(); fitH(); } });
 
 // ---------- inicio
 if(MOB){ const cerrar=()=>document.querySelectorAll('.collapsible,.legend').forEach(c=>c.classList.add('closed')); map.on('click',cerrar); map.on('dragstart',cerrar); }
