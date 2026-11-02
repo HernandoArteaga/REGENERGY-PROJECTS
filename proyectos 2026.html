@@ -466,7 +466,7 @@ function showConex(p){
   const rpop='<div class="pop"><b class="t">Punto de conexión recomendado · '+p.id+'</b><br>'+esc(cxNombre(cx))+'<br>'+esc(cxTipo(cx))+' &middot; conexión a '+cx.nv+'<br>Distancia recta: <b>'+km(cx.d)+'</b> &middot; línea estimada '+fmt(cx.Lk,1)+' km (×1,25)<br>Costo estimado de conexión: '+fmt(cx.c,1)+' MUSD<br>TIR conservadora con vías y conexión: <b>'+fmt(cx.t,1)+' %</b><br>Coordenada: '+cx.l+', '+cx.g+'<br><span class="note">Fuente: '+esc(cx.src)+'. Falta confirmar la capacidad disponible con el operador de red y la UPME.</span></div>';
   if(tap) L.marker(rp,{pane:'subs',icon:tapIcon}).addTo(conexLayer).bindTooltip('Derivación: '+esc(cxNombre(cx)),{direction:'top',offset:[0,-10]}).bindPopup(rpop);
   // subestaciones cercanas
-  let h='<b>'+p.id+'</b> · conexión recomendada ('+cx.nv+'):<br><span style="color:#1e8449">&#9650;</span> '+esc(cxNombre(cx))+' · <b>'+km(cx.d)+'</b><br><span class="note">'+esc(cxTipo(cx))+' · '+fmt(cx.c,1)+' MUSD · TIR '+fmt(cx.t,1)+' %</span><br><br>Subestaciones cercanas (línea recta desde la casa de máquinas):<br>';
+  let h='<b>'+p.id+'</b> · conexión recomendada ('+cx.nv+'):<br><span style="color:#1e8449">&#9650;</span> '+esc(cxNombre(cx))+' · <b>'+km(cx.d)+'</b><br><span class="note">'+esc(cxTipo(cx))+' · '+fmt(cx.c,1)+' MUSD de conexión</span><br><br>Subestaciones cercanas (línea recta desde la casa de máquinas):<br>';
   let k=0;
   p.ns.forEach(s=>{ const [n,v,src,la,lo,d,at,rec]=s; const ll=[la,lo]; k++;
     if(!rec){ const l2=L.polyline([[p.lc,p.gc],ll],{pane:'conex',interactive:false,color:at?'#d99a00':'#8a8f98',weight:1.8,dashArray:'6,6',opacity:.9}).addTo(conexLayer);
