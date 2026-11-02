@@ -304,9 +304,9 @@ function popup(p){
 const markers=P.map(p=>{
   const m=L.circleMarker([p.lk,p.gk],{pane:'pch',radius:MOB?10:8,color:'#333',weight:1,fillColor:'#999',fillOpacity:0.9});
   m._p=p;
-  m.bindPopup(()=>popup(p),MOB?{maxWidth:Math.min(330,window.innerWidth-40),maxHeight:Math.max(260,window.innerHeight-260),autoPanPaddingTopLeft:[12,150],autoPanPaddingBottomRight:[12,90]}:{maxWidth:330,autoPanPadding:[12,12]});
+  m.bindPopup(()=>popup(p),MOB?{maxWidth:Math.min(330,window.innerWidth-40),maxHeight:Math.max(260,window.innerHeight-260),autoPanPaddingTopLeft:[12,150],autoPanPaddingBottomRight:[12,90]}:{maxWidth:330,maxHeight:Math.max(320,window.innerHeight-170),autoPanPadding:[12,12]});
   m.bindTooltip(p.id+' · '+esc(p.rio||p.mun)+' · '+fmt(p.Qc,1)+' m³/s · TIR '+fmt(p[scen],1)+' %',{direction:'top',offset:[0,-8]});
-  m.on('click',e=>{ if(e.originalEvent) e.originalEvent._pch=true; if(MOB) document.querySelectorAll('.collapsible').forEach(c=>c.classList.add('closed')); showConex(p); setTimeout(()=>{ const pp=m.getPopup(); if(pp&&pp.isOpen()){ pp.update(); if(pp._adjustPan) pp._adjustPan(); } },60); });
+  m.on('click',e=>{ if(e.originalEvent) e.originalEvent._pch=true; if(MOB) document.querySelectorAll('.collapsible').forEach(c=>c.classList.add('closed')); showConex(p); setTimeout(()=>refitPop(m.getPopup()),60); });
   m._line=L.polyline([[p.lk,p.gk],[p.lc,p.gc]],{pane:'lines',color:'#0b3d6e',weight:2.5,opacity:.85,interactive:false});
   m._lbl=L.tooltip({permanent:true,direction:'right',offset:[9,0],className:'lbl',interactive:false}).setLatLng([p.lk,p.gk]).setContent(p.id);
   return m;
@@ -535,11 +535,16 @@ EST.forEach(s=>{ const q=QST[s[0]]; if(s[3]!==0 && !q) return;
   if(s[3]===0) estLayer.addLayer(mk); else estLayer2.addLayer(mk); });
 document.getElementById('chk-est').onchange=e=>{ estOn=e.target.checked; if(estOn) estLayer.addTo(map); else map.removeLayer(estLayer); renderLegend(); };
 document.getElementById('chk-est2').onchange=e=>{ est2On=e.target.checked; if(est2On) estLayer2.addTo(map); else map.removeLayer(estLayer2); renderLegend(); };
-// copiar coordenadas
-function copy(t,b){ const done=()=>{ b.textContent='Copiado'; setTimeout(()=>b.textContent='Copiar',1500); };
-  const fb=()=>{ const r=document.createRange(); const sp=b.previousElementSibling; if(sp){ r.selectNodeContents(sp); const s=getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent='Seleccionado'; setTimeout(()=>b.textContent='Copiar',1500);} };
-  try{ navigator.clipboard.writeText(t).then(done,fb); }catch(e){ fb(); } }
-map.on('popupopen',e=>{ const el=e.popup.getElement(); if(!el) return; el.querySelectorAll('details').forEach(d=>d.addEventListener('toggle',()=>{ e.popup.update(); if(e.popup._adjustPan) e.popup._adjustPan(); })); el.querySelectorAll('.coord-copy').forEach(b=>{ b.onclick=()=>copy(b.dataset.c,b); }); });
+// copiar coordenadas (delegado: sigue funcionando aunque Leaflet redibuje la ficha)
+function refitPop(pp){ if(!pp||!pp.isOpen()) return; if(pp._updateLayout) pp._updateLayout(); if(pp._updatePosition) pp._updatePosition(); if(pp._adjustPan) pp._adjustPan(); }
+function flash(b,t){ b.textContent=t; setTimeout(()=>b.textContent='Copiar',1600); }
+function copyLegacy(t){ const ta=document.createElement('textarea'); ta.value=t; ta.setAttribute('readonly',''); ta.style.cssText='position:fixed;top:0;left:0;opacity:0;font-size:16px'; document.body.appendChild(ta); ta.focus(); ta.select(); ta.setSelectionRange(0,t.length); let ok=false; try{ ok=document.execCommand('copy'); }catch(e){} document.body.removeChild(ta); return ok; }
+function selectCoord(b){ const sp=b.previousElementSibling; if(!sp) return; const r=document.createRange(); r.selectNodeContents(sp); const s=getSelection(); s.removeAllRanges(); s.addRange(r); flash(b,'Seleccionado: Ctrl+C'); }
+function copy(t,b){ if(copyLegacy(t)){ flash(b,'Copiado ✓'); return; }
+  try{ if(navigator.clipboard&&window.isSecureContext){ navigator.clipboard.writeText(t).then(()=>flash(b,'Copiado ✓'),()=>selectCoord(b)); return; } }catch(e){}
+  selectCoord(b); }
+document.addEventListener('click',e=>{ const b=e.target.closest&&e.target.closest('.coord-copy'); if(!b) return; e.preventDefault(); e.stopPropagation(); copy(b.dataset.c,b); },true);
+document.addEventListener('toggle',e=>{ if(!(e.target.closest&&e.target.closest('.leaflet-popup'))) return; map.eachLayer(l=>{ if(l instanceof L.Popup&&l.isOpen()) refitPop(l); }); setTimeout(()=>{ const pp=map._popup; refitPop(pp); },0); },true);
 
 
 // ---------- 75 sitios del estudio anterior (capa que se prende y apaga)
