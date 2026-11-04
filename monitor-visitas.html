@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Monitor de visitas</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#17262f;--muted:#5b6770;--line:#e2e5ea;--navy:#0b3d6e;--ok:#1e8449;--bad:#c0392b;--chip:#eef2f6}
+@media (prefers-color-scheme:dark){:root{--bg:#11161b;--card:#1a2129;--ink:#e8edf1;--muted:#9aa6b0;--line:#2b3540;--navy:#7fb2e5;--ok:#58c27d;--bad:#ef7b6e;--chip:#24303b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+header{background:var(--navy);color:#fff;padding:14px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+@media (prefers-color-scheme:dark){header{background:#0b3d6e}}
+header h1{font-size:17px;margin:0;flex:1;min-width:220px}
+header .sub{font-size:12px;opacity:.85}
+main{max-width:1280px;margin:0 auto;padding:16px}
+.login{max-width:380px;margin:12vh auto;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:24px}
+.login h2{margin:0 0 6px;font-size:18px}
+.login p{color:var(--muted);margin:0 0 14px;font-size:13px}
+input,select,button{font:inherit}
+input[type=password]{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+button{padding:8px 14px;border:0;border-radius:6px;background:var(--navy);color:#fff;cursor:pointer}
+@media (prefers-color-scheme:dark){button{background:#2f6e9b}}
+button.sec{background:var(--chip);color:var(--ink);border:1px solid var(--line)}
+.err{color:var(--bad);font-size:13px;min-height:18px;margin-top:8px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 14px}
+.bar label{font-size:13px;color:var(--muted);display:flex;gap:6px;align-items:center}
+.bar select{padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink)}
+.bar .sp{flex:1}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.kpi b{display:block;font-size:22px;font-variant-numeric:tabular-nums}
+.kpi span{font-size:12px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+#map{height:380px;border-radius:8px;border:1px solid var(--line)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.card h3{margin:0;padding:10px 14px;font-size:14px;border-bottom:1px solid var(--line)}
+.tw{overflow:auto;max-height:70vh}
+table{border-collapse:collapse;width:100%;font-size:12.5px;font-variant-numeric:tabular-nums}
+th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;white-space:nowrap}
+th{position:sticky;top:0;background:var(--card);color:var(--muted);font-weight:600;z-index:1}
+td.w{white-space:normal;min-width:160px}
+.chip{display:inline-block;padding:0 7px;border-radius:9px;font-size:11.5px;font-weight:600;color:#fff}
+.si{background:var(--ok)}.no{background:var(--bad)}.na{background:#8a949c}
+.muted{color:var(--muted)}
+.note{font-size:12px;color:var(--muted);margin:10px 2px}
+@media (max-width:640px){main{padding:10px}#map{height:280px}header{padding:12px}}
+</style>
+</head>
+<body>
+<header><h1>Monitor de visitas · proyectos 2026</h1><span class="sub" id="upd"></span></header>
+<main>
+<section class="login" id="login">
+  <h2>Acceso al monitor</h2>
+  <p>Ingresa la clave del monitor (la que configuraste en la hoja de visitas).</p>
+  <input type="password" id="key" autocomplete="current-password" aria-label="Clave del monitor">
+  <div style="margin-top:10px;display:flex;gap:8px"><button id="go">Ver visitas</button></div>
+  <div class="err" id="err"></div>
+</section>
+<section id="app" hidden>
+  <div class="bar">
+    <label>Periodo <select id="rango"><option value="1">Hoy</option><option value="7" selected>Últimos 7 días</option><option value="30">Últimos 30 días</option><option value="0">Todo</option></select></label>
+    <label>Mostrar <select id="filtro"><option value="todas">Todas las visitas</option><option value="si">Solo con acceso</option><option value="no">Sin acceso o código fallido</option></select></label>
+    <span class="sp"></span>
+    <button class="sec" id="csv">Descargar CSV</button>
+    <button class="sec" id="ref">Actualizar</button>
+    <button class="sec" id="out">Salir</button>
+  </div>
+  <div class="kpis" id="kpis"></div>
+  <div class="grid">
+    <div class="card"><h3>Desde dónde se conectaron</h3><div id="map"></div></div>
+    <div class="card"><h3 id="tt">Visitas</h3><div class="tw"><table><thead><tr>
+      <th>Fecha</th><th>Entrada</th><th>Salida</th><th>Duración</th><th>IP</th><th>Lugar aproximado</th><th>Proveedor de internet</th><th>Acceso</th><th>Sitios consultados</th><th>Dispositivo</th>
+    </tr></thead><tbody id="tb"></tbody></table></div></div>
+  </div>
+  <p class="note">Horas en Bogotá. La ubicación sale de la IP y es aproximada (ciudad o región del proveedor; con datos móviles o VPN puede ser otra ciudad). La duración se mide mientras la página está abierta y visible, con pulsos cada 30 s.</p>
+</section>
+</main>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const URL_DATOS='__TRACK_URL__';
+const $=s=>document.querySelector(s);
+let ROWS=[], COLS=[], map=null, layer=null, timer=null;
+const store={get:k=>{try{return sessionStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{sessionStorage.setItem(k,v)}catch(e){}},del:k=>{try{sessionStorage.removeItem(k)}catch(e){}}};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fBog=(iso,o)=>iso?new Intl.DateTimeFormat('es-CO',Object.assign({timeZone:'America/Bogota'},o)).format(new Date(iso)):'';
+const fecha=iso=>fBog(iso,{weekday:'short',day:'2-digit',month:'short',year:'numeric'});
+const hora=iso=>fBog(iso,{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+function dur(s){ s=Number(s)||0; const h=Math.floor(s/3600), m=Math.floor(s%3600/60), x=s%60; return h?`${h} h ${m} min`:(m?`${m} min ${x} s`:`${x} s`); }
+function disp(ua){ ua=String(ua||''); const mob=/Mobi|Android|iPhone|iPad/i.test(ua);
+  const os=/Windows/.test(ua)?'Windows':/iPhone|iPad/.test(ua)?'iOS':/Android/.test(ua)?'Android':/Mac OS X/.test(ua)?'macOS':/Linux/.test(ua)?'Linux':'';
+  const br=/Edg\//.test(ua)?'Edge':/OPR\//.test(ua)?'Opera':/Chrome\//.test(ua)?'Chrome':/Firefox\//.test(ua)?'Firefox':/Safari\//.test(ua)?'Safari':'';
+  return (mob?'Móvil':'Computador')+(os?' · '+os:'')+(br?' · '+br:''); }
+function obj(r){ const o={}; COLS.forEach((c,i)=>o[c]=r[i]); return o; }
+async function cargar(){
+  const key=store.get('mk'); if(!key){ mostrarLogin(); return; }
+  $('#upd').textContent='Cargando…';
+  try{
+    const r=await fetch(URL_DATOS+'?key='+encodeURIComponent(key)+'&n=5000',{cache:'no-store'});
+    const j=await r.json();
+    if(!j.ok){ store.del('mk'); mostrarLogin(j.error==='clave'?'Clave incorrecta.':'No se pudo leer la hoja.'); return; }
+    COLS=j.cols; ROWS=j.rows.map(obj).reverse();
+    $('#login').hidden=true; $('#app').hidden=false;
+    $('#upd').textContent='Actualizado '+hora(new Date().toISOString());
+    pintar();
+  }catch(e){ $('#upd').textContent='Sin conexión con la hoja'; if($('#app').hidden) mostrarLogin('No se pudo conectar con la hoja de visitas.'); }
+}
+function mostrarLogin(msg){ $('#app').hidden=true; $('#login').hidden=false; $('#err').textContent=msg||''; $('#key').focus(); }
+function filtradas(){
+  const d=Number($('#rango').value), f=$('#filtro').value, lim=d?Date.now()-(d===1?0:d*864e5):0;
+  let hoyIni=0; if(d===1){ const p=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Bogota',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()); hoyIni=Date.parse(p+'T00:00:00-05:00'); }
+  return ROWS.filter(o=>{ const t=Date.parse(o.inicio); if(d===1&&t<hoyIni) return false; if(d>1&&t<lim) return false;
+    if(f==='si'&&o.acceso!=='Sí') return false; if(f==='no'&&o.acceso==='Sí') return false; return true; });
+}
+function pintar(){
+  const R=filtradas();
+  const ips=new Set(R.map(o=>o.ip).filter(Boolean)), con=R.filter(o=>o.acceso==='Sí'), fallos=R.reduce((a,o)=>a+(Number(o.intentos_fallidos)||0),0);
+  const tot=con.reduce((a,o)=>a+(Number(o.duracion_s)||0),0);
+  const k=[['Visitas',R.length],['IP distintas',ips.size],['Entraron con el código',con.length],['Intentos de código fallidos',fallos],['Tiempo total dentro',dur(tot)],['Última visita',R.length?fecha(R[0].inicio)+' '+hora(R[0].inicio).slice(0,5):'—']];
+  $('#kpis').innerHTML=k.map(([a,b])=>`<div class="kpi"><b>${esc(b)}</b><span>${esc(a)}</span></div>`).join('');
+  $('#tt').textContent=`Visitas (${R.length})`;
+  $('#tb').innerHTML=R.length?R.map(o=>{
+    const lugar=[o.ciudad,o.region,o.pais].filter(Boolean).join(', ');
+    const acc=o.acceso==='Sí'?'<span class="chip si">Sí</span>'+(o.hora_acceso?' <span class="muted">'+hora(o.hora_acceso).slice(0,5)+'</span>':''):(o.acceso==='No'?'<span class="chip no">No</span>':'<span class="chip na">Sin intento</span>');
+    const f=Number(o.intentos_fallidos)||0;
+    return `<tr><td>${esc(fecha(o.inicio))}</td><td>${esc(hora(o.inicio))}</td><td>${esc(hora(o.ultimo))}</td><td>${esc(dur(o.duracion_s))}</td><td>${esc(o.ip||'—')}</td><td class="w">${esc(lugar||'—')}</td><td class="w">${esc(o.proveedor||'')}</td><td>${acc}${f?' <span class="muted">('+f+' fallido'+(f>1?'s':'')+')</span>':''}</td><td class="w">${esc(String(o.sitios_vistos||'').split(',').join(', '))}</td><td>${esc(disp(o.dispositivo))}</td></tr>`;}).join('')
+    :'<tr><td colspan="10" class="muted">No hay visitas en este periodo.</td></tr>';
+  if(window.L){
+    if(!map){ map=L.map('map',{scrollWheelZoom:false}).setView([4.6,-74.1],5); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map); layer=L.layerGroup().addTo(map); }
+    layer.clearLayers(); const g={};
+    R.forEach(o=>{ const la=Number(o.lat), lo=Number(o.lon); if(!la&&!lo) return; const key=la.toFixed(2)+','+lo.toFixed(2); (g[key]=g[key]||{la,lo,v:[]}).v.push(o); });
+    const pts=Object.values(g);
+    pts.forEach(p=>{ const n=p.v.length, ok=p.v.some(o=>o.acceso==='Sí');
+      const html='<b>'+esc([p.v[0].ciudad,p.v[0].region,p.v[0].pais].filter(Boolean).join(', '))+'</b><br>'+n+' visita'+(n>1?'s':'')+'<br>'+[...new Set(p.v.map(o=>o.ip))].map(esc).join('<br>');
+      L.circleMarker([p.la,p.lo],{radius:Math.min(6+3*Math.sqrt(n),22),color:ok?'#1e8449':'#c0392b',weight:2,fillOpacity:.45}).bindPopup(html).addTo(layer); });
+    if(pts.length) map.fitBounds(pts.map(p=>[p.la,p.lo]),{padding:[30,30],maxZoom:8});
+    setTimeout(()=>map.invalidateSize(),50);
+  }
+}
+function csv(){
+  const R=filtradas(); const head=['fecha','entrada','salida','duracion_s','ip','ciudad','region','pais','proveedor','acceso','intentos_fallidos','sitios_vistos','dispositivo'];
+  const lines=[head.join(';')].concat(R.map(o=>[fecha(o.inicio),hora(o.inicio),hora(o.ultimo),o.duracion_s,o.ip,o.ciudad,o.region,o.pais,o.proveedor,o.acceso,o.intentos_fallidos,o.sitios_vistos,disp(o.dispositivo)].map(x=>'"'+String(x==null?'':x).replace(/"/g,'""')+'"').join(';')));
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob(['﻿'+lines.join('\n')],{type:'text/csv'})); a.download='visitas_proyectos_2026.csv'; a.click();
+}
+$('#go').onclick=()=>{ const k=$('#key').value.trim(); if(!k){ $('#err').textContent='Ingresa la clave.'; return; } store.set('mk',k); cargar(); };
+$('#key').addEventListener('keydown',e=>{ if(e.key==='Enter') $('#go').click(); });
+$('#ref').onclick=cargar; $('#csv').onclick=csv;
+$('#out').onclick=()=>{ store.del('mk'); ROWS=[]; mostrarLogin(); };
+$('#rango').onchange=pintar; $('#filtro').onchange=pintar;
+if(!/^https:\/\/script\.google\.com\//.test(URL_DATOS)){ mostrarLogin('El monitor aún no está conectado a la hoja de visitas.'); }
+else { cargar(); timer=setInterval(()=>{ if(!$('#app').hidden&&document.visibilityState==='visible') cargar(); },60000); }
+</script>
+</body>
+</html>
