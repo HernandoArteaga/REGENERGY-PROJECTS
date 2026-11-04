@@ -80,7 +80,7 @@ td.w{white-space:normal;min-width:160px}
 </main>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-const URL_DATOS='__TRACK_URL__';
+const URL_DATOS='https://script.google.com/macros/s/AKfycbz9zjPzZq1m7yepC-I1AMZd2wnw9GcMVnICpsf5VR230HWqNyiYt20VKZDnGQP2BnR2cA/exec';
 const $=s=>document.querySelector(s);
 let ROWS=[], COLS=[], map=null, layer=null, timer=null;
 const store={get:k=>{try{return sessionStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{sessionStorage.setItem(k,v)}catch(e){}},del:k=>{try{sessionStorage.removeItem(k)}catch(e){}}};

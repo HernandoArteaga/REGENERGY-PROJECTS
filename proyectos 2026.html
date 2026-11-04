@@ -197,6 +197,7 @@ html.mob .leaflet-control-attribution{font-size:11px}
 .access-gate-box button{width:100%;padding:10px 12px;font-size:15px;font-weight:600;color:#fff;background:#072D5C;border:none;border-radius:6px;cursor:pointer}
 .access-gate-box button:hover{background:#0b2340}
 .access-gate-error{color:#c0392b;font-size:12px;margin-top:8px;min-height:14px}
+.access-gate-note{font-size:11px;color:#6b7280;margin:12px 0 0;line-height:1.35}
 </style>
 </head>
 <body>
@@ -206,7 +207,8 @@ html.mob .leaflet-control-attribution{font-size:11px}
 <h2>Regenergy Projects</h2><p>Cartera PCH priorizada · acceso restringido.<br>Ingresa el código de acceso.</p>
 <input id="access-code-input" type="password" inputmode="numeric" autocomplete="off" maxlength="8" aria-label="Código de acceso">
 <button type="button" id="access-code-btn">Entrar</button>
-<div class="access-gate-error" id="access-code-error" role="alert"></div></div></div>
+<div class="access-gate-error" id="access-code-error" role="alert"></div>
+<p class="access-gate-note">Por seguridad, este sitio registra la IP, la ubicación aproximada y el tiempo de cada visita.</p></div></div>
 <div id="map" role="application" aria-label="Mapa de la cartera de PCH priorizada"></div>
 <div class="watermark" aria-hidden="true"><div class="watermark-grid" id="wm"></div></div>
 
@@ -624,6 +626,7 @@ card.querySelector('.card-x').onclick=()=>{ hideCard(); };
   h.addEventListener('dblclick',()=>{ cardMoved=false; placeCard(); fitH(); });
 })();
 map.on('popupopen',e=>{ const el=e.popup.getElement(); if(!el) return;
+  try{ const s=e.popup._source; const id=s&&(s._p?s._p.id:(s._x?s._x.c:null)); if(id&&window.trk) trk({ev:'sitio',id:id}); }catch(_){}
   if(MOB){ bindGoto(el); return; }
   const c=el.querySelector('.leaflet-popup-content'); if(!c) return;
   showCard(c.innerHTML); setTimeout(()=>{ if(e.popup.isOpen()) map.closePopup(e.popup); },0);
@@ -655,12 +658,34 @@ function tryUnlock(){
   if([0,1,2].some(m=>codigoBogota(m)===c)){
     document.getElementById('access-gate').remove();
     document.getElementById('map').style.display='block';
-    initApp();
-  } else { err.textContent='Código incorrecto o vencido.'; inp.value=''; inp.focus(); }
+    initApp(); if(window.trk) trk({ev:'acceso'});
+  } else { err.textContent='Código incorrecto o vencido.'; inp.value=''; inp.focus(); if(window.trk) trk({ev:'fallo'}); }
 }
 document.getElementById('access-code-btn').addEventListener('click',tryUnlock);
 document.getElementById('access-code-input').addEventListener('keydown',e=>{ if(e.key==='Enter') tryUnlock(); });
 document.getElementById('access-code-input').focus();
+
+// Registro de visitas (seguridad): IP, ubicación aproximada, hora y duración. Envía a la aplicación web de Apps Script.
+(function(){
+  const TRACK_URL='https://script.google.com/macros/s/AKfycbz9zjPzZq1m7yepC-I1AMZd2wnw9GcMVnICpsf5VR230HWqNyiYt20VKZDnGQP2BnR2cA/exec';
+  if(!/^https:\/\/script\.google\.com\//.test(TRACK_URL)){ window.trk=function(){}; return; }
+  const sid=Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+  const send=function(o){ const body=JSON.stringify(Object.assign({sid:sid},o));
+    try{ if(navigator.sendBeacon && navigator.sendBeacon(TRACK_URL,new Blob([body],{type:'text/plain;charset=utf-8'}))) return; }catch(e){}
+    try{ fetch(TRACK_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:body,keepalive:true}); }catch(e){} };
+  window.trk=send;
+  const base={ev:'inicio',pag:location.pathname,ref:document.referrer||'',ua:navigator.userAgent,lang:navigator.language||'',scr:screen.width+'x'+screen.height,tz:(Intl.DateTimeFormat().resolvedOptions().timeZone||'')};
+  (async function(){
+    for(const u of ['https://get.geojs.io/v1/ip/geo.json','https://ipapi.co/json/']){
+      try{ const r=await fetch(u,{cache:'no-store'}); if(!r.ok) continue; const j=await r.json();
+        send(Object.assign(base,{ip:j.ip||'',ciudad:j.city||'',region:j.region||'',pais:j.country||j.country_name||'',lat:Number(j.latitude)||'',lon:Number(j.longitude)||'',org:j.organization_name||j.org||''})); return; }catch(e){}
+    }
+    send(base);
+  })();
+  setInterval(function(){ if(document.visibilityState==='visible') send({ev:'ping'}); },30000);
+  document.addEventListener('visibilitychange',function(){ if(document.visibilityState==='hidden') send({ev:'ping'}); });
+  addEventListener('pagehide',function(){ send({ev:'ping'}); });
+})();
 </script>
 
 </body>
