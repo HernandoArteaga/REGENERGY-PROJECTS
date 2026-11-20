@@ -1593,6 +1593,67 @@ document.querySelectorAll('.chk-est-st').forEach(chk => {
   });
 });
 
+// ---- PCH de la rueda de negocios CEERA (19 nov 2026) ----
+const CEERA = [["PCH Camilo C. Restrepo", "Epsilon", "19,9 MW · Q 94 m³/s · salto 25 m · Kaplan", "Río Porce entre Yolombó y Gómez Plata, ~30 min de Barbosa. Diap. 2–3.", "Baja (±8 km)", 6.6, -75.2], ["PCH Retiro I y II", "Hidroturbinas Delta", "2×19,9 MW · Q 31 m³/s · salto 72 m · Francis", "Río Zulia entre Arboledas y Salazar de las Palmas; ~36 km de Cúcuta. Diap. 7–9.", "Baja (±8 km)", 7.7, -72.79], ["PCH Colibrí", "Hidroturbinas Delta", "14,79 MW · Q 6,33 m³/s · salto 271 m · 2 Pelton", "Río Tafetanes, Granada (Ant.); S/E Santuario 44 kV a 18 km. Diap. 11.", "Media (±3 km)", 6.06, -75.136], ["PCH La Joya", "Hidroturbinas Delta", "3 MW · Q 6,2 m³/s · salto 55,7 m · 2 Francis", "Río Claro, ~2 km antes del casco de Jardín por la vía de Andes. Diap. 14–16.", "Media (±2 km)", 5.597, -75.836], ["PCH Limón 1 y 2", "Hidroturbinas Delta", "2×19,9 MW · Q 18,16 m³/s c/u · Francis", "Río San Juan entre Andes e Hispania; captación sobre la vía a Andes. Diap. 17–18.", "Baja-media (±5 km)", 5.72, -75.9], ["PCH Paraíso", "Hidroturbinas Delta", "14,25 MW · Q 19 m³/s · salto 85,7 m · Francis", "Río Otún, Pereira, aguas abajo de Belmonte (zona Malaver). Diap. 20.", "Media (±3 km)", 4.83, -75.77], ["PCH Cauquillo", "Hidroturbinas Delta", "19,5 MW · Q 21,2 m³/s · salto 105 m", "Toma el agua de Paraíso en el Otún; descarga al Cauca frente a La Virginia. Diap. 22.", "Baja-media (±5 km)", 4.87, -75.84], ["PCH Cocorná III", "Hidroturbinas Delta", "19,56 MW · Q 10,56 m³/s · salto 213 m · 2 Pelton", "Río Cocorná, junto al casco urbano; GRP 3,8 km. Diap. 25–26.", "Media (±3 km)", 6.06, -75.17], ["CH La Esperanza", "Hidroturbinas Delta", "73,82 MW · Q 38 m³/s · salto 221 m · 4 Francis", "Río San Juan, Hispania, aguas abajo de Limón; túnel 10 km; S/E Hispania a 6 km. Diap. 28–29 (ortofoto con coordenadas).", "Baja-media (±5 km)", 5.78, -75.91], ["PCH Consotá", "Soluciones Legales Lex", "4,8 MW · Q 7 m³/s · salto 80 m · 2 Francis", "Río Consotá entre Pereira y Cartago, junto a la Ruta 25; línea 4 km a S/E Cartago. Diap. 31–32 (planos con coordenadas).", "Media (±3 km)", 4.775, -75.863], ["PCH Rico Medio", "I-eléctrica", "11,5 MW · Q 7,23 m³/s · salto 193,8 m · Pelton", "Río Tatamá, Pueblo Rico, entre Villa Claret y Pueblo Rico. Diap. 36–37.", "Baja-media (±5 km)", 5.25, -76.04], ["PCH Rico Bajo", "I-eléctrica", "4 MW · Q 4,15 m³/s · salto 119,7 m · Francis", "Río Curumbará (afl. Tatamá), entre Puerto de Oro y Villa Claret. Diap. 39–40.", "Baja (±6 km)", 5.28, -76.05], ["PCH Quinchía", "I-eléctrica", "2,3 MW · Q 1,24 m³/s · salto 239,6 m · Pelton", "Río Quinchía, cerca del casco y de El Cedral; S/E Quinchía 13,2 kV. Diap. 43–44.", "Baja-media (±4 km)", 5.32, -75.72], ["PCH Conde", "GenMás", "3,6 MW · Q 1,66 m³/s · salto 252,9 m · Pelton", "Río Conde entre Támesis y Valparaíso; tubería 3,1 km. Diap. 49.", "Media (±3 km)", 5.611, -75.673], ["CH Encimadas", "GenMás", "94 MW · Q 15,3 m³/s · salto 722 m · 2 Pelton", "Río Arma, Aguadas (Caldas); presa 34,5 m; túnel 7,68 km. Diap. 52.", "Baja (±8 km)", 5.66, -75.42], ["CH Cañaveral", "GenMás", "80 MW · Q 22,4 m³/s · salto 422 m · 2 Pelton", "Río Arma, Sonsón (Ant.); presa 55 m; túnel 4,15 km. Diap. 55.", "Baja (±8 km)", 5.68, -75.37], ["PCH Argelia", "GenMás", "13,6 MW · Q 5,4 m³/s · salto 296 m · 2 Pelton", "Río La Paloma entre Sonsón y Argelia; túnel 2,91 km. Diap. 58.", "Baja-media (±5 km)", 5.72, -75.19], ["PCH Paloma III", "GenMás", "13,45 MW · Q 5,5 m³/s · salto 292,7 m · 2 Pelton", "Río La Paloma, aguas abajo de Argelia; túnel 3,26 km. Diap. 61.", "Baja-media (±5 km)", 5.71, -75.17], ["PCH Paloma IV", "GenMás", "12,7 MW · Q 7,7 m³/s · salto 189 m · 2 Pelton", "Río La Paloma, aguas abajo de Paloma III; túnel 4,16 km. Diap. 63.", "Baja-media (±5 km)", 5.7, -75.15], ["PCH Briceño Etapa 1", "GenMás", "19,9 MW · Q 8,3 m³/s · salto 340 m · 2 Pelton", "Río Espíritu Santo, Briceño–Yarumal; túnel 2,79 km. Diap. 65.", "Media (±4 km)", 7.09, -75.53], ["PCH Briceño Etapa 2", "GenMás", "19,9 MW · Q 8,3 m³/s · salto 340 m · 2 Pelton", "En cascada, capta en la casa de máquinas de Briceño 1. Diap. 68.", "Media (±4 km)", 7.08, -75.515]];
+const CEERA_COL = {"Epsilon": "#f39c12", "Hidroturbinas Delta": "#c0392b", "Soluciones Legales Lex": "#27ae60", "I-eléctrica": "#8e44ad", "GenMás": "#00a3b4"};
+let ceeraOn = true;
+const ceeraProm = {};
+const ceeraLayer = L.layerGroup();
+function ceeraIcon(c) {
+  return L.divIcon({className: 'ceera-ic', html: '<div style="width:13px;height:13px;transform:rotate(45deg);background:' + c + ';border:2px solid #fff;box-shadow:0 0 0 1px #333;"></div>', iconSize: [17, 17], iconAnchor: [8, 8]});
+}
+const ceeraMarkers = CEERA.map(r => {
+  const c = CEERA_COL[r[1]] || '#555';
+  const m = L.marker([r[5], r[6]], {pane: 'subPane', icon: ceeraIcon(c), riseOnHover: true});
+  m._prom = r[1];
+  m.bindTooltip('<b>' + escH(r[0]) + '</b> &middot; ' + escH(r[1]), {direction: 'top', offset: [0, -8]});
+  m.bindPopup('<b>' + escH(r[0]) + '</b><br>' +
+    '<b>Promotor:</b> ' + escH(r[1]) + '<br>' +
+    '<b>Datos:</b> ' + escH(r[2]) + '<br>' +
+    '<b>Ubicación:</b> ' + escH(r[3]) + '<br>' +
+    '<b>Coordenada aproximada:</b> <span class="coord-sel">' + r[5] + ', ' + r[6] + '</span> <button type="button" class="coord-copy" data-c="' + r[5] + ', ' + r[6] + '">Copiar</button><br>' +
+    '<b>Precisión:</b> ' + escH(r[4]) + '<br>' +
+    '<span style="font-size:11px;color:#777;">Proyecto presentado en la rueda de negocios de PCH de CEERA (19 nov 2026). Ubicación estimada a partir de río, municipio y distancias citados; no es la coordenada de obra.</span><br>' +
+    '<span style="font-size:11px;color:#555;">' + CONTACT_LINE + '</span>', {maxWidth: 300});
+  m.on('click', function(e) { if (e && e.originalEvent) e.originalEvent._pch = true; });
+  m.addTo(ceeraLayer);
+  return m;
+});
+Object.keys(CEERA_COL).forEach(k => { ceeraProm[k] = true; });
+function ceeraUpdate() {
+  if (ceeraOn && !map.hasLayer(ceeraLayer)) ceeraLayer.addTo(map);
+  if (!ceeraOn && map.hasLayer(ceeraLayer)) map.removeLayer(ceeraLayer);
+  ceeraMarkers.forEach(m => {
+    const ok = ceeraProm[m._prom], on = ceeraLayer.hasLayer(m);
+    if (ok && !on) m.addTo(ceeraLayer); else if (!ok && on) ceeraLayer.removeLayer(m);
+  });
+}
+const ceeraControl = L.control({position: 'topleft'});
+ceeraControl.onAdd = function() {
+  const div = L.DomUtil.create('div', 'toggle-control conex-panel');
+  div.style.marginTop = '10px';
+  const n = {}; CEERA.forEach(r => { n[r[1]] = (n[r[1]] || 0) + 1; });
+  div.innerHTML = '<div class="conex-title">PCH rueda de negocios CEERA</div>' +
+    '<label><input type="checkbox" id="chk-ceera" checked> Mostrar proyectos (' + CEERA.length + ')</label>' +
+    '<div id="ceera-opts" style="margin-top:2px;">' +
+    Object.keys(CEERA_COL).map(k => '<label><input type="checkbox" class="chk-ceera-p" data-p="' + escH(k) + '" checked>' +
+      '<span style="display:inline-block;width:9px;height:9px;transform:rotate(45deg);background:' + CEERA_COL[k] + ';margin:0 6px 0 2px;border:1px solid #333;"></span>' + escH(k) + ' (' + (n[k] || 0) + ')</label>').join('') +
+    '</div>' +
+    '<div class="nv-note" style="margin-top:4px;">Proyectos de otros promotores presentados el 19 nov 2026. Ubicación aproximada (nivel tramo o municipio).</div>';
+  L.DomEvent.disableClickPropagation(div);
+  return div;
+};
+ceeraControl.addTo(map);
+document.getElementById('chk-ceera').addEventListener('change', function(e) {
+  ceeraOn = e.target.checked;
+  document.getElementById('ceera-opts').style.display = ceeraOn ? 'block' : 'none';
+  ceeraUpdate();
+});
+document.querySelectorAll('.chk-ceera-p').forEach(chk => {
+  chk.addEventListener('change', function(e) { ceeraProm[e.target.dataset.p] = e.target.checked; ceeraUpdate(); });
+});
+ceeraUpdate();
+
 updateVisibility();
 
 } // end initApp
