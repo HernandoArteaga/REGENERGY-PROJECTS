@@ -70,26 +70,9 @@ details li{max-width:75ch}
 .foot{color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:12px}
 @media (max-width:560px){.step{grid-template-columns:2.6rem 1fr}.step .cost{grid-column:2;text-align:left}.step .st{grid-column:2}.wait-row{grid-template-columns:1fr auto}.wait-row .num{grid-column:1/-1}h1{font-size:24px}}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
-/* acceso */
-#app{display:none}
-.access-gate{position:fixed;inset:0;z-index:9000;background:linear-gradient(135deg,#0b2340,#072D5C);display:flex;align-items:center;justify-content:center;padding:16px}
-.access-gate-box{background:#fff;border-radius:10px;padding:28px 24px;max-width:320px;width:100%;box-shadow:0 8px 30px rgba(0,0,0,.4);text-align:center;color:#14202e}
-.access-gate-box h2{margin:0 0 4px;font-size:18px;color:#072D5C;font-family:var(--sans)}
-.access-gate-box p{margin:0 0 16px;font-size:12px;color:#666}
-.access-gate-box input{width:100%;padding:10px 12px;font-size:18px;letter-spacing:.2em;text-align:center;border:1px solid #ccc;border-radius:6px;margin-bottom:10px;font-variant-numeric:tabular-nums;color:#14202e;background:#fff}
-.access-gate-box button{width:100%;padding:10px 12px;font-size:15px;font-weight:600;color:#fff;background:#072D5C;border:none;border-radius:6px;cursor:pointer}
-.access-gate-error{color:#c0392b;font-size:12px;margin-top:8px;min-height:14px}
-.access-gate-note{font-size:11px;color:#6b7280;margin:12px 0 0;line-height:1.35}
 </style>
 </head>
 <body>
-<div class="access-gate" id="access-gate"><div class="access-gate-box">
-<h2>Regenergy Projects</h2><p>Ruta RTB · acceso restringido.<br>Ingresa el código de acceso.</p>
-<input id="access-code-input" type="password" inputmode="numeric" autocomplete="off" maxlength="8" aria-label="Código de acceso">
-<button type="button" id="access-code-btn">Entrar</button>
-<div class="access-gate-error" id="access-code-error" role="alert"></div>
-<p class="access-gate-note">Por seguridad, este sitio registra la IP, la ubicación aproximada y el tiempo de cada visita.</p></div></div>
-
 <div id="app">
 <header class="top"><div class="top-in"><span class="brand">REGENERGY PROJECTS</span><a href="proyectos%202026.html">Mapa de la cartera 2026</a></div></header>
 <main>
@@ -198,7 +181,7 @@ function render(){
       r.append(el('span','num',d.num),p,el('span','cost',cost),stt); box.append(r); });
     out.push(box); }
   document.getElementById('steps').replaceChildren(...(out.length?out:[el('p','muted','Ningún paso de este proyecto coincide con el filtro.')]));
-  document.getElementById('foot').textContent='Estado al '+DATA.fecha+'. Regenergy Projects S.A.S.';
+  document.getElementById('foot').textContent='Estado al '+DATA.fecha+'. Regenergy Projects S.A.S. Este sitio registra la IP, la ubicación aproximada y el tiempo de cada visita.';
 }
 document.getElementById('pick').addEventListener('change',e=>{ SEL=e.target.value; render(); });
 document.getElementById('filtro').addEventListener('change',e=>{ FILTRO=e.target.value; render(); });
@@ -226,24 +209,7 @@ document.getElementById('filtro').addEventListener('change',e=>{ FILTRO=e.target
 })();
 
 
-function codigoBogota(offsetMin){
-  const d=new Date(Date.now()-offsetMin*60000);
-  const p={}; new Intl.DateTimeFormat('en-GB',{timeZone:'America/Bogota',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(d).forEach(x=>p[x.type]=x.value);
-  return (p.hour==='24'?'00':p.hour)+p.minute+'1';
-}
-function tryUnlock(){
-  const inp=document.getElementById('access-code-input'), err=document.getElementById('access-code-error');
-  const c=inp.value.trim();
-  if(!c){ err.textContent='Ingresa un código.'; return; }
-  if([0,1,2].some(m=>codigoBogota(m)===c)){
-    document.getElementById('access-gate').remove();
-    document.getElementById('app').style.display='block';
-    render(); if(window.trk) trk({ev:'acceso'});
-  } else { err.textContent='Código incorrecto o vencido.'; inp.value=''; inp.focus(); if(window.trk) trk({ev:'fallo'}); }
-}
-document.getElementById('access-code-btn').addEventListener('click',tryUnlock);
-document.getElementById('access-code-input').addEventListener('keydown',e=>{ if(e.key==='Enter') tryUnlock(); });
-document.getElementById('access-code-input').focus();
+render();
 </script>
 </body>
 </html>

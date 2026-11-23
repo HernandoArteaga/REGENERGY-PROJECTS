@@ -197,6 +197,9 @@ html.mob .leaflet-control-attribution{font-size:11px}
 .access-gate-box button{width:100%;padding:10px 12px;font-size:15px;font-weight:600;color:#fff;background:#072D5C;border:none;border-radius:6px;cursor:pointer}
 .access-gate-box button:hover{background:#0b2340}
 .access-gate-error{color:#c0392b;font-size:12px;margin-top:8px;min-height:14px}
+.access-gate-help{font-size:12px;color:#444;margin:14px 0 8px!important}
+.access-gate-wa{display:block;padding:10px 12px;font-size:14px;font-weight:600;color:#fff!important;background:#1f9d55;border-radius:6px;text-decoration:none!important}
+.access-gate-wa:hover{background:#17834a}
 .access-gate-note{font-size:11px;color:#6b7280;margin:12px 0 0;line-height:1.35}
 </style>
 </head>
@@ -208,6 +211,7 @@ html.mob .leaflet-control-attribution{font-size:11px}
 <input id="access-code-input" type="password" inputmode="numeric" autocomplete="off" maxlength="8" aria-label="Código de acceso">
 <button type="button" id="access-code-btn">Entrar</button>
 <div class="access-gate-error" id="access-code-error" role="alert"></div>
+<p class="access-gate-help">Solicite la clave por WhatsApp al <b>+57 305 421 2200</b>.</p><a class="access-gate-wa" href="https://wa.me/573054212200?text=Hola%2C%20quisiera%20la%20clave%20de%20acceso%20al%20mapa%20de%20proyectos%20de%20Regenergy%20Projects." target="_blank" rel="noopener">Pedir la clave por WhatsApp</a>
 <p class="access-gate-note">Por seguridad, este sitio registra la IP, la ubicación aproximada y el tiempo de cada visita.</p></div></div>
 <div id="map" role="application" aria-label="Mapa de la cartera de PCH priorizada"></div>
 <div class="watermark" aria-hidden="true"><div class="watermark-grid" id="wm"></div></div>
@@ -667,7 +671,7 @@ let touched=false; ['mousedown','touchstart','wheel','keydown'].forEach(ev=>map.
 window.addEventListener('resize',()=>{ map.invalidateSize(); });
 } // fin initApp
 
-// Código de acceso: hora militar de Bogotá (HHMM) seguida de 1. Se aceptan el minuto actual y los dos anteriores.
+// Código de acceso: hora militar de Bogotá (HHMM) seguida de 1 o de 2. Se aceptan el minuto actual y los dos anteriores.
 function codigoBogota(offsetMin){
   const d=new Date(Date.now()-offsetMin*60000);
   const p={}; new Intl.DateTimeFormat('en-GB',{timeZone:'America/Bogota',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(d).forEach(x=>p[x.type]=x.value);
@@ -677,7 +681,7 @@ function tryUnlock(){
   const inp=document.getElementById('access-code-input'), err=document.getElementById('access-code-error');
   const c=inp.value.trim();
   if(!c){ err.textContent='Ingresa un código.'; return; }
-  if([0,1,2].some(m=>codigoBogota(m)===c)){
+  if([0,1,2].some(m=>[codigoBogota(m),codigoBogota(m).slice(0,4)+'2'].includes(c))){
     document.getElementById('access-gate').remove();
     document.getElementById('map').style.display='block';
     initApp(); if(window.trk) trk({ev:'acceso'});
