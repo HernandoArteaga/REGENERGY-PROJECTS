@@ -8,52 +8,56 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#072D5C;--bg:#f5f7fa;--panel:#ffffff;--fg:#14202e;--muted:#5d6b7c;--line:#dde3ea;--ok:#1e8a5a;--warn:#b7791f;--bad:#c0392b;--grid:#e6ebf1;--sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;--disp:'Space Grotesk','Inter',system-ui,sans-serif;color-scheme:light}
-@media (prefers-color-scheme:dark){:root{--bg:#0d1520;--panel:#142131;--fg:#e8eef5;--muted:#9aa9ba;--line:#26364a;--ok:#4cc38a;--warn:#e0a84a;--bad:#ef6b5e;--grid:#22324a;color-scheme:dark}}
+:root{--navy:#072D5C;--bg:#f5f7fa;--panel:#ffffff;--fg:#14202e;--muted:#5d6b7c;--line:#dde3ea;--ok:#1e8a5a;--warn:#b7791f;--bad:#c0392b;--grid:#e6ebf1;--sel:#072D5C;--sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;--disp:'Space Grotesk','Inter',system-ui,sans-serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1520;--panel:#142131;--fg:#e8eef5;--muted:#9aa9ba;--line:#26364a;--ok:#4cc38a;--warn:#e0a84a;--bad:#ef6b5e;--grid:#22324a;--sel:#8fb3e0;color-scheme:dark}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 var(--sans)}
 .top{background:var(--navy);color:#fff}
-.top-in{max-width:1200px;margin:0 auto;padding:14px max(16px,env(safe-area-inset-right,0px)) 14px max(16px,env(safe-area-inset-left,0px));display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top .wrap{padding-block:14px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .brand{font-family:var(--disp);font-weight:600;letter-spacing:.06em;font-size:15px}
 .top a{color:#cfe0f5;font-size:13px;text-decoration:none}
 .top a:hover{text-decoration:underline}
-main{max-width:1200px;margin:0 auto;padding:24px max(16px,env(safe-area-inset-right,0px)) 48px max(16px,env(safe-area-inset-left,0px));display:grid;gap:32px}
+.intro{padding-block:22px 0}
 h1{font-family:var(--disp);font-weight:600;font-size:30px;margin:0;text-wrap:balance}
 h2{font-family:var(--disp);font-weight:600;font-size:19px;margin:0}
 h3{margin:0;font-size:14px;font-weight:600}
 .lead{margin:6px 0 0;color:var(--muted);max-width:75ch}
 .lead b{color:var(--fg);font-variant-numeric:tabular-nums}
 .muted{color:var(--muted);font-size:12.5px;margin:0}
+.tabbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-top:18px}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:thin;padding-top:6px}
+.tab{flex:0 0 auto;font:inherit;color:var(--muted);background:none;border:0;border-bottom:3px solid transparent;padding:8px 12px 9px;cursor:pointer;text-align:left;line-height:1.25}
+.tab b{display:block;color:var(--fg);font-weight:600;font-variant-numeric:tabular-nums}
+.tab span{font-size:12px}
+.tab:hover{color:var(--fg)}
+.tab[aria-selected=true]{border-bottom-color:var(--sel)}
+.tab[aria-selected=true] span{color:var(--fg)}
+.tab:focus-visible{outline:2px solid var(--sel);outline-offset:-2px}
+main{padding-block:24px 48px;display:grid;gap:28px}
 .sec{display:grid;gap:12px}
+.ph{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.chip{font-size:11.5px;border:1px solid var(--line);border-radius:999px;padding:1px 8px;white-space:nowrap;color:var(--muted)}
+.chip.warn{border-color:var(--warn);color:var(--warn)}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
 .kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px;min-width:0}
 .kpi-l{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
 .kpi-v{font-family:var(--disp);font-size:30px;line-height:1.2;font-variant-numeric:tabular-nums}
 .kpi-s{font-size:12px;color:var(--muted)}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:8px;cursor:pointer;min-width:0;text-align:left;font:inherit;color:inherit}
-.card:hover{border-color:var(--muted)}
-.card:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
-.card.sel{border-color:var(--navy);box-shadow:inset 0 0 0 1px var(--navy)}
-@media (prefers-color-scheme:dark){.card.sel{border-color:#8fb3e0;box-shadow:inset 0 0 0 1px #8fb3e0}}
-.c-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
-.c-id{font-weight:600;font-variant-numeric:tabular-nums}
-.chip{font-size:11.5px;border:1px solid var(--line);border-radius:999px;padding:1px 8px;white-space:nowrap;color:var(--muted)}
-.chip.warn{border-color:var(--warn);color:var(--warn)}
-.pct-row{display:flex;align-items:baseline;gap:6px}
-.pct{font-family:var(--disp);font-size:28px;line-height:1;font-variant-numeric:tabular-nums}
-.segs,.seg-l{display:grid;grid-template-columns:repeat(8,1fr);gap:3px}
-.seg{height:8px;border-radius:2px;background:var(--grid);position:relative;overflow:hidden}
-.seg i{position:absolute;inset:0 auto 0 0;background:var(--ok)}
-.seg-l{font-size:10.5px;color:var(--muted);text-align:center}
-.seg-l .cur{color:var(--fg);font-weight:600}
-dl.kv{display:grid;grid-template-columns:auto 1fr;gap:2px 8px;font-size:12.5px;margin:0}
+.grid2{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:16px}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;min-width:0}
+.stg{display:grid;grid-template-columns:1.4rem minmax(0,1fr) 3.6rem;gap:4px 10px;align-items:center;font-size:13px}
+.stg .n{color:var(--muted);font-variant-numeric:tabular-nums}
+.stg .cur{font-weight:600}
+.bar{grid-column:2;height:8px;border-radius:2px;background:var(--grid);position:relative;overflow:hidden}
+.bar i{position:absolute;inset:0 auto 0 0;background:var(--ok)}
+.stg .c{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted);font-size:12px}
+dl.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;font-size:13px;margin:0}
 dl.kv dt{color:var(--muted)} dl.kv dd{margin:0;min-width:0}
-.wait-row{display:grid;grid-template-columns:5rem 1fr auto;gap:8px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line)}
+.wait-row{display:grid;grid-template-columns:3rem 1fr auto;gap:8px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line)}
 .num{font-variant-numeric:tabular-nums;color:var(--muted)}
 .days{font-variant-numeric:tabular-nums;white-space:nowrap}
 .days.late{color:var(--bad);font-weight:600}
-.tools{display:flex;flex-wrap:wrap;gap:8px}
 select{font:inherit;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
 .stage-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:8px 0;border-bottom:1px solid var(--muted);margin-top:16px}
 .step{display:grid;grid-template-columns:3rem 1fr 7.5rem 7rem;gap:8px;align-items:start;padding:8px 4px;border-bottom:1px solid var(--line)}
@@ -68,37 +72,39 @@ select{font:inherit;color:var(--fg);background:var(--panel);border:1px solid var
 details summary{cursor:pointer;color:var(--muted)}
 details li{max-width:75ch}
 .foot{color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:12px}
-@media (max-width:560px){.step{grid-template-columns:2.6rem 1fr}.step .cost{grid-column:2;text-align:left}.step .st{grid-column:2}.wait-row{grid-template-columns:1fr auto}.wait-row .num{grid-column:1/-1}h1{font-size:24px}}
-@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+@media (max-width:760px){.grid2{grid-template-columns:1fr}}
+@media (max-width:560px){.step{grid-template-columns:2.6rem 1fr}.step .cost{grid-column:2;text-align:left}.step .st{grid-column:2}h1{font-size:24px}}
 </style>
 </head>
 <body>
-<div id="app">
-<header class="top"><div class="top-in"><span class="brand">REGENERGY PROJECTS</span><a href="proyectos%202026.html">Mapa de la cartera 2026</a></div></header>
-<main>
+<header class="top"><div class="wrap"><span class="brand">REGENERGY PROJECTS</span><a href="proyectos%202026.html">Mapa de la cartera 2026</a></div></header>
+<div class="wrap intro">
+  <h1>Ruta RTB</h1>
+  <p class="lead">Avance de cada proyecto de la cartera hacia Ready to Build: 74 pasos en 8 etapas, desde descartar riesgos hasta el paquete para el inversionista.</p>
+</div>
+<nav class="tabbar" aria-label="Proyectos"><div class="wrap"><div class="tabs" role="tablist" id="tabs"></div></div></nav>
+<main class="wrap" id="panel" role="tabpanel">
   <section class="sec" id="resumen">
-    <div><h1>Ruta RTB</h1><p class="lead" id="lead">—</p></div>
+    <div class="ph"><div><h2 id="p-title">—</h2><p class="muted" id="p-sub">—</p></div><span class="chip" id="p-chip">—</span></div>
+    <p class="lead" id="p-lead">—</p>
     <div class="kpis">
       <div class="kpi"><div class="kpi-l">Pasos hechos</div><div class="kpi-v" id="k-hechos">—</div><div class="kpi-s" id="k-hechos-s">—</div></div>
       <div class="kpi"><div class="kpi-l">En curso</div><div class="kpi-v" id="k-curso">—</div><div class="kpi-s">pasos trabajándose ahora</div></div>
       <div class="kpi"><div class="kpi-l">Esperando a terceros</div><div class="kpi-v" id="k-esp">—</div><div class="kpi-s" id="k-tarde">—</div></div>
-      <div class="kpi"><div class="kpi-l">Gastado</div><div class="kpi-v" id="k-gasto">—</div><div class="kpi-s">millones de pesos, los 7 proyectos</div></div>
+      <div class="kpi"><div class="kpi-l">Gastado</div><div class="kpi-v" id="k-gasto">—</div><div class="kpi-s" id="k-gasto-s">—</div></div>
     </div>
-  </section>
-  <section class="sec" id="proyectos">
-    <h2>Proyectos</h2>
-    <p class="muted">Barras: avance de cada una de las 8 etapas. Toca un proyecto para ver sus pasos.</p>
-    <div class="cards" id="cards"></div>
+    <div class="grid2">
+      <div class="box"><h3 style="margin-bottom:10px">Avance por etapa</h3><div class="stg" id="stages"></div></div>
+      <div class="box"><dl class="kv" id="facts"></dl></div>
+    </div>
   </section>
   <section class="sec" id="esperando">
     <h2>Esperando respuesta</h2>
-    <p class="muted">Pasos que dependen de una entidad o de un tercero, con los días desde la fecha anotada. Un derecho de petición debe responderse en 15 días hábiles (unos 21 días calendario); en rojo los que ya pasaron ese plazo.</p>
+    <p class="muted">Pasos de este proyecto que dependen de una entidad o de un tercero. Un derecho de petición debe responderse en 15 días hábiles (unos 21 días calendario); en rojo los que ya pasaron ese plazo.</p>
     <div id="wait"></div>
   </section>
-  <section class="sec" id="detalle">
-    <h2>Pasos por proyecto</h2>
-    <div class="tools">
-      <select id="pick" aria-label="Proyecto"></select>
+  <section class="sec" id="pasos">
+    <div class="ph"><h2>Pasos</h2>
       <select id="filtro" aria-label="Qué pasos mostrar">
         <option value="">Todos los pasos</option>
         <option value="abiertos">Sin terminar</option>
@@ -113,12 +119,11 @@ details li{max-width:75ch}
     <summary>Cómo se lee y de dónde salen los costos</summary>
     <ul>
       <li>Cada proyecto sigue los mismos 74 pasos de la Ruta RTB, agrupados en 8 etapas. Los pasos marcados «No aplica» no cuentan para el avance.</li>
-      <li>El presupuesto de cada proyecto es la suma de los costos estimados de los pasos pagados, sin compra de predios ni consulta previa. Son órdenes de magnitud, en millones de pesos.</li>
+      <li>El presupuesto es la suma de los costos estimados de los pasos pagados, sin compra de predios ni consulta previa. Son órdenes de magnitud, en millones de pesos.</li>
     </ul>
   </details>
   <p class="foot" id="foot">—</p>
 </main>
-</div>
 
 <script>
 const DATA = {"fecha": "23 de noviembre de 2026", "pasos": [{"etapa": 1, "etapa_nombre": "Descartar riesgos", "num": "1.1", "orden": 101, "paso": "Derecho de petición a la CAR: permisos de estudio, concesiones y licencias vigentes en el tramo", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 1, "etapa_nombre": "Descartar riesgos", "num": "1.2", "orden": 102, "paso": "Derecho de petición a la UPME: proyectos registrados en el río y capacidad de red cercana", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 1, "etapa_nombre": "Descartar riesgos", "num": "1.3", "orden": 103, "paso": "Evaluación preliminar de puntos de conexión: subestaciones y líneas cercanas, tensión, distancia, capacidad indicativa UPME y alternativas (34,5 kV o 115 kV)", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 1, "etapa_nombre": "Descartar riesgos", "num": "1.4", "orden": 104, "paso": "Consulta al operador de red: red de media tensión cercana, capacidad disponible y punto de conexión probable", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 1, "etapa_nombre": "Descartar riesgos", "num": "1.5", "orden": 105, "paso": "Solicitud a MinInterior de si procede consulta previa en el área", "quien": "Gratis (polígono y carta)", "tipo": "Gratis", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 1, "etapa_nombre": "Descartar riesgos", "num": "1.6", "orden": 106, "paso": "Petición al municipio: uso del suelo según el POT", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 1, "etapa_nombre": "Descartar riesgos", "num": "1.7", "orden": 107, "paso": "Cruce de restricciones: RUNAP, reservas de Ley 2ª, páramos, POMCA, resguardos", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 1, "etapa_nombre": "Descartar riesgos", "num": "1.8", "orden": 108, "paso": "Identificación de predios y dueños en catastro, incluido el corredor de la línea de conexión", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 1, "etapa_nombre": "Descartar riesgos", "num": "1.9", "orden": 109, "paso": "Certificados de tradición de los predios clave", "quien": "Pagado", "tipo": "Pagado", "costo": "0,5–1", "costo_min": 0.5, "costo_max": 1.0, "fuera_ppto": false}, {"etapa": 1, "etapa_nombre": "Descartar riesgos", "num": "1.10", "orden": 110, "paso": "Revisión de un abogado ambiental de lo que respondan las entidades", "quien": "Pagado", "tipo": "Pagado", "costo": "1–4", "costo_min": 1.0, "costo_max": 4.0, "fuera_ppto": false}, {"etapa": 2, "etapa_nombre": "Reconocimiento y estación de nivel", "num": "2.1", "orden": 201, "paso": "Plan de visita, rutas, permisos de entrada y lista de chequeo", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 2, "etapa_nombre": "Reconocimiento y estación de nivel", "num": "2.2", "orden": 202, "paso": "Términos de referencia y cotizaciones de aforo y dron", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 2, "etapa_nombre": "Reconocimiento y estación de nivel", "num": "2.3", "orden": 203, "paso": "Salida de campo: 2 personas, 3–4 días (transporte y viáticos)", "quien": "Pagado", "tipo": "Pagado", "costo": "4–8", "costo_min": 4.0, "costo_max": 8.0, "fuera_ppto": false}, {"etapa": 2, "etapa_nombre": "Reconocimiento y estación de nivel", "num": "2.4", "orden": 204, "paso": "Aforo inicial con molinete o ADCP", "quien": "Pagado (contratista)", "tipo": "Pagado", "costo": "3–6", "costo_min": 3.0, "costo_max": 6.0, "fuera_ppto": false}, {"etapa": 2, "etapa_nombre": "Reconocimiento y estación de nivel", "num": "2.5", "orden": 205, "paso": "Sensor de nivel con regla limnimétrica, instalado", "quien": "Pagado (equipo)", "tipo": "Pagado", "costo": "4–9", "costo_min": 4.0, "costo_max": 9.0, "fuera_ppto": false}, {"etapa": 2, "etapa_nombre": "Reconocimiento y estación de nivel", "num": "2.6", "orden": 206, "paso": "Vuelo de dron con fotogrametría del tramo", "quien": "Pagado", "tipo": "Pagado", "costo": "3–8", "costo_min": 3.0, "costo_max": 8.0, "fuera_ppto": false}, {"etapa": 2, "etapa_nombre": "Reconocimiento y estación de nivel", "num": "2.7", "orden": 207, "paso": "Aforos de seguimiento durante el año (6–8), incluido el mes más seco", "quien": "Pagado", "tipo": "Pagado", "costo": "15–30", "costo_min": 15.0, "costo_max": 30.0, "fuera_ppto": false}, {"etapa": 2, "etapa_nombre": "Reconocimiento y estación de nivel", "num": "2.8", "orden": 208, "paso": "Curva nivel–caudal, correlación con la estación IDEAM y serie larga reconstruida", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 2, "etapa_nombre": "Reconocimiento y estación de nivel", "num": "2.9", "orden": 209, "paso": "Caída real con el modelo del dron y ajuste del esquema", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 2, "etapa_nombre": "Reconocimiento y estación de nivel", "num": "2.10", "orden": 210, "paso": "Informe de reconocimiento", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 3, "etapa_nombre": "Asegurar el sitio", "num": "3.1", "orden": 301, "paso": "Solicitud de permiso de estudio a la CAR, con coordenadas del tramo y plan de estudios", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 3, "etapa_nombre": "Asegurar el sitio", "num": "3.2", "orden": 302, "paso": "Tarifa de evaluación del permiso de estudio (varía por CAR)", "quien": "Pagado (autoridad)", "tipo": "Pagado", "costo": "5–30", "costo_min": 5.0, "costo_max": 30.0, "fuera_ppto": false}, {"etapa": 3, "etapa_nombre": "Asegurar el sitio", "num": "3.3", "orden": 303, "paso": "Inscripción en el registro de proyectos de la UPME, fase 1", "quien": "Gratis (formulario)", "tipo": "Gratis", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 3, "etapa_nombre": "Asegurar el sitio", "num": "3.4", "orden": 304, "paso": "Borradores de opciones o promesas de servidumbre con los dueños", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 3, "etapa_nombre": "Asegurar el sitio", "num": "3.5", "orden": 305, "paso": "Revisión de contratos por abogado", "quien": "Pagado", "tipo": "Pagado", "costo": "10–20", "costo_min": 10.0, "costo_max": 20.0, "fuera_ppto": false}, {"etapa": 3, "etapa_nombre": "Asegurar el sitio", "num": "3.6", "orden": 306, "paso": "Prima de opción a los dueños de predios clave (captación, casa de máquinas, conducción)", "quien": "Pagado (propietarios)", "tipo": "Pagado", "costo": "20–80", "costo_min": 20.0, "costo_max": 80.0, "fuera_ppto": false}, {"etapa": 3, "etapa_nombre": "Asegurar el sitio", "num": "3.7", "orden": 307, "paso": "Informes semestrales del permiso de estudio a la CAR", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 3, "etapa_nombre": "Asegurar el sitio", "num": "3.8", "orden": 308, "paso": "Teaser y presentación para el aliado inversionista", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 4, "etapa_nombre": "Factibilidad", "num": "4.1", "orden": 401, "paso": "Topografía LiDAR o dron del corredor (captación a casa de máquinas)", "quien": "Pagado", "tipo": "Pagado", "costo": "40–120", "costo_min": 40.0, "costo_max": 120.0, "fuera_ppto": false}, {"etapa": 4, "etapa_nombre": "Factibilidad", "num": "4.2", "orden": 402, "paso": "Cartografía geológica de superficie", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 4, "etapa_nombre": "Factibilidad", "num": "4.3", "orden": 403, "paso": "Sísmica de refracción o MASW en sitios de obra", "quien": "Pagado", "tipo": "Pagado", "costo": "30–80", "costo_min": 30.0, "costo_max": 80.0, "fuera_ppto": false}, {"etapa": 4, "etapa_nombre": "Factibilidad", "num": "4.4", "orden": 404, "paso": "4–6 sondeos con ensayos de laboratorio", "quien": "Pagado", "tipo": "Pagado", "costo": "150–400", "costo_min": 150.0, "costo_max": 400.0, "fuera_ppto": false}, {"etapa": 4, "etapa_nombre": "Factibilidad", "num": "4.5", "orden": 405, "paso": "Muestreo de sedimentos y aforos complementarios", "quien": "Pagado", "tipo": "Pagado", "costo": "20–40", "costo_min": 20.0, "costo_max": 40.0, "fuera_ppto": false}, {"etapa": 4, "etapa_nombre": "Factibilidad", "num": "4.6", "orden": 406, "paso": "Hidrología con datos propios: curva de duración, crecientes, caudal ambiental preliminar", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 4, "etapa_nombre": "Factibilidad", "num": "4.7", "orden": 407, "paso": "Optimización del trazado sobre la topografía real", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 4, "etapa_nombre": "Factibilidad", "num": "4.8", "orden": 408, "paso": "Prediseño hidráulico y estructural: bocatoma, desarenador, conducción, tubería, casa de máquinas", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 4, "etapa_nombre": "Factibilidad", "num": "4.9", "orden": 409, "paso": "Presupuesto por componentes y modelo financiero", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 4, "etapa_nombre": "Factibilidad", "num": "4.10", "orden": 410, "paso": "Informe de factibilidad firmado", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 4, "etapa_nombre": "Factibilidad", "num": "4.11", "orden": 411, "paso": "Registro UPME, fase 2", "quien": "Gratis", "tipo": "Gratis", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 5, "etapa_nombre": "Conexión", "num": "5.1", "orden": 501, "paso": "Consulta al operador de red y a la UPME sobre punto y capacidad disponible", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 5, "etapa_nombre": "Conexión", "num": "5.2", "orden": 502, "paso": "Estudio de conexión con simulaciones eléctricas (flujos, cortocircuito, estabilidad)", "quien": "Pagado (especialista con software)", "tipo": "Pagado", "costo": "60–150", "costo_min": 60.0, "costo_max": 150.0, "fuera_ppto": false}, {"etapa": 5, "etapa_nombre": "Conexión", "num": "5.3", "orden": 503, "paso": "Expediente de la solicitud de conexión ante la ventanilla única", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 5, "etapa_nombre": "Conexión", "num": "5.4", "orden": 504, "paso": "Seguimiento del trámite y respuestas a observaciones", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 5, "etapa_nombre": "Conexión", "num": "5.5", "orden": 505, "paso": "Garantía de reserva de capacidad: 10 USD por kW (unos 700 millones para 20 MW), como póliza o garantía bancaria", "quien": "Pagado (prima del orden de 1–2 % al año)", "tipo": "Pagado", "costo": "10–20 al año", "costo_min": 10.0, "costo_max": 20.0, "fuera_ppto": false}, {"etapa": 5, "etapa_nombre": "Conexión", "num": "5.6", "orden": 506, "paso": "Prediseño de la línea y la bahía de conexión", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 6, "etapa_nombre": "Licencia ambiental", "num": "6.1", "orden": 601, "paso": "Pregunta a la CAR si exige diagnóstico ambiental de alternativas (DAA)", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 6, "etapa_nombre": "Licencia ambiental", "num": "6.2", "orden": 602, "paso": "DAA, si lo exige: campo rápido de verificación", "quien": "Pagado", "tipo": "Pagado", "costo": "150–400", "costo_min": 150.0, "costo_max": 400.0, "fuera_ppto": false}, {"etapa": 6, "etapa_nombre": "Licencia ambiental", "num": "6.3", "orden": 603, "paso": "DAA: redacción, comparación de alternativas y cartografía", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 6, "etapa_nombre": "Licencia ambiental", "num": "6.4", "orden": 604, "paso": "Permiso de recolección de especies para estudios ambientales", "quien": "Pagado (tarifa)", "tipo": "Pagado", "costo": "5–15", "costo_min": 5.0, "costo_max": 15.0, "fuera_ppto": false}, {"etapa": 6, "etapa_nombre": "Licencia ambiental", "num": "6.5", "orden": 605, "paso": "Campo del estudio de impacto ambiental: flora, fauna, peces y macroinvertebrados en época seca y de lluvias, laboratorio de agua, censo social", "quien": "Pagado (equipos especialistas)", "tipo": "Pagado", "costo": "600–1.500", "costo_min": 600.0, "costo_max": 1500.0, "fuera_ppto": false}, {"etapa": 6, "etapa_nombre": "Licencia ambiental", "num": "6.6", "orden": 606, "paso": "Arqueología preventiva: registro ante el ICANH y prospección", "quien": "Pagado (arqueólogo)", "tipo": "Pagado", "costo": "50–150", "costo_min": 50.0, "costo_max": 150.0, "fuera_ppto": false}, {"etapa": 6, "etapa_nombre": "Licencia ambiental", "num": "6.7", "orden": 607, "paso": "Estudio de flora en veda y solicitud de levantamiento, si aplica", "quien": "Pagado", "tipo": "Pagado", "costo": "50–150", "costo_min": 50.0, "costo_max": 150.0, "fuera_ppto": false}, {"etapa": 6, "etapa_nombre": "Licencia ambiental", "num": "6.8", "orden": 608, "paso": "Redacción del estudio: descripción, línea base con los datos de campo, impactos, caudal ambiental, plan de manejo, seguimiento, compensación e inversión del 1 %", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 6, "etapa_nombre": "Licencia ambiental", "num": "6.9", "orden": 609, "paso": "Cartografía en la base de datos geográfica que exige MinAmbiente", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 6, "etapa_nombre": "Licencia ambiental", "num": "6.10", "orden": 610, "paso": "Socialización con comunidades: reuniones y actas", "quien": "Interno REGENERGY PROJECTS (logística pagada)", "tipo": "Pagado", "costo": "10–30", "costo_min": 10.0, "costo_max": 30.0, "fuera_ppto": false}, {"etapa": 6, "etapa_nombre": "Licencia ambiental", "num": "6.11", "orden": 611, "paso": "Tarifa de evaluación de la licencia", "quien": "Pagado (autoridad)", "tipo": "Pagado", "costo": "30–150", "costo_min": 30.0, "costo_max": 150.0, "fuera_ppto": false}, {"etapa": 6, "etapa_nombre": "Licencia ambiental", "num": "6.12", "orden": 612, "paso": "Respuestas a la solicitud de información adicional", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 6, "etapa_nombre": "Licencia ambiental", "num": "6.13", "orden": 613, "paso": "Consulta previa, si procede: preconsulta, talleres, protocolización y acuerdos", "quien": "Pagado (logística, asesoría y acuerdos)", "tipo": "Pagado", "costo": "200–1.000 o más", "costo_min": 200.0, "costo_max": 1000.0, "fuera_ppto": true}, {"etapa": 7, "etapa_nombre": "Diseño, predios y precio", "num": "7.1", "orden": 701, "paso": "Geotecnia complementaria donde quedó incertidumbre (túneles, casa de máquinas)", "quien": "Pagado", "tipo": "Pagado", "costo": "200–500", "costo_min": 200.0, "costo_max": 500.0, "fuera_ppto": false}, {"etapa": 7, "etapa_nombre": "Diseño, predios y precio", "num": "7.2", "orden": 702, "paso": "Diseño básico ampliado: planos, memorias, cantidades", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 7, "etapa_nombre": "Diseño, predios y precio", "num": "7.3", "orden": 703, "paso": "Revisión externa del diseño o firmas de especialistas (estructural, eléctrico)", "quien": "Pagado", "tipo": "Pagado", "costo": "100–300", "costo_min": 100.0, "costo_max": 300.0, "fuera_ppto": false}, {"etapa": 7, "etapa_nombre": "Diseño, predios y precio", "num": "7.4", "orden": 704, "paso": "Levantamientos prediales y avalúos", "quien": "Pagado", "tipo": "Pagado", "costo": "incluido en 7.5", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": true}, {"etapa": 7, "etapa_nombre": "Diseño, predios y precio", "num": "7.5", "orden": 705, "paso": "Compra de predios y constitución de servidumbres (muy variable; suele contarse como CAPEX)", "quien": "Pagado (propietarios, notaría, registro)", "tipo": "Pagado", "costo": "500–3.000", "costo_min": 500.0, "costo_max": 3000.0, "fuera_ppto": true}, {"etapa": 7, "etapa_nombre": "Diseño, predios y precio", "num": "7.6", "orden": 706, "paso": "Pliegos y solicitud de cotización de turbinas y equipos a varios fabricantes", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 7, "etapa_nombre": "Diseño, predios y precio", "num": "7.7", "orden": 707, "paso": "Invitación a contratistas de construcción y comparación de ofertas", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 7, "etapa_nombre": "Diseño, predios y precio", "num": "7.8", "orden": 708, "paso": "Cronograma de construcción y matriz de riesgos", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 7, "etapa_nombre": "Diseño, predios y precio", "num": "7.9", "orden": 709, "paso": "Certificación de beneficios de la Ley 1715", "quien": "Gratis", "tipo": "Gratis", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 7, "etapa_nombre": "Diseño, predios y precio", "num": "7.10", "orden": 710, "paso": "Registro UPME, fase 3", "quien": "Gratis", "tipo": "Gratis", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 8, "etapa_nombre": "Paquete para el inversionista", "num": "8.1", "orden": 801, "paso": "Sala de datos organizada con todos los estudios, permisos y contratos", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 8, "etapa_nombre": "Paquete para el inversionista", "num": "8.2", "orden": 802, "paso": "Modelo financiero final y memorando de inversión", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 8, "etapa_nombre": "Paquete para el inversionista", "num": "8.3", "orden": 803, "paso": "Estrategia de venta de energía: contratos bilaterales, subastas o bolsa", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "0", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}, {"etapa": 8, "etapa_nombre": "Paquete para el inversionista", "num": "8.4", "orden": 804, "paso": "Auditoría independiente del modelo financiero", "quien": "Pagado", "tipo": "Pagado", "costo": "50–200", "costo_min": 50.0, "costo_max": 200.0, "fuera_ppto": false}, {"etapa": 8, "etapa_nombre": "Paquete para el inversionista", "num": "8.5", "orden": 805, "paso": "Revisión legal (due diligence) de permisos, predios y sociedad", "quien": "Pagado", "tipo": "Pagado", "costo": "50–150", "costo_min": 50.0, "costo_max": 150.0, "fuera_ppto": false}, {"etapa": 8, "etapa_nombre": "Paquete para el inversionista", "num": "8.6", "orden": 806, "paso": "Negociación de la venta o de la entrada del inversionista", "quien": "Interno REGENERGY PROJECTS", "tipo": "Interno", "costo": "incluido en 8.5", "costo_min": 0.0, "costo_max": 0.0, "fuera_ppto": false}], "proyectos": [{"proyecto": "S005", "orden": 1, "rio": "Río Tunjita", "municipio": "Santa María", "departamento": "Boyacá", "car": "Corpochivor", "mw": 19.9, "tir": 15.2, "grupo": "Bandera", "pendiente": "Desviación de AES Chivor aguas arriba: confirmar caudal mínimo"}, {"proyecto": "S018", "orden": 2, "rio": "Río Santa Bárbara", "municipio": "El Calvario", "departamento": "Meta", "car": "Cormacarena", "mw": 19.9, "tir": 12.7, "grupo": "Bandera", "pendiente": "Conexión a Barzal 115 (~26 km); confirmar límite PNN Chingaza"}, {"proyecto": "S023", "orden": 3, "rio": "Río Pan de Azúcar", "municipio": "Gachetá", "departamento": "Cundinamarca", "car": "Corpoguavio", "mw": 8.4, "tir": 14.1, "grupo": "Bandera", "pendiente": "Capacidad en 34,5 kV cerca de Gachetá (Enel)"}, {"proyecto": "S038", "orden": 4, "rio": "Río El Salto", "municipio": "Carmen de Carupa", "departamento": "Cundinamarca", "car": "CAR Cundinamarca", "mw": 9.3, "tir": 13.3, "grupo": "Bandera", "pendiente": "Caudal de confianza baja: aforos prioritarios"}, {"proyecto": "S009", "orden": 5, "rio": "Río Negro", "municipio": "Ubalá", "departamento": "Cundinamarca", "car": "Corpoguavio", "mw": 17.5, "tir": 12.4, "grupo": "Con pendiente", "pendiente": "Ubicar la toma de Chivor en el río Negro; si está aguas arriba, se descarta"}, {"proyecto": "S021", "orden": 6, "rio": "Río Upía", "municipio": "Aquitania", "departamento": "Boyacá", "car": "Corpoboyacá", "mw": 19.9, "tir": 12.0, "grupo": "Con pendiente", "pendiente": "Salida del Lago de Tota y conexión lejana (Jenesano, ~47 km)"}, {"proyecto": "S025", "orden": 7, "rio": "Río Espíritu Santo", "municipio": "Yarumal", "departamento": "Antioquia", "car": "Corantioquia", "mw": 8.3, "tir": 12.1, "grupo": "Con pendiente", "pendiente": "Posible traslape con PCH Briceño 1 y 2 (GenMás)"}], "estado": [{"estado": "en_curso", "fecha": "2026-11-20", "gasto": 0, "nota": "Borrador listo. Falta completar cédula, NIT y dirección, firmar y radicar en el formulario PQRSD de www.corpochivor.gov.co. Al radicar, pasar a «Esperando» con la fecha y el número de radicado.", "paso": "1.1", "proyecto": "S005", "id": "S005_1.1"}, {"estado": "hecho", "fecha": "2026-11-02", "gasto": 0, "nota": "Hecho en escritorio con capas UPME y OpenStreetMap y capacidad indicativa UPME 2027 (búsqueda nacional). Falta confirmarlo con el operador de red en el paso 1.4.", "paso": "1.3", "proyecto": "S005", "id": "S005_1.3"}, {"estado": "en_curso", "fecha": "2026-11-01", "gasto": 0, "nota": "Revisados en escritorio: áreas protegidas (RUNAP), páramos, resguardos y consejos comunitarios. Faltan reservas de Ley 2ª y zonificación del POMCA.", "paso": "1.7", "proyecto": "S005", "id": "S005_1.7"}, {"estado": "hecho", "fecha": "2026-11-02", "gasto": 0, "nota": "Hecho en escritorio con capas UPME y OpenStreetMap y capacidad indicativa UPME 2027 (búsqueda nacional). Falta confirmarlo con el operador de red en el paso 1.4.", "paso": "1.3", "proyecto": "S009", "id": "S009_1.3"}, {"estado": "en_curso", "fecha": "2026-11-01", "gasto": 0, "nota": "Revisados en escritorio: áreas protegidas (RUNAP), páramos, resguardos y consejos comunitarios. Faltan reservas de Ley 2ª y zonificación del POMCA.", "paso": "1.7", "proyecto": "S009", "id": "S009_1.7"}, {"estado": "hecho", "fecha": "2026-11-02", "gasto": 0, "nota": "Hecho en escritorio con capas UPME y OpenStreetMap y capacidad indicativa UPME 2027 (búsqueda nacional). Falta confirmarlo con el operador de red en el paso 1.4.", "paso": "1.3", "proyecto": "S018", "id": "S018_1.3"}, {"estado": "en_curso", "fecha": "2026-11-01", "gasto": 0, "nota": "Revisados en escritorio: áreas protegidas (RUNAP), páramos, resguardos y consejos comunitarios. Faltan reservas de Ley 2ª y zonificación del POMCA.", "paso": "1.7", "proyecto": "S018", "id": "S018_1.7"}, {"estado": "hecho", "fecha": "2026-11-02", "gasto": 0, "nota": "Hecho en escritorio con capas UPME y OpenStreetMap y capacidad indicativa UPME 2027 (búsqueda nacional). Falta confirmarlo con el operador de red en el paso 1.4.", "paso": "1.3", "proyecto": "S021", "id": "S021_1.3"}, {"estado": "en_curso", "fecha": "2026-11-01", "gasto": 0, "nota": "Revisados en escritorio: áreas protegidas (RUNAP), páramos, resguardos y consejos comunitarios. Faltan reservas de Ley 2ª y zonificación del POMCA.", "paso": "1.7", "proyecto": "S021", "id": "S021_1.7"}, {"estado": "hecho", "fecha": "2026-11-02", "gasto": 0, "nota": "Hecho en escritorio con capas UPME y OpenStreetMap y capacidad indicativa UPME 2027 (búsqueda nacional). Falta confirmarlo con el operador de red en el paso 1.4.", "paso": "1.3", "proyecto": "S023", "id": "S023_1.3"}, {"estado": "en_curso", "fecha": "2026-11-01", "gasto": 0, "nota": "Revisados en escritorio: áreas protegidas (RUNAP), páramos, resguardos y consejos comunitarios. Faltan reservas de Ley 2ª y zonificación del POMCA.", "paso": "1.7", "proyecto": "S023", "id": "S023_1.7"}, {"estado": "hecho", "fecha": "2026-11-02", "gasto": 0, "nota": "Hecho en escritorio con capas UPME y OpenStreetMap y capacidad indicativa UPME 2027 (búsqueda nacional). Falta confirmarlo con el operador de red en el paso 1.4.", "paso": "1.3", "proyecto": "S025", "id": "S025_1.3"}, {"estado": "en_curso", "fecha": "2026-11-01", "gasto": 0, "nota": "Revisados en escritorio: áreas protegidas (RUNAP), páramos, resguardos y consejos comunitarios. Faltan reservas de Ley 2ª y zonificación del POMCA.", "paso": "1.7", "proyecto": "S025", "id": "S025_1.7"}, {"estado": "hecho", "fecha": "2026-11-02", "gasto": 0, "nota": "Hecho en escritorio con capas UPME y OpenStreetMap y capacidad indicativa UPME 2027 (búsqueda nacional). Falta confirmarlo con el operador de red en el paso 1.4.", "paso": "1.3", "proyecto": "S038", "id": "S038_1.3"}, {"estado": "en_curso", "fecha": "2026-11-01", "gasto": 0, "nota": "Revisados en escritorio: áreas protegidas (RUNAP), páramos, resguardos y consejos comunitarios. Faltan reservas de Ley 2ª y zonificación del POMCA.", "paso": "1.7", "proyecto": "S038", "id": "S038_1.7"}]};
@@ -126,65 +131,74 @@ const ESTADOS = {pendiente:'Pendiente',en_curso:'En curso',esperando:'Esperando'
 const fmt = (n,d) => (n==null||isNaN(n)) ? '—' : Number(n).toLocaleString('es-CO',{minimumFractionDigits:d||0,maximumFractionDigits:d||0});
 const dias = (iso) => (!iso||!/^\d{4}-\d{2}-\d{2}$/.test(iso)) ? null : Math.floor((Date.now()-Date.parse(iso+'T00:00:00'))/864e5);
 const el = (tag, cls, txt) => { const e=document.createElement(tag); if(cls) e.className=cls; if(txt!=null) e.textContent=txt; return e; };
+const P=[...DATA.proyectos].sort((a,b)=>a.orden-b.orden), S=DATA.pasos;
+const ST=new Map(DATA.estado.map(e=>[e.id,e]));
+const NOM=new Map(S.map(s=>[s.etapa,s.etapa_nombre])), TXT=new Map(S.map(s=>[s.num,s.paso])), INFO=new Map(S.map(s=>[s.num,s]));
+const PPTO=S.filter(s=>!s.fuera_ppto), PMIN=Math.round(PPTO.reduce((a,x)=>a+x.costo_min,0)), PMAX=Math.round(PPTO.reduce((a,x)=>a+x.costo_max,0));
 let SEL=null, FILTRO='';
 
-function build(){
-  const P=[...DATA.proyectos].sort((a,b)=>a.orden-b.orden), S=DATA.pasos;
-  const st=new Map(DATA.estado.map(e=>[e.id,e]));
-  const det=[]; P.forEach(p=>S.forEach(s=>{ const e=st.get(p.proyecto+'_'+s.num)||{}; det.push({clave:p.proyecto+'_'+s.num,proyecto:p.proyecto,etapa:s.etapa,num:s.num,orden:s.orden,estado:e.estado||'pendiente',fecha:e.fecha||'',gasto:Number(e.gasto)||0,nota:e.nota||''}); }));
-  const ppto=S.filter(s=>!s.fuera_ppto), pmin=Math.round(ppto.reduce((a,x)=>a+x.costo_min,0)), pmax=Math.round(ppto.reduce((a,x)=>a+x.costo_max,0));
-  const av=P.map(p=>{ const m=det.filter(d=>d.proyecto===p.proyecto).sort((a,b)=>a.orden-b.orden), ap=m.filter(d=>d.estado!=='no_aplica'), h=ap.filter(d=>d.estado==='hecho').length, ab=ap.filter(d=>d.estado!=='hecho'); const pr=ab.find(d=>d.estado==='en_curso')||ab.find(d=>d.estado==='pendiente')||ab[0];
-    return {p, hechos:h, total:ap.length, pct:ap.length?Math.round(100*h/ap.length):0, etapa:pr?pr.etapa:8, prox:pr?pr.num:'', esp:ap.filter(d=>d.estado==='esperando').length, gasto:m.reduce((a,d)=>a+d.gasto,0),
-      etapas:[1,2,3,4,5,6,7,8].map(k=>{ const e=ap.filter(d=>d.etapa===k); return {h:e.filter(d=>d.estado==='hecho').length,t:e.length}; })}; });
-  const ap=det.filter(d=>d.estado!=='no_aplica');
-  const C={hechos:ap.filter(d=>d.estado==='hecho').length,total:ap.length,curso:ap.filter(d=>d.estado==='en_curso').length,esp:ap.filter(d=>d.estado==='esperando').length,venc:ap.filter(d=>d.estado==='esperando'&&(dias(d.fecha)||0)>21).length,gasto:det.reduce((a,d)=>a+d.gasto,0)};
-  return {P,S,det,av,C,pmin,pmax};
+function stats(id){
+  const det=S.map(s=>{ const e=ST.get(id+'_'+s.num)||{}; return {num:s.num,etapa:s.etapa,orden:s.orden,estado:e.estado||'pendiente',fecha:e.fecha||'',gasto:Number(e.gasto)||0,nota:e.nota||''}; }).sort((a,b)=>a.orden-b.orden);
+  const ap=det.filter(d=>d.estado!=='no_aplica'), ab=ap.filter(d=>d.estado!=='hecho');
+  const pr=ab.find(d=>d.estado==='en_curso')||ab.find(d=>d.estado==='pendiente')||ab[0];
+  return {det, hechos:ap.filter(d=>d.estado==='hecho').length, total:ap.length, curso:ap.filter(d=>d.estado==='en_curso').length,
+    esp:ap.filter(d=>d.estado==='esperando').length, venc:ap.filter(d=>d.estado==='esperando'&&(dias(d.fecha)||0)>21).length,
+    gasto:det.reduce((a,d)=>a+d.gasto,0), etapa:pr?pr.etapa:8, prox:pr?pr.num:'',
+    etapas:[1,2,3,4,5,6,7,8].map(k=>{ const e=ap.filter(d=>d.etapa===k); return {h:e.filter(d=>d.estado==='hecho').length,t:e.length}; })};
 }
 
+function tabs(){
+  const t=document.getElementById('tabs');
+  t.replaceChildren(...P.map(p=>{ const s=stats(p.proyecto); const b=el('button','tab'); b.type='button'; b.id='tab-'+p.proyecto; b.setAttribute('role','tab');
+    b.setAttribute('aria-selected',String(p.proyecto===SEL)); b.setAttribute('aria-controls','panel'); b.tabIndex=p.proyecto===SEL?0:-1;
+    b.append(el('b',null,p.proyecto+' · '+p.rio.replace(/^Río /,'')), el('span',null,s.hechos+' de '+s.total+' pasos'));
+    b.onclick=()=>select(p.proyecto,true); return b; }));
+  t.onkeydown=e=>{ if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft') return; const i=P.findIndex(p=>p.proyecto===SEL); const j=(i+(e.key==='ArrowRight'?1:-1)+P.length)%P.length; select(P[j].proyecto,true); document.getElementById('tab-'+P[j].proyecto).focus(); };
+  const cur=document.getElementById('tab-'+SEL); if(cur) cur.scrollIntoView({block:'nearest',inline:'nearest'});
+}
+
+function select(id,push){ SEL=id; if(push){ try{ history.replaceState(null,'','#'+id); }catch(e){} } render(); }
+
 function render(){
-  const {P,S,det,av,C,pmin,pmax}=build();
-  const nom=new Map(S.map(s=>[s.etapa,s.etapa_nombre])), txt=new Map(S.map(s=>[s.num,s.paso])), info=new Map(S.map(s=>[s.num,s]));
-  if(!SEL) SEL=P[0].proyecto;
-  const lead=document.getElementById('lead'); lead.replaceChildren();
-  const b=(t)=>el('b',null,t);
-  lead.append(b(fmt(C.hechos)),' de ',b(fmt(C.total)),' pasos hechos en los 7 proyectos; ',b(fmt(C.esp)),C.esp===1?' paso esperando respuesta y ':' pasos esperando respuesta y ',b(fmt(C.curso)),' en curso.');
-  document.getElementById('k-hechos').textContent=fmt(C.hechos);
-  document.getElementById('k-hechos-s').textContent='de '+fmt(C.total)+' que aplican';
-  document.getElementById('k-curso').textContent=fmt(C.curso);
-  document.getElementById('k-esp').textContent=fmt(C.esp);
-  const kt=document.getElementById('k-tarde'); kt.textContent=fmt(C.venc)+(C.venc===1?' pasó el plazo de 21 días':' pasaron el plazo de 21 días'); kt.style.color=C.venc>0?'var(--bad)':'';
-  document.getElementById('k-gasto').textContent=fmt(C.gasto,1);
-  const cards=document.getElementById('cards'); cards.replaceChildren(...av.map(a=>{ const p=a.p;
-    const c=el('div','card'+(p.proyecto===SEL?' sel':'')); c.tabIndex=0; c.setAttribute('role','button'); c.setAttribute('aria-pressed',String(p.proyecto===SEL));
-    const top=el('div','c-top'); const l=el('div'); l.append(el('span','c-id',p.proyecto),' ',el('span',null,p.rio)); top.append(l,el('span','chip'+(p.grupo==='Bandera'?'':' warn'),p.grupo));
-    const sub=el('div','muted',p.municipio+' ('+p.departamento+') · '+fmt(p.mw,1)+' MW · TIR '+fmt(p.tir,1)+' % · '+p.car);
-    const pr=el('div','pct-row'); pr.append(el('span','pct',fmt(a.pct)),el('span','muted','% · '+fmt(a.hechos)+' de '+fmt(a.total)+' pasos'));
-    const sg=el('div','segs'); sg.setAttribute('role','img'); sg.setAttribute('aria-label','Avance por etapa: '+a.etapas.map((e,i)=>'etapa '+(i+1)+' '+e.h+' de '+e.t).join('; '));
-    const lb=el('div','seg-l'); lb.setAttribute('aria-hidden','true');
-    a.etapas.forEach((e,i)=>{ const s=el('div','seg'); s.title='Etapa '+(i+1)+' · '+(nom.get(i+1)||'')+': '+e.h+' de '+e.t; const f=el('i'); f.style.width=(e.t?100*e.h/e.t:0)+'%'; s.append(f); sg.append(s); lb.append(el('span',(i+1)===a.etapa?'cur':null,String(i+1))); });
-    const dl=el('dl','kv'); const row=(k,v)=>{ dl.append(el('dt',null,k), el('dd',null,v)); };
-    row('Etapa',a.etapa+' · '+(nom.get(a.etapa)||'')); row('Próximo',a.prox?a.prox+' '+(txt.get(a.prox)||''):'Ruta completa'); row('Esperando',fmt(a.esp)+(a.esp===1?' paso':' pasos')); row('Gastado',fmt(a.gasto,1)+' de '+fmt(pmin)+'–'+fmt(pmax)+' millones'); row('Pendiente',p.pendiente);
-    c.append(top,sub,pr,sg,lb,dl);
-    const go=()=>{ SEL=p.proyecto; render(); document.getElementById('detalle').scrollIntoView({behavior:'smooth',block:'start'}); };
-    c.onclick=go; c.onkeydown=e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } };
-    return c; }));
-  const w=document.getElementById('wait'); const rows=det.filter(d=>d.estado==='esperando').map(d=>({d,n:dias(d.fecha)})).sort((x,y)=>(y.n??-1)-(x.n??-1));
-  w.replaceChildren(...(rows.length?rows.map(({d,n})=>{ const r=el('div','wait-row'); const t=el('div',null,txt.get(d.num)||''); if(d.nota){ t.append(el('br'),el('span','muted',d.nota)); } r.append(el('span','num',d.proyecto+' · '+d.num),t,el('span','days'+(n!=null&&n>21?' late':''),n==null?'sin fecha':n+(n===1?' día':' días'))); return r; }):[el('p','muted','Nada esperando por ahora.')]));
-  const pick=document.getElementById('pick'); pick.replaceChildren(...P.map(p=>new Option(p.proyecto+' · '+p.rio,p.proyecto))); pick.value=SEL;
-  const mine=det.filter(d=>d.proyecto===SEL).sort((a,b)=>a.orden-b.orden).filter(d=>{ const s=info.get(d.num);
-    if(FILTRO==='abiertos') return d.estado!=='hecho'&&d.estado!=='no_aplica'; if(FILTRO==='esperando') return d.estado==='esperando'; if(FILTRO==='hecho') return d.estado==='hecho'; if(FILTRO==='pagado') return s&&s.tipo==='Pagado'; return true; });
-  const a=av.find(x=>x.p.proyecto===SEL); const out=[];
+  const p=P.find(x=>x.proyecto===SEL), s=stats(SEL);
+  tabs();
+  document.getElementById('panel').setAttribute('aria-labelledby','tab-'+SEL);
+  document.getElementById('p-title').textContent=p.proyecto+' · '+p.rio;
+  document.getElementById('p-sub').textContent=p.municipio+' ('+p.departamento+') · '+fmt(p.mw,1)+' MW · TIR '+fmt(p.tir,1)+' % · '+p.car;
+  const ch=document.getElementById('p-chip'); ch.textContent=p.grupo; ch.className='chip'+(p.grupo==='Bandera'?'':' warn');
+  const lead=document.getElementById('p-lead'); lead.replaceChildren(el('b',null,fmt(s.hechos)),' de ',el('b',null,fmt(s.total)),' pasos hechos; ',el('b',null,fmt(s.curso)),' en curso y ',el('b',null,fmt(s.esp)),s.esp===1?' esperando respuesta. ':' esperando respuesta. ','Etapa actual: ',el('b',null,s.etapa+' · '+(NOM.get(s.etapa)||'')),'.');
+  document.getElementById('k-hechos').textContent=fmt(s.hechos);
+  document.getElementById('k-hechos-s').textContent='de '+fmt(s.total)+' pasos ('+fmt(s.total?Math.round(100*s.hechos/s.total):0)+' %)';
+  document.getElementById('k-curso').textContent=fmt(s.curso);
+  document.getElementById('k-esp').textContent=fmt(s.esp);
+  const kt=document.getElementById('k-tarde'); kt.textContent=fmt(s.venc)+(s.venc===1?' pasó el plazo de 21 días':' pasaron el plazo de 21 días'); kt.style.color=s.venc>0?'var(--bad)':'';
+  document.getElementById('k-gasto').textContent=fmt(s.gasto,1);
+  document.getElementById('k-gasto-s').textContent='de '+fmt(PMIN)+'–'+fmt(PMAX)+' millones estimados';
+  const stg=document.getElementById('stages'); stg.replaceChildren();
+  s.etapas.forEach((e,i)=>{ const k=i+1; const n=el('span','n',String(k)); const name=el('span',k===s.etapa?'cur':null,NOM.get(k)||''); const c=el('span','c',e.h+' de '+e.t);
+    const bar=el('div','bar'); bar.setAttribute('role','img'); bar.setAttribute('aria-label','Etapa '+k+': '+e.h+' de '+e.t+' pasos hechos'); const f=el('i'); f.style.width=(e.t?100*e.h/e.t:0)+'%'; bar.append(f);
+    name.style.gridColumn='2'; c.style.gridRow='span 2'; stg.append(n,name,c,el('span'),bar); });
+  const facts=document.getElementById('facts'); facts.replaceChildren();
+  const row=(k,v)=>facts.append(el('dt',null,k),el('dd',null,v));
+  row('Próximo paso', s.prox ? s.prox+' · '+(TXT.get(s.prox)||'') : 'Ruta completa');
+  row('Pendiente principal', p.pendiente);
+  row('Autoridad ambiental', p.car);
+  const w=document.getElementById('wait'); const rows=s.det.filter(d=>d.estado==='esperando').map(d=>({d,n:dias(d.fecha)})).sort((x,y)=>(y.n??-1)-(x.n??-1));
+  w.replaceChildren(...(rows.length?rows.map(({d,n})=>{ const r=el('div','wait-row'); const t=el('div',null,TXT.get(d.num)||''); if(d.nota){ t.append(el('br'),el('span','muted',d.nota)); } r.append(el('span','num',d.num),t,el('span','days'+(n!=null&&n>21?' late':''),n==null?'sin fecha':n+(n===1?' día':' días'))); return r; }):[el('p','muted','Nada esperando por ahora en este proyecto.')]));
+  const mine=s.det.filter(d=>{ const x=INFO.get(d.num);
+    if(FILTRO==='abiertos') return d.estado!=='hecho'&&d.estado!=='no_aplica'; if(FILTRO==='esperando') return d.estado==='esperando'; if(FILTRO==='hecho') return d.estado==='hecho'; if(FILTRO==='pagado') return x&&x.tipo==='Pagado'; return true; });
+  const out=[];
   for(let k=1;k<=8;k++){ const rs=mine.filter(d=>d.etapa===k); if(!rs.length) continue; const box=el('div');
-    const h=el('div','stage-h'); h.append(el('h3',null,'Etapa '+k+' · '+(nom.get(k)||'')),el('span','muted',a.etapas[k-1].h+' de '+a.etapas[k-1].t+' hechos')); box.append(h);
-    rs.forEach(d=>{ const s=info.get(d.num)||{}; const r=el('div','step'); const p=el('div','paso',s.paso||''); const sm=el('small',null,s.quien||''); if(d.fecha) sm.append(' · '+d.fecha); if(d.nota) sm.append(' · '+d.nota); p.append(sm);
-      const cost=s.costo==='0'?'sin costo':(/^\d/.test(s.costo)?s.costo.replace(/^([\d.,–]+)/,'$1 M'):s.costo); const stt=el('span','st',ESTADOS[d.estado]||d.estado); stt.dataset.st=d.estado;
-      r.append(el('span','num',d.num),p,el('span','cost',cost),stt); box.append(r); });
+    const h=el('div','stage-h'); h.append(el('h3',null,'Etapa '+k+' · '+(NOM.get(k)||'')),el('span','muted',s.etapas[k-1].h+' de '+s.etapas[k-1].t+' hechos')); box.append(h);
+    rs.forEach(d=>{ const x=INFO.get(d.num)||{}; const r=el('div','step'); const pp=el('div','paso',x.paso||''); const sm=el('small',null,x.quien||''); if(d.fecha) sm.append(' · '+d.fecha); if(d.nota) sm.append(' · '+d.nota); pp.append(sm);
+      const cost=x.costo==='0'?'sin costo':(/^\d/.test(x.costo)?x.costo.replace(/^([\d.,–]+)/,'$1 M'):x.costo); const stt=el('span','st',ESTADOS[d.estado]||d.estado); stt.dataset.st=d.estado;
+      r.append(el('span','num',d.num),pp,el('span','cost',cost),stt); box.append(r); });
     out.push(box); }
   document.getElementById('steps').replaceChildren(...(out.length?out:[el('p','muted','Ningún paso de este proyecto coincide con el filtro.')]));
   document.getElementById('foot').textContent='Estado al '+DATA.fecha+'. Regenergy Projects S.A.S. Este sitio registra la IP, la ubicación aproximada y el tiempo de cada visita.';
 }
-document.getElementById('pick').addEventListener('change',e=>{ SEL=e.target.value; render(); });
 document.getElementById('filtro').addEventListener('change',e=>{ FILTRO=e.target.value; render(); });
+window.addEventListener('hashchange',()=>{ const h=location.hash.slice(1); if(P.some(p=>p.proyecto===h)&&h!==SEL){ SEL=h; render(); } });
 
 // Registro de visitas (seguridad): IP, ubicación aproximada, hora y duración. Envía a la aplicación web de Apps Script.
 (function(){
@@ -209,7 +223,7 @@ document.getElementById('filtro').addEventListener('change',e=>{ FILTRO=e.target
 })();
 
 
-render();
+(function(){ const h=location.hash.slice(1); SEL=P.some(p=>p.proyecto===h)?h:P[0].proyecto; render(); })();
 </script>
 </body>
 </html>
